@@ -23,7 +23,7 @@ class Node {
 vector<Node> states(1);
 
 void add_string( const string & str, int strInd=0 ) {
-	/* añade la cadena 'str' al trie, la marca con 'strInd' */
+	/* anade la cadena 'str' al trie, la marca con 'strInd' */
 	int act = 0;
 	for ( const char letter : str ) {
 		char ch = letter-'a';
@@ -69,4 +69,24 @@ int pattern( int act ) {
 		else states[act].pattern = pattern( nxt );
 	}
 	return states[act].pattern;
+}
+
+int main(){
+	// Nota: estoy asumiendo que todos los patrones son distintos 
+	
+	// ejemplo de hallar las ocurrencias de patrones en un texto
+	int pt; cin >> pt; // cargo los patrones
+	rep(i,0,pt){string cd;cin >> cd; add_string(cd,i);}
+	string t; cin >> t;
+	vector<int> ocur(pt,0);//cuenta las ocurrencias
+	int act=0;// indica el estado del automata en el que estamos
+	rep(i,0,t.size()) {
+		act = next(act,t[i]);//salto al nuevo estado
+		
+		// esto lo hago en tiempo proporcional a los patrones
+		int jmp=(states[jmp].output==-1)?pattern(act):act;
+		while(jmp){++ocur[states[jmp].output];jmp=pattern(jmp);}
+	}
+	
+	return 0;
 }

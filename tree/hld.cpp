@@ -19,14 +19,14 @@ bool isParent( int u, int v ) {
 }
 
 void getSz( vector<list<int>> &tree, int node=0, int parent=-1 ) {
-	/* Hallo el tamaño, pongo las Heavy-edges de primero */
+	/* Hallo el tamano, pongo las Heavy-edges de primero */
 	sz[node] = 1;
 	int heavy = node;
 	for ( const int it : tree[node] ) {
 		if ( it != parent ) {
 			getSz( tree, it, node );
 			if ( sz[heavy] < sz[it] ) heavy = it; // Heavier edge
-			sz[node] += sz[it]; // calculo el tamaño
+			sz[node] += sz[it]; // calculo el tamano
 		}
 	}
 	if ( heavy != node ) { // reorganizo para que las Heavy-edges queden de primero

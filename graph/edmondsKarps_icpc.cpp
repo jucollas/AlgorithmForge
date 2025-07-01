@@ -1,7 +1,7 @@
 /*
 Autor: Oscar Vargas Pabon
 Material de referencia para ICPC
-Lo probé en https://codeforces.com/problemset/problem/2026/E 
+Lo probe en https://codeforces.com/problemset/problem/2026/E 
 Notar las variables globales:
     * vector<list<int>> graph;
 	* vector<Edge> edges;

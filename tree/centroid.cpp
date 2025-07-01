@@ -13,7 +13,7 @@ Probado en CSES 2079
 int size[template_limit];
 
 int findSize( const vector<list<int>> &tree, int node=0, int parent=-1 ) {
-	/* halla el tamaño de cada subarbol */
+	/* halla el tamano de cada subarbol */
 	size[node] = 1;
 	for ( const int edge : tree[node] ) {
 		if ( edge != parent ) size[node] += findSize( tree, edge, node );

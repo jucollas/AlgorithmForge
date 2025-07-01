@@ -5,7 +5,8 @@ Probado en Codeforces -> ITMO -> SuffixArray -> step4 -> A
 */
 
 const char EOS = '$';
-// end-of-string -> se supone que es un caracter estrictamente menor a todos los demas del string
+// end-of-string -> se supone que es un caracter 
+//           estrictamente menor a todos los demas del string
 
 vector<int> suffixArray( string &str ) {
 /* Halla el suffix-array (SA) en tiempo O(nlg n) */
@@ -21,7 +22,7 @@ vector<int> suffixArray( string &str ) {
 		
         master[previousMaster[0].second] = 0; // ahorra edge-cases
         for ( i = 1 ; i < n ; ++i ) {
-            if ( previousMaster[i-1].first < previousMaster[i].first ) // distinto al anterior
+            if ( previousMaster[i-1].first < previousMaster[i].first )// distinto al anterior
                 code[previousMaster[i].second] = code[previousMaster[i-1].second]+1;
             else // igual al anterior, mantiene el codigo
                 code[previousMaster[i].second] = code[previousMaster[i-1].second];

@@ -5,7 +5,8 @@ Lo probe en mi carpeta de pruebas
 */
 
 vector<int> zFunction( const string &cad ) {
-/* Computa la funcion z en O(n). Esta es z[i] -> maximo prefijo comun de cad y cad[i...] */
+/* Computa la funcion z en O(n). 
+Esta es z[i] -> maximo prefijo comun de cad y cad[i...] */
 	int n = cad.size();
 	vector<int> z( n, 0 );
 	int l = -1, r = -1;
