@@ -1,5 +1,16 @@
 /*
 Plagiado epicamente de https://cp-algorithms.com/algebra/fft.html
+
+
+Recordar que puedo hacer $\sum_{i-j=k}a_ib_j$ utilizando j'=n-j.
+	Tendre entonces que buscar en la poscicion k'=k+n.
+
+
+const int mod = 924844033;
+const int root = 44009197;
+const int root_1 = mpow(root,mod-2,mod);
+const int root_pw = 1 << 21;
+
 */
 const int mod = 7340033;
 const int root = 5;

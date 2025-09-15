@@ -31,7 +31,8 @@ void update( int x, int val ) {
 }
 
 // computa el logaritmo entero de num(la cantidad de bits activos) - esta fun es aparte
-int ilog2( int num ) { return sizeof(int)*8 - __builtin_clz( num ) -1; } 
+//int ilog2( int num ) { return sizeof(int)*8 - __builtin_clz( num ) -1; } 
+// asumo el anterior de mi template
 int binlift( int val ) {
 	/* Retorna el menor indice 'x' tal que query( x ) >= val en tiempo O(lg n) */
 	int x = 0, nxt, sm = 0;

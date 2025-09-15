@@ -3,6 +3,9 @@ Autor: Oscar Vargas Pabon
 Material de referencia para ICPC
 NO LO HE PROBADO
 
+La mayor idea de esto es lo de que para todo A\subseteq V se cumple que H=\{lca(u,v)|u,v\in A\}
+	es igual a yo ordenar por tiempo e entrada del dfs y solo hacer \{lca(A_i,A_{i+1})\}_{i=0}^{|A|-1}
+
 Asumo un lca con funcion 'dfs_time', 'build_lca' y arreglos 'tin', 'tout'(este
 		ultimo habria que agregarlo a mano a la implementacion de LCA propuesta)
 */

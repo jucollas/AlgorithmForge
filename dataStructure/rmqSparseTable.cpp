@@ -7,6 +7,13 @@ https://codeforces.com/blg/entry/78931
 
 Nota: cambiar 'myMin' por lo mismo mediante operador ternario puede mejorar un poco
 		el tiempo de ejecucion segun el blg
+tested in
+https://codeforces.com/problemset/problem/2064/F
+F. We Be Summing
+
+Nota: para hacer un rmaxquery requerimos cambiar
+	while ( actm > 0 && arr[i] <= arr[i-ilog2(actm&(-actm))] )
+	puede ser preferible nomas meter los numeros negados.
 */
 //int ilog2( int num ) { return sizeof(int)*8 -__builtin_clz(num)-1; }
 // asumo lo anterior de mi template

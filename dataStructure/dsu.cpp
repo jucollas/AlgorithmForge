@@ -1,6 +1,13 @@
 /*
 Autor: Oscar Vargas Pabon
-Material de referencia para ICPC
+
+Recordar que existe el 'reachibility tree'
+	(dejar las uniones explicitas como nuevos nodos, sacrificando compresion de caminos)
+	
+
+TODO: En la superregional se hizo un 'augmenting' para que acumulara en sets.
+
+
 Lo probe en https://codeforces.com/problemset/problem/1857/G
 */
 

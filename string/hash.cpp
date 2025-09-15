@@ -2,21 +2,16 @@
 Autor: Oscar vargas Pabon
 
 Nota: en vez de precomputar ebase podría usar mpow para hacerlo en O(log n)
+
+NO OLVIDAR INVOCAR 'precompute_prime' ANTES DE USAR
+
+Testeado en; https://codeforces.com/problemset/problem/2132/G
 */
 
-
-lint mpow( lint x, lint e, lint m ) {
-  lint res = 1ll;
-  while ( e ) {
-    if ( e&1ll ) res = (res*x)%m;
-    e >>= 1; x = (x*x)%m;
-  }
-  return res;
-}
-
 //defined in header <random> :- mersenne-twister
-mt19937_64 random_64( chrono::steady_clock::now().time_since_epoch().count() );
-// #define rep(i,n) for(int i = 0 ; i < n ; ++i )
+// mt19937_64 rng_64( chrono::steady_clock::now().time_since_epoch().count() );
+// #define rep(i,strt,end) for(int i = strt ; i !=int(end) ; (int(strt)<int(end))?++i:--i )
+// lint mpow(lint x,lint e,lint m){lint res=1ll;while(e){if(e&1ll)res=(res*x)%m;e>>=1;x=(x*x)%m;}return res;}
 // asumo el anterior de mi template
 
 const int N_HASH=2, PRIME_TESTING=3;
@@ -25,7 +20,7 @@ lint base[N_HASH],modul[N_HASH],ebase[template_limit][N_HASH];
 
 void precompute_prime(){
   function<lint(lint,lint)> rgen = [&](lint lb, lint rb ) {
-    return lb+(random_64())%(rb-lb+1ll);
+    return lb+(rng_64())%(rb-lb+1ll);
   };
   for ( int i = 0 ; i < N_HASH ; ++i ) base[i]=rgen(2,LH_B);
   lint posi; bool prim;
@@ -41,8 +36,8 @@ void precompute_prime(){
     modul[i] = posi;
   }
   // precomputar las potencias de la base _ tambien podria hacerlo en O(log n) con mpow
-  rep(j,N_HASH) ebase[0][j]=1;
-  rep(i,template_limit-1) rep(j,N_HASH) ebase[i+1][j]=(ebase[i][j]*base[j])%modul[j];
+  rep(j,0,N_HASH) ebase[0][j]=1;
+  rep(i,0,template_limit-1) rep(j,0,N_HASH) ebase[i+1][j]=(ebase[i][j]*base[j])%modul[j];
 }
 
 class Hash{
@@ -59,7 +54,7 @@ public:
   }
   Hash( char c ) {
 	len=1;
-	rep(i,N_HASH)h[i]= lint(c)%modul[i];  
+	rep(i,0,N_HASH)h[i]= lint(c)%modul[i];  
   }
   bool operator == ( const Hash &o ) const { return len==o.len&&h==o.h; }
   Hash operator + ( const Hash &o ) const {
@@ -73,12 +68,12 @@ public:
   }
   void lconc( char c ) {
 	// hago this = c + this
-	rep(i,N_HASH) h[i] = ( ebase[len][i]*lint(c) + h[i] ) % modul[i];
+	rep(i,0,N_HASH) h[i] = ( ebase[len][i]*lint(c) + h[i] ) % modul[i];
 	++len;
   }
   void rconc( char c ) {
 	  // hago this=this+c
-	rep(i,N_HASH) h[i] = ( h[i]*base[i] + lint(c))%modul[i];
+	rep(i,0,N_HASH) h[i] = ( h[i]*base[i] + lint(c))%modul[i];
 	++len;
   }
   void ldeconc ( const Hash &l ) {
