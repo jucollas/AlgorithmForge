@@ -1,0 +1,11 @@
+* Cranearme de nuevo los updates de sumas de elementos en un set del DSU
+* Probar algunas estructuras de datos maa
+* organizar el latex con las propiedades/teoremas nuevos
+* Organizar un template para trabajar con series formales
+* GEOMETRIA GEOMETRIA (añadir lo de geometria en una esfera, convex hull, sweepline, rotatingCalipers, area_poligono, etc)
+* LINALG??????
+* graph/euler_circuit.cpp puede no funcionar bien para no dirigidos
+* Hablar de la deBruijn sequences y el circuito euleriano
+* test string/manacher_untested.cpp
+* make the sparse segment tree (with lazy eval)
+* Enrich further my combinatorics properties (like stirling numbers of first kind)
