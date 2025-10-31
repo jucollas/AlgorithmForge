@@ -8,7 +8,7 @@ const T eps = 1e-7;
 int n, m;
 int Left[M], Down[N];
 // time complexity: exponential. fast $O(MN^2)$ in experiment. dependent on the modeling.
-// Ax <= b, max c^T x. 최댓값: v, 답 추적: sol[i]. 1 based
+// Ax <= b, max c^T x. 
 T a[M][N], b[M], c[N], v, sol[N];
 bool eq(T a, T b) { return fabs(a - b) < eps; }
 bool ls(T a, T b) { return a < b && !eq(a, b); }

@@ -1,7 +1,7 @@
 /*
 Autor: Oscar vargas Pabon
 
-Nota: en vez de precomputar ebase podría usar mpow para hacerlo en O(log n)
+Nota: en vez de precomputar ebase podriSa usar mpow para hacerlo en O(log n)
 
 NO OLVIDAR INVOCAR 'precompute_prime' ANTES DE USAR
 

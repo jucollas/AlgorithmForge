@@ -1,0 +1,400 @@
+%\documentclass{article}
+\documentclass[landscape, 8pt, a4paper, oneside, twocolumn]{extarticle}
+
+\usepackage[spanish,english]{babel} % para el ingles
+\usepackage{amsthm} % el de teoremas
+\usepackage{amsmath} % ?
+\usepackage{amssymb} % ?
+\usepackage{mathtools} % \coloneq
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{float} % for figures forced placement after text
+\usepackage[left=0.8cm, right=0.8cm, top=0.8cm, bottom=0.8cm, letterpaper]{geometry}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{myorange}{RGB}{182,103,2}
+
+\lstset{ %
+	basicstyle=\ttfamily\small
+	backgroundcolor=\color{white},   % choose the background color
+	basicstyle=\footnotesize,        % size of fonts used for the code
+	captionpos=b,                    % sets the caption-position to bottom
+	commentstyle=\color{mygreen},    % comment style
+	escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+	keywordstyle=\color{myorange},       % keyword style
+	stringstyle=\color{mymauve},     % string literal style
+	language=c++,% my stuff
+	breaklines=true,
+}
+
+\usepackage[compact]{titlesec}
+\titlespacing*{\section}
+{0pt}{0px plus 1px minus 0px}{-2px plus 0px minus 0px}
+\titlespacing*{\subsection}
+{0pt}{0px plus 1px minus 0px}{0px plus 3px minus 3px}
+
+\setlength{\columnseprule}{0.4pt}
+\pagenumbering{arabic}
+
+
+\title{Cuadernillo}
+\author{Sparkies}
+\date{Octubre 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%   0.xdxdxdxdxdxd
+
+\section{Data Structures}
+	
+	\subsection{Disjoint Set Union Find (DSU)}
+	\lstinputlisting[language=c++]{../dataStructure/dsu.cpp}
+	\subsection{Segment Tree}
+	
+	\subsubsection{Lazy Recursive}
+	\lstinputlisting[language=c++]{../dataStructure/segmentFull.cpp}
+	
+	\subsubsection{Iterative}
+	\lstinputlisting[language=c++]{../dataStructure/segmentUpwards.cpp}
+	\subsubsection{Persistent}
+	\lstinputlisting[language=c++]{../dataStructure/persistentSegment.cpp}
+	
+	\subsection{Fenwick Tree}
+	\lstinputlisting[language=c++]{../dataStructure/fenwick.cpp}
+	\subsection{Treap}
+	\lstinputlisting[language=c++]{../dataStructure/treap.cpp}
+	\subsection{Mo Algo}
+	\lstinputlisting[language=c++]{../dataStructure/moAlgo.cpp}
+	\subsection{tipsNtricks} 
+	Remember doing binary lifting (sparse table) is posible (precalculating all jumps)
+	
+	Remember doing coordinate compression is possible
+	
+	
+
+\section{Trees}
+
+	\subsection{Centroid}
+	\lstinputlisting[language=c++]{../tree/centroid.cpp}
+	
+	\subsection{Heavy Light Decomposition (HLD)}
+	\lstinputlisting[language=c++]{../tree/hld.cpp}
+	
+	\subsection{Lowest Common Ancestor (LCA)}
+	Recordar que la version por Binary Lifting implica computar \(\pi : V\times\mathbb{N}\to V\) donde \(\pi (v,k)\) significa hacer \(2^k\) saltos sucesivos a los ancestros, iniciando desde \(v\).
+	
+	Recordar que dado $A\subseteq V$, entonces $C=\{lca(a,b)|a,b\in A\}$ se puede lograr ordenando los vertices en $A$ por tiempos de entrada del DFS y hallando $LCA(a_i,a_{i+1})$.
+	
+	\subsubsection{Euler Tour version}
+	Recordar que esta version ayuda a 'aplanar' el arbol para trabajar queries sobre subarboles.
+	\lstinputlisting[language=c++]{../tree/lca.cpp}
+	\subsubsection{Binary Lifting}
+	Recordar que esta version ayuda a agregar valores sobre caminos en el arbol (version estatica de lo que se hace en HLD).
+	\lstinputlisting[language=c++]{../tree/binLift_lca.cpp}
+	
+	%\subsection{virtual Tree}
+	%\lstinputlisting[language=c++]{../tree/virtualTree_untested.cpp}
+
+\section{Graph}
+	\subsection{random shit}
+	\subsubsection{shortest paths}
+	Remember 0-1 BFS exists. Remember $\delta(u,v)\leq\delta(u,k)+\delta(k,v)$ for any $k$ and that there exists $k$ that makes it equality (unless $(u,v)\in E$). Remember that $A^*$ exists and it requires the over-estimation function to fulfill $\delta(u,v)\geq\delta(u,k)+OE(k,v)$ where $OE$ is the over-estimation. Remember that dijkstra (as other methods) can span an arborescence or a dag (of used edges).
+	\subsubsection{bridges}
+	Remember the algorithm of bridges we have studied mantains the time of arrival of each node and the minimum time it looked on its path, in a way its
+	\[mini(v)=min\begin{cases}
+		time(v) \\
+		mini(c) &\text{ Where $c$ is $v$'s child in the DFS tree}\\
+		time(e) &\text{ Where $(v,e)$ represents a back-edge}
+	\end{cases}\]
+	For each child in the DFS tree there is an articulation point in $v$ iff $mini(c)\geq time(v)$; now $(v,c)$ is a bridge iff $mini(c)>time(v)$.
+	
+	\subsubsection{floyd-warshal}
+	We have the dp function $dst(k+1,u,v)=min(dst(k,u,v),dst(k,u,k)+dst(k,k,v))$. Remember it can be optimized to $O(n^2)$ memory by the relaxation step being safe. For only connectivity it can be further optimized by bitset my love.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.3\linewidth]{../images/bitsetWaifu_catVersion.png}
+	\end{figure}
+
+	\subsection{Dinitz}
+	\lstinputlisting[language=c++]{../graph/dinitz.cpp}
+	
+	%\subsection{Edmonds-Karps}
+	%\lstinputlisting[language=c++]{../graph/edmondsKarps.cpp}
+	
+	\subsection{Blossoms}
+	\lstinputlisting[language=c++]{../graph/blossom_notMine.cpp}
+	
+	\subsection{Hungarian}
+	Solves the problem of the max-matching of min-cost given edge-weights on the graph.
+	\lstinputlisting[language=c++]{../graph/hungarian_notMine.cpp}
+	
+	\subsection{Euler Circuit}
+	Nota: Mi impl puede no funcionar bien para no dirigidos. Upd:nomas use un set para ver cuando no puede visitar algo y ya (para el undirected case)
+	\lstinputlisting[language=c++]{../graph/euler_circuit.cpp}
+	
+	\subsection{2 SAT}
+	Nota: mi impl es una mierda. Tomadlo de guia nada mas
+	\lstinputlisting[language=c++]{../graph/sat_2.cpp}
+	
+	\subsection{Kosaraju for strongly connected components}
+	Nota: no lo he testeado.
+	\lstinputlisting[language=c++]{../graph/kosaraju_scc.cpp}
+	
+	\subsection{clique}
+	This shit shouldnt exists. But here we are
+	\lstinputlisting[language=c++]{../graph/clique.cpp}
+
+\section{Strings}
+	\subsection {Z function}
+	Computa \(Z : 1..N\to 1..N\) donde \(Z(i)\) implica que \(str[j]=str[i+j]\) para todo \(j\leq Z(i)\) y \(str[Z(i)+1]\neq str[i+Z(i)+1]\).
+	\lstinputlisting[language=c++]{../string/zFunction.cpp}
+	
+	\subsection{Prefix function}
+	Computa \(\pi : 1..N\to 1..N\) donde \(\pi(i)\) implica que \(str[1..\pi(i)]=str[i-\pi(i)..i]\) y este es maximal.
+	\lstinputlisting[language=c++]{../string/prefixFunction.cpp}
+	
+	\subsection{Suffix Array}
+	Computa \(A : 1..N\to 1..N\) donde \(i<j\) implica \(str[A(i)..N]<str[A(j)..N]\).
+	También puede computar \(LCP : i..N\to 1..N\) donde \(LCP(i)\) identifica el tamaño del prefijo comun más grande entre \(str[A(i-1)..N]\) y \(str[A(i)..N]\).
+	\lstinputlisting[language=c++]{../string/suffixArray.cpp}
+	
+	\subsection{Aho-Corasick automata}
+	\lstinputlisting[language=c++]{../string/ahoCorasick.cpp}
+	
+	\subsection{Manacher}
+	Note: its currently untested
+	\lstinputlisting[language=c++]{../string/manacher_untested.cpp}
+	
+	\subsection{Hash}
+	\lstinputlisting[language=c++]{../string/hash.cpp}
+	
+	\subsection{Booth algorithm for minimalShift}
+	\lstinputlisting[language=python]{../string/booth.py}
+
+\section{Algebra and friends}
+	\subsection{Convolutions}
+	Calculamos \(C(k)=\Sigma_{i+j=k}A(i)\cdot B(j)\).
+	Recordar que con \(B'(i)=B(N-i)\) podemos tambien calcular \(C(k)=\Sigma_{i-j=k}A(i)\cdot B(j)\).
+	
+	\subsubsection{Fourier Fast Transform (FFT)}
+	
+	\lstinputlisting[language=c++]{../algebra/fft_notMine.cpp}
+	
+	\subsubsection{Numeric Theoretic Transform (NTT)}
+	
+	\lstinputlisting[language=c++]{../algebra/ntt_notMine.cpp}
+	
+	\subsubsection{Fast Walsh Hadamard Transform (FWH)}
+	This allows to do $C(k)=\sum_{k=i^j}A_iB_j$ and the bitwise convolutions
+	\lstinputlisting[language=c++]{../algebra/fwt_xorConv.cpp}
+	
+	\subsubsection{bitwise convolution}
+	This allows to do $C(k)=\sum_{k=i|j}A_iB_j$ and $C(k)=\sum_{k=i\&j}A_iB_j$
+	\lstinputlisting[language=c++]{../algebra/bitwise_convolution.cpp}
+	\subsubsection{divisibility convolution}
+	This allows to do $C(k)=\sum_{k=gcd(i,j)}A_iB_j$ and $C(k)=\sum_{k=lcm(i,j)}A_iB_j$
+	\lstinputlisting[language=c++]{../algebra/divisibility_convolution.cpp}
+	
+	\subsection{extended gcd}
+	Remember there exist \lstinline|__gcd(a,b);| and its usable
+	\lstinputlisting[language=c++]{../algebra/gcd_notMine.cpp}
+	\subsection{Xor Basis}
+	\lstinputlisting[language=c++]{../algebra/xorBasis.cpp}
+	\subsection{prime stuff}
+	The code has pollard rho that works in expected $O(\sqrt{4}{n})$ and miller-rabin that we can (?) assume it won't fail as a prime tester.
+	\lstinputlisting[language=c++]{../algebra/primality_stuff.cpp}
+	
+\section{Combinatorics}
+	Muchas de estas propiedades fueron sacadas de https://cp-algorithms.com/combinatorics
+	\subsection{Properties}
+	Remember $n!=n\cdot(n-1)!$ and $(n)_k=\frac{n!}{(n-k)!}=n(n-1)\cdots(n-k+2)(n-k+1)$ (this last one generalizes for $n\notin\mathbb{N}$).
+	\subsubsection{n Choose k}
+	Remember that it can be calculated by the recursive formula, by precomputing factorials modulo p, or in $min(k,n-k)$ by calculating $(k!)^{-1}\cdot (n)_k (mod p)$.
+	
+	\[\binom{n}{k}=\frac{n!}{k!(n-k)!}\]
+	\[\binom{n}{k}=\binom{n-1}{k}+\binom{n-1}{k-1}\]
+	\[\sum_{i=0}^{n} x^i\binom{n}{i} = (x+1)^n\]
+	\[\sum_{m=0}^{n}\binom{m}{k} = \binom{n+1}{k+1}\]
+	\[ \sum_{k=0}^{m}\binom{n+k}{k} =\binom{n+m+1}{m} \]
+	\[\sum_{k=0}^{n}\binom{n}{k}^2 = \binom{2n}{n}\]
+	\[\sum_{i=0}^{n}i\binom{n}{i}=n\cdot 2^{n-1}\]
+	Wilson's theorem:
+	\[(p-1)!\equiv -1 (\text{mod p})\]
+	Lucas theorem:
+	\[\binom{n}{k}\equiv\prod\binom{n_i}{k_i} (\text{mod p})\]
+	where $n=\sum n_i\cdot p^i$ and $k=\sum k_i\cdot p^i$
+	
+	Vandermonde's identity:
+	\[\sum_{k=0}{n}\binom{m}{k}\binom{n}{r-k}=\binom{m+n}{r}\]
+	
+	\subsubsection{Stirling God}
+	Stirling number of second kind ${n\brace k}$ counts the amount of ways to partition n unlabelled objects in k non-empty subsets. 
+	\[{n+1\brace k}=k{n\brace k}+{n\brace k-1}\]
+	\[{n\brace k}=\frac{1}{k!}\sum_{i\geq 0} (-1)^{k-i}\binom{k}{i}i^n\]
+	\[{n\brace k}\equiv\binom{z}{w} (mod 2)\] 
+	Where $z=n-\left\lceil\frac{k+1}{2}\right\rceil$ and $w=\left\lfloor\frac{k-1}{2}\right\rfloor$.
+	
+	As bell numbers $B_n$ count the amount of ways to partition n elements then
+	\[B_n=\sum_{i=0}^{n}{n\brace k}\]
+	
+	Stirling number of the first kind (eventually).
+	
+	\subsubsection{Formal Power Series}
+	Note: I need some template for its operations (pending). This is still poor in properties.
+	
+	\[(1+F)^\lambda=\sum_{n\geq 0}\binom{\lambda}{n}F^n\]
+	Remember it generalizes to $\lambda\notin\mathbb{N}$ by using the $(n)_k$ definition of $\binom{n}{k}$.
+	\[(1-x)^{-1}=\sum_{n\geq 0}x^n \text{ for } 0\leq x < 1\]
+	\[e^x=\sum_{n\geq 0}\frac{x^n}{n!}\]
+	\[(1-x)^{-k}=\sum_{n\geq 0}\binom{n+k-1}{n}x^n\]
+	\[-ln(1-x)=\sum_{x\geq 1}\frac{x^n}{n}\]
+	\begin{align*}
+		F\cdot G &=\sum_{n\geq 0}\left(\sum_{i=0}^nf_ig_{n-i}\right)x^n &\text{ for OGF}\\
+		&= \sum_{n\geq 0}\left(\sum_{i=0}^n\binom{n}{i}f_ig_{n-i}\right)x^n &\text{ for EGF}
+	\end{align*}
+	\begin{align*}
+		F^k &=\sum_{n\geq 0}\left(\sum_{i_1+i_2+\cdots +i_k=n}\prod_{j=1}^k f_{i_j}\right)x^n &\text{ for OGF}\\
+		&= \sum_{n\geq 0}\left(\sum_{i_1+i_2+\cdots +i_k=n}\binom{n}{i_1\cdot i_2\cdots i_k}\prod_{j=1}^k f_{i_j}\right)x^n &\text{ for EGF}
+	\end{align*}
+	
+	\[\sum_{n\geq 0}\sum_{k\geq 0}\binom{n}{k}x^ny^k=\frac{1}{1-x-xy}\]
+	
+	\subsubsection{Modular Arithmetic}
+	$\phi(n)$ is the amount of coprime elements to $n$ in the range $[0,n)$.
+	\[\phi(a\cdot b)=\phi(a)\phi(b)\]
+	\[\phi(p)=p-1\]
+	\[\phi(m)=m\prod_{i=1}^k(1-\frac{1}{p_i}) \text{ where } m=\prod_{i=0}^kp_i^{e_i}\]
+	\[a^{\phi(m)}\equiv 1 (\text{mod }m)\]
+	
+	\subsubsection{Chinese Remainder Theorem}
+	The problem is to find $x$ such that
+	\[\begin{cases}
+		x\equiv a_1 (\text{mod }m_1)\\
+		\vdots\\
+		x\equiv a_k (\text{mod }m_k)
+	\end{cases}\]
+	and all $m_i$'s are pairwise coprime.
+	
+	\[R^*=\sum_{i=1}^k a_i\left[inv_{m_i}\left(\prod_{j\neq i}m_j\right)\prod_{j\neq i}m_j\right]\]
+	
+	Remember $R^*$ works modulo $\prod m_j$.
+	
+	\subsubsection{Lagrange Interpolation}
+	Find lowest degree polinome that satisfies $P(x_i)=y_i\forall_i$ given $[(x_1,y_1),\cdots,(x_k,y_k)]$.
+	\[P=\sum_{i=0}^k\left(\frac{\prod_{j\neq i}(x_j-x)}{\prod_{j\neq i}(x_j-x_i)}\right)y_i\]
+	Remember that if I only want $P$ to evaluate on a specific x, then I can just make x in the equation as the value to avoid building the explicit polinomial.
+	
+	\subsubsection{Catalan numbers}
+	\textbf{Catalan Numbers}
+	\[C_0 = C_1 = 1\]
+	\[C_i = \sum_{k=0}^{i-1} C_kC_{i-1-k}\]
+	\[C_i = \frac{1}{n+1}\binom{2n}{n}\]
+	\[C_i = \frac{4i-2}{i+1}C_{i-1},C_0=1\]
+	
+	\subsubsection{Fibonacci}
+	\textbf{Fibonacci}
+	\[fibo(0)=0,fibo(1)=1,fibo(n)=fibo(n-1)+fibo(n-2)\]
+	
+	\[
+	\begin{bmatrix}
+		1 & 1 \\
+		1 & 0
+	\end{bmatrix}^n
+	=
+	\begin{bmatrix}
+		fibo(n+1) & fibo(n) \\
+		fibo(n) & fibo(n-1)
+	\end{bmatrix}
+	\]
+	\subsection{Techniques}
+	
+	\textbf{Principle of Inclusion-Exclusion (PIE)}
+	
+	Remember there are more and more ways to write PIE that can help with other stuff (I think one of those is mobius function, but more on that when im good).
+	
+	\[\left\lvert\cup S_i\right\rvert = \sum_{\emptyset\neq J\in\{1..N\}}(-1)^{\lvert J\rvert-1}\left\lvert \cap_{i\in J}S_i\right\rvert\]
+	
+	\textbf{Stars and bars}
+	\[\binom{n+k-1}{n}\]
+	Number of ways to add n identical objects into k labeled boxes.
+	
+	\textbf{Armonica: } \(\sum_{k=1}^{n}\frac{1}{k} = O(lg n)\)
+
+\section{Geometry}
+	\subsection{geomTemplate}
+	\lstinputlisting[language=c++]{../geometry/geotemplate.cpp}
+	\subsection{Convex Hull (2D)}
+	\lstinputlisting[language=c++]{../geometry/convex_hull.cpp}
+\section{linAlg}
+	\subsection{LP Simplex}
+	Recordar que la implementacion de simplex requiere que el sistema este en 'slack' form
+	\[\begin{cases}
+		c_{1,1}x_1+c_{1,2}x_2+\cdots+c_{1,k}x_k=y_1\\
+		\vdots
+		c_{m,1}x_1+c_{m,2}x_2+\cdots+c_{m,k}x_k=y_m\\
+	\end{cases}\]
+	\[\forall_i x_i\geq 0\]
+	Condiciones del estilo $\sum_i c_i\cdot x_i \leq y$ se convierten a 'slack' form anadiendo una 'slack' variable $s$ que tiene coeficiente $0$ en todas las filas (y objetivo) y $1$ en la fila actual. El sistema queda como $\sum_i c_i\cdot x_i +s=y$ para $s\geq 0$. Las condiciones del estilo $\sum_i c_i\cdot x_i \geq y$ son convertidas a $\sum_i (-c_i)\cdot x_i \leq -y$ (y luego a 'slack' form como lo anterior).
+	
+	Lo use en el gym 101242 I (Road Times ICPC WF 2016). 
+	\lstinputlisting[language=c++]{../linalg/simplex_notMine.cpp}
+
+\section {Cosas random}
+	\subsection{Calcular \(\lfloor log_2x\rfloor\)}
+	Nota, tambien está en Fenwick Tree.
+	
+	\textbf{En C++ }
+	
+	\lstinline|sizeof(int)*8 - __builtin_clz(x)-1;|
+	
+	\textbf{En Python }
+	
+	\lstinline[language=python]|x.bit_length()-1|
+	
+	\subsection{SOS DP}
+	Calculate $S[x]=\sum_{y\subseteq x}a[y]$ for all $0\leq x < 2^N$
+	\begin{lstlisting}
+rep(x,0,1<<N)S[x]=a[x];
+rep(st,0,N)rep(x,0,1<<N)if((x>>st)&1){
+	S[x]+=S[x^(1<<st)];
+}
+	\end{lstlisting}
+	
+	\subsection{My tipsNtricks stuff}
+	Remember the trick of the transpose graph in $O((n+m)lg n)$ using the set to keep track of the unvisited ones.
+	\lstinputlisting{../tipsNtricks.cpp}
+	
+	\subsection{template}
+	\subsubsection{c++}
+	
+	\lstinputlisting{../my_template.cpp}
+	\subsubsection{Python}
+	Python es una calculadora glorificada. Pero tiene algunos usos...
+	\lstinputlisting[language=python]{../io_competitiva.py}
+	
+	\subsection{Agregar a futuro}
+	\begin{itemize}
+		\item Sparse Table (idempotent/D\&C)
+		\item Cribe with functions
+		\item DP optimization (Knuth, D\&C, Lambda, CHT)
+		\item optimal \(\langle O(n),O(1)\rangle\) online range-minimum queries on a static array (with ideas of the offline one in \(O((n+q)\alpha (n)\))
+		\item Operations on Formal Power Series
+		\item geometry, geometry, geometry. Add sphere geometry (I studied that a bit)
+		\item Sparse Segment Tree with Lazy upd
+		\item some more floor sums (in honnor of Aladdin) 
+		\item Fix my euler circuit issue on undirected graphs
+		\item test my persistent segment tree with lazy evaluation and add it
+		\item study more number theory (I havent fully understood mobius and dirichlet convolution)
+		\item study more combinatorics and add what its missing (like the p-analogs????)
+		\item test my Manacher algo impl
+		\item test my LinearAlgebra stuff that it's mostly untested as per today
+		\item Improve my shitty impl of 2SAT
+		\item get an impl of linear systems and other stuff revolving around linalg
+	\end{itemize}
+
+\end{document}

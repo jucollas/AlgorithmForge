@@ -4,9 +4,10 @@ Lo probe en UVA 1449
 
 La implementacion asume reinicializar 'states' - states=vector<Node>(1);
 	* Notar que pattern no considera el vertice actual como un posible pattern
+Remember to use 'next()' and 'pattern()' to do the queries because of the lazy stuff.
 */
 
-const int K = 26;
+const int K = 26; const char NORM='a';
 
 class Node {
 	public:
@@ -24,9 +25,10 @@ vector<Node> states(1);
 
 void add_string( const string & str, int strInd=0 ) {
 	/* anade la cadena 'str' al trie, la marca con 'strInd' */
+	/*O(|str|)*/
 	int act = 0;
 	for ( const char letter : str ) {
-		char ch = letter-'a';
+		char ch = letter-NORM;
 		if ( states[act].next[ch] == -1 ) {
 			states[act].next[ch] = states.size();
 			states.push_back( Node( act, letter ) );
@@ -40,7 +42,7 @@ int link( int act ) ;
 
 int next( int act, char letter ) {
 	/* hallo el siguiente estado a visitar segun el actual y el caracter */
-	char ch = letter-'a';
+	char ch = letter-NORM;
 	if ( states[act].next[ch] == -1 ) {
 		if ( act ) {
 			states[act].next[ch] = next( link(act), letter );

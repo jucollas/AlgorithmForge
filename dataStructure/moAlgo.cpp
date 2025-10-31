@@ -6,31 +6,20 @@ Recordar que existe la idea de balanceo (usar sqrt-decomp o otra de modo que
 	mas updates que queries)
 
 
-Asumo que T(REM) y T(ADD) son los tiempos de remover y añadir un indice
+Asumo que T(REM) y T(ADD) son los tiempos de remover y anadir un indice
 	del global que maneja MO.
 
-Idea 1: usar bloque de tamaño \sqrt(n). Genera tiempo O((n+q)\sqrt(n))
-Idea 2: usar bloque de tamaño \frac{n}{\sqrt(q)}. Genera tiempo O(n\sqrt(q))
+Idea 1: usar bloque de tamano \sqrt(n). Genera tiempo O((n+q)\sqrt(n))
+Idea 2: usar bloque de tamano \frac{n}{\sqrt(q)}. Genera tiempo O(n\sqrt(q))
 	source: https://codeforces.com/blog/entry/61203?#comment-451304
 Idea 3: Usar orden de hilbert. Genera tiempo O(n\sqrt(q))
 	source: https://codeforces.com/blog/entry/61203
 	impl:https://codeforces.com/blog/entry/61203?#comment-1064868
 
+Nota: La idea 1 (o tal vez 2 tambien) puede no funcionar muy bien cuando se requiere hacer un balanceo
 Probado con https://www.spoj.com/problems/DQUERY/
+Otro problema interesante https://codeforces.com/problemset/problem/2006/D
 */
-
-int block_size;
-void calc_block_size(int n, int q){
-	// idea 1 -> O((n+q)\sqrt(n))
-	/*
-	block_size=1;
-	while ( block_size*block_size < n ) ++block_size;
-	*/
-	// idea 2 -> O(n\sqrt(q))
-	int sqrt=1; while(sqrt*sqrt<q)++sqrt;
-	block_size=n/sqrt;
-}
-
 uint64_t hilbertorder(uint64_t x, uint64_t y) {
 	// https://codeforces.com/blog/entry/61203?#comment-1064868
     const uint64_t logn = __lg(max(x, y) * 2 + 1) | 1;
@@ -49,22 +38,35 @@ uint64_t hilbertorder(uint64_t x, uint64_t y) {
 
 class Query{
 public:
-    int ind, l, r;
-	int ord; pair<int,int> bord;
+    int ind, l, r, ord;
     Query()=default;
-    bool operator < ( const Query &o ) const{
-		// return bord<o.bord;
-		return ord<o.ord;
-	}
+    bool operator < ( const Query &o ) const{ return ord<o.ord; }
 };
 
-
+const int method=0;
 vector<int> mo_algo( int n, vector<Query> &query ) {
 	int q = query.size();
 	
-	//calc_block_size(n,q); // si es idea\in{1,2}
-	// for(Query &q:query)q.bord={q.l/block_size,((q.l/block_size)&1)?-q.r:q.r};
-	for(Query &q:query)q.ord=hilbertorder(q.l,q.r);
+	// idea 1 -> O(n\sqrt(q))
+	if(method==0)for(Query &q:query)q.ord=hilbertorder(q.l,q.r);
+	else{
+	  int block_size;
+	  if(method==1){
+	    // idea 2 -> O(n\sqrt(q))
+	    int sqrt=1; while(sqrt*sqrt<q)++sqrt;
+	    block_size=n/sqrt;
+	  } else {
+	    // idea 3 -> O((n+q)\sqrt(n))
+	    block_size=1;
+	    while ( block_size*block_size < n ) ++block_size;
+	  }
+	  block_size=max(block_size,1);
+	  for(Query &q:query){
+	    int bl_ind=q.l/block_size;
+	    q.ord=(bl_ind&1)?n-q.r:q.r;
+	    q.ord+=bl_ind*n;
+	  }
+	}
 	
 	sort(query.begin(),query.end());
 	

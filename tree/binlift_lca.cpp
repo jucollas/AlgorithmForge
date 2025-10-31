@@ -3,7 +3,7 @@ Autor: Oscar Vargas Pabon
 
 Esto funciona en O(nlgn) de memoria y preprocesamiento, O(lgn) de query
 
-Notar que estoy asumiendo que 0 es la raiz (de lo contrario se puede dañar 
+Notar que estoy asumiendo que 0 es la raiz (de lo contrario se puede danar 
 	la acumulacion de bl "bl[nd][i+1]" en build_lca)
 
 Fue testeado en: https://codeforces.com/problemset/problem/1843/F2

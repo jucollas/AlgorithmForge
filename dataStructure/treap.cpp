@@ -2,7 +2,7 @@
 Autor: Oscar Vargas Pabon
 
 Notar que este treap construye un max-heap en el atributo 'key'.
-No tiene añadido ningun tipo de 'lazy propagation'
+No tiene anadido ningun tipo de 'lazy propagation'
 Las operaciones asumen indexacion en 0
 
 Testeado en https://www.spoj.com/problems/GSS6/en/

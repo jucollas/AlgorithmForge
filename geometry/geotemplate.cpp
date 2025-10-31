@@ -37,6 +37,7 @@ class Pt{
 // v%u == area paralelogramo delimitado por u y v
 	bool operator<(const Pt &o)const{return make_pair(x,y)<make_pair(o.x,o.y);}
 	bool operator==(const Pt&o)const{return x==o.x&&y==o.y;}
+	bool operator!=(const Pt&o)const{return!(*this==o);}
 };
 ostream & operator << (ostream &out, const Pt &p){ out << "("<<p.x<<","<<p.y<<")"; return out; }
 
@@ -53,7 +54,7 @@ class Ln{
 	Tpt inter(const Ln&o){return{((p-o.p)%o.v)/(v%o.v)};}
 	
 	// dados v,u vectores; el valor h donde {0,v(h),u} forman un triangulo rectangulo
-	// con con angulo recto A{o,v(h),u} =90° es tal que u*v=h*(v*v)
+	// con con angulo recto A{o,v(h),u} =90 es tal que u*v=h*(v*v)
 };
 
 ostream & operator << (ostream &out, const Ln &l){ out << "<L(t)="<<l.p<<"+t"<<l.v<<">"; return out; }

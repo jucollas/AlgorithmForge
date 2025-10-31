@@ -25,6 +25,14 @@ int query( int l, int r ) {
 	/* responde la suma del rango de bit[l]+...+bit[r] en tiempo O(lg n) */
 	return query( r ) - query( l-1 );
 }
+int query2(int l,int r){
+	// la misma query de arriba pero funciona con trucos que me saque
+	// del servidor de disc GF comentario de Aeren en tips-and-tricks
+	int res=0;
+	for(;l<r;r-=r&(-r))res+=bit[r];
+	for(;r<l;l-=l&(-l))res-=bit[l];
+	return res;
+}
 void update( int x, int val ) {
 	/* Modifica el valor de arr[x] en la representacion arborea en O(lg n) */
 	for ( ; x < bit_size ; x += x&(-x) ) bit[x] += val;
