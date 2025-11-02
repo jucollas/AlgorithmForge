@@ -1,11 +1,15 @@
 /*
 Autor: Oscar Vargas Pabon
 
-Currently UNTESTED
+and convolution tested in https://judge.yosupo.jp/problem/bitwise_and_convolution
+or convolution currently untested
 
 Note it wont work well for A*A
 
 Taken from https://codeforces.com/blog/entry/119082
+
+Im assuming from my template:
+#define rep(i,strt,end) for(int i = strt ; i !=int(end) ; (int(strt)<int(end))?++i:--i )
 */
 
 
@@ -20,7 +24,7 @@ public:
 	void trans_subset(vector<T> &vec,int sd){
 		// I assume sd\in\{-1,1\}
 		for(int e=1;e<int(vec.size());e*=2)rep(i,0,vec.size()){
-			if(i&j)vec[i]+=vec[i^j]*sd;
+			if(i&e)vec[i]+=vec[i^e]*sd;
 		}
 	}
 	void or_conv(vector<T> &A,vector<T> &B){
@@ -33,7 +37,7 @@ public:
 	void trans_superset(vector<T> &vec,int sd){
 		// I assume sd\in\{-1,1\}
 		for(int e=1;e<int(vec.size());e*=2)rep(i,0,vec.size()){
-			if(i&j)vec[i^j]+=vec[i]*sd;
+			if(i&e)vec[i^e]+=vec[i]*sd;
 		}
 	}
 	
