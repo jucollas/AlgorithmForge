@@ -11,6 +11,11 @@ const int root = 44009197;
 const int root_1 = mpow(root,mod-2,mod);
 const int root_pw = 1 << 21;
 
+const int mod = 998244353;
+const int root = mpow(3,119,mod);
+const int root_1 = mpow(root,mod-2,mod);
+const int root_pw = 1 << 23;
+
 */
 const int mod = 7340033;
 const int root = 5;
