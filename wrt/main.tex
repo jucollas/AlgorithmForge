@@ -1,5 +1,5 @@
 %\documentclass{article}
-\documentclass[landscape, 8pt, a4paper, oneside, twocolumn]{extarticle}
+\documentclass[landscape, 9pt, a4paper, oneside, twocolumn]{extarticle}
 
 \usepackage[spanish,english]{babel} % para el ingles
 \usepackage{amsthm} % el de teoremas
@@ -10,7 +10,13 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{float} % for figures forced placement after text
-\usepackage[left=0.8cm, right=0.8cm, top=0.8cm, bottom=0.8cm, letterpaper]{geometry}
+\usepackage{fancyhdr}
+\usepackage[compact]{titlesec}
+\usepackage[headheight=0.0cm,left=0.6cm, right=0.6cm, top=1.2cm, bottom=0.6cm, letterpaper]{geometry}
+
+
+\pagestyle{headings}
+\rhead{\thepage}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -23,14 +29,16 @@
 	basicstyle=\footnotesize,        % size of fonts used for the code
 	captionpos=b,                    % sets the caption-position to bottom
 	commentstyle=\color{mygreen},    % comment style
-	escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+	escapeinside={\$*}{*)},          % if you want to add LaTeX within your code
 	keywordstyle=\color{myorange},       % keyword style
 	stringstyle=\color{mymauve},     % string literal style
 	language=c++,% my stuff
 	breaklines=true,
 }
 
-\usepackage[compact]{titlesec}
+
+
+
 \titlespacing*{\section}
 {0pt}{0px plus 1px minus 0px}{-2px plus 0px minus 0px}
 \titlespacing*{\subsection}
@@ -38,7 +46,6 @@
 
 \setlength{\columnseprule}{0.4pt}
 \pagenumbering{arabic}
-
 
 \title{Cuadernillo}
 \author{Sparkies}
@@ -121,6 +128,7 @@
 	\end{figure}
 
 	\subsection{Dinitz}
+	Note that it usually works in $O(V^2E)$. In unit networks (they all have capacity of 1 except for source and sink) it works in $O(E\sqrt{v})$
 	\lstinputlisting[language=c++]{../graph/dinitz.cpp}
 	
 	%\subsection{Edmonds-Karps}
@@ -174,6 +182,7 @@
 	\lstinputlisting[language=c++]{../string/hash.cpp}
 	
 	\subsection{Booth algorithm for minimalShift}
+	Returns the index that represents that cad[t:]+ cad[:t] is minimal
 	\lstinputlisting[language=python]{../string/booth.py}
 
 \section{Algebra and friends}
@@ -190,8 +199,8 @@
 	\lstinputlisting[language=c++]{../algebra/ntt_notMine.cpp}
 	
 	% the world isn't ready for this madness
-	%\subsubsection{Operations on FormalPowerSeries}
-	%\lstinputlisting[language=c++]{../algebra/formalPowerSeries.cpp}
+	\subsubsection{Operations on FormalPowerSeries}
+	\lstinputlisting[language=c++]{../algebra/formalPowerSeries.cpp}
 	
 	\subsubsection{Fast Walsh Hadamard Transform (FWH)}
 	This allows to do $C(k)=\sum_{k=i^j}A_iB_j$ and the bitwise convolutions
@@ -249,7 +258,7 @@
 	Stirling number of the first kind (eventually).
 	
 	\subsubsection{Formal Power Series}
-	Note: I need some template for its operations (pending). This is still poor in properties.
+	Note: This is still poor in properties.
 	
 	\[(1+F)^\lambda=\sum_{n\geq 0}\binom{\lambda}{n}F^n\]
 	Remember it generalizes to $\lambda\notin\mathbb{N}$ by using the $(n)_k$ definition of $\binom{n}{k}$.
@@ -347,6 +356,11 @@
 	
 	Lo use en el gym 101242 I (Road Times ICPC WF 2016). 
 	\lstinputlisting[language=c++]{../linalg/simplex_notMine.cpp}
+	\subsection{MatMultiply}
+	\lstinputlisting[language=c++]{../linalg/mat_primitives.cpp}
+	\subsection{slae}
+	When dealing with modulo 2 stuff bitset can also carry hard
+	\lstinputlisting[language=c++]{../linalg/slae_notMine.cpp}
 
 \section {Cosas random}
 	\subsection{Calcular \(\lfloor log_2x\rfloor\)}
@@ -360,15 +374,6 @@
 	
 	\lstinline[language=python]|x.bit_length()-1|
 	
-	\subsection{SOS DP}
-	Calculate $S[x]=\sum_{y\subseteq x}a[y]$ for all $0\leq x < 2^N$
-	\begin{lstlisting}
-rep(x,0,1<<N)S[x]=a[x];
-rep(st,0,N)rep(x,0,1<<N)if((x>>st)&1){
-	S[x]+=S[x^(1<<st)];
-}
-	\end{lstlisting}
-	
 	\subsection{My tipsNtricks stuff}
 	Remember the trick of the transpose graph in $O((n+m)lg n)$ using the set to keep track of the unvisited ones.
 	\lstinputlisting{../tipsNtricks.cpp}
@@ -380,14 +385,14 @@ rep(st,0,N)rep(x,0,1<<N)if((x>>st)&1){
 	\subsubsection{Python}
 	Python es una calculadora glorificada. Pero tiene algunos usos...
 	\lstinputlisting[language=python]{../io_competitiva.py}
-	
+	\iffalse
 	\subsection{Agregar a futuro}
 	\begin{itemize}
 		\item Sparse Table (idempotent/D\&C)
 		\item Cribe with functions
 		\item DP optimization (Knuth, D\&C, Lambda, CHT)
 		\item optimal \(\langle O(n),O(1)\rangle\) online range-minimum queries on a static array (with ideas of the offline one in \(O((n+q)\alpha (n)\))
-		\item Operations on Formal Power Series
+		\item More Operations on Formal Power Series
 		\item geometry, geometry, geometry. Add sphere geometry (I studied that a bit)
 		\item Sparse Segment Tree with Lazy upd
 		\item some more floor sums (in honnor of Aladdin) 
@@ -400,5 +405,6 @@ rep(st,0,N)rep(x,0,1<<N)if((x>>st)&1){
 		\item Improve my shitty impl of 2SAT
 		\item get an impl of linear systems and other stuff revolving around linalg
 	\end{itemize}
+	\fi
 
 \end{document}

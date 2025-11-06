@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.1.14)  31 OCT 2025 15:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.1.14)  5 NOV 2025 22:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -9,8 +9,8 @@ L3 programming layer <2024-12-25>
 
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/extsizes\extarticle.cls
 Document Class: extarticle 1996/10/08 v1.0 Non Standard LaTeX document class
-(C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/extsizes\size8.clo
-File: size8.clo 1999/11/11 v1.4a NON-Standard LaTeX file (size option)
+(C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/extsizes\size9.clo
+File: size9.clo 1999/11/11 v1.4a NON-Standard LaTeX file (size option)
 )
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/base\exscale.sty
 Package: exscale 2018/09/24 v2.1i Standard LaTeX package exscale
@@ -269,6 +269,37 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks32
 \@floatcapt=\box58
 )
+(C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
+Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
+
+\f@nch@headwidth=\skip61
+\f@nch@offset@elh=\skip62
+\f@nch@offset@erh=\skip63
+\f@nch@offset@olh=\skip64
+\f@nch@offset@orh=\skip65
+\f@nch@offset@elf=\skip66
+\f@nch@offset@erf=\skip67
+\f@nch@offset@olf=\skip68
+\f@nch@offset@orf=\skip69
+\f@nch@height=\skip70
+\f@nch@footalignment=\skip71
+\f@nch@widthL=\skip72
+\f@nch@widthC=\skip73
+\f@nch@widthR=\skip74
+\@temptokenb=\toks33
+)
+(C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
+Package: titlesec 2025/01/04 v2.17 Sectioning titles
+\ttl@box=\box59
+\beforetitleunit=\skip75
+\aftertitleunit=\skip76
+\ttl@plus=\dimen169
+\ttl@minus=\dimen170
+\ttl@toksa=\toks34
+\titlewidth=\dimen171
+\titlewidthlast=\dimen172
+\titlewidthfirst=\dimen173
+)
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
@@ -281,15 +312,15 @@ Package: iftex 2024/12/12 v1.0g TeX engine tests
 \Gm@cnth=\count298
 \Gm@cntv=\count299
 \c@Gm@tempcnt=\count300
-\Gm@bindingoffset=\dimen169
-\Gm@wd@mp=\dimen170
-\Gm@odd@mp=\dimen171
-\Gm@even@mp=\dimen172
-\Gm@layoutwidth=\dimen173
-\Gm@layoutheight=\dimen174
-\Gm@layouthoffset=\dimen175
-\Gm@layoutvoffset=\dimen176
-\Gm@dimlist=\toks33
+\Gm@bindingoffset=\dimen174
+\Gm@wd@mp=\dimen175
+\Gm@odd@mp=\dimen176
+\Gm@even@mp=\dimen177
+\Gm@layoutwidth=\dimen178
+\Gm@layoutheight=\dimen179
+\Gm@layouthoffset=\dimen180
+\Gm@layoutvoffset=\dimen181
+\Gm@dimlist=\toks35
 
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
@@ -301,18 +332,6 @@ File: lstlang1.sty 2024/09/23 1.10c listings language file
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
 )
-(C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
-Package: titlesec 2025/01/04 v2.17 Sectioning titles
-\ttl@box=\box59
-\beforetitleunit=\skip61
-\aftertitleunit=\skip62
-\ttl@plus=\dimen177
-\ttl@minus=\dimen178
-\ttl@toksa=\toks34
-\titlewidth=\dimen179
-\titlewidthlast=\dimen180
-\titlewidthfirst=\dimen181
-)
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
@@ -321,20 +340,20 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 ) (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
 
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
@@ -344,49 +363,18 @@ ii
 \scratchbox=\box61
 \nofMPsegments=\count303
 \nofMParguments=\count304
-\everyMPshowfont=\toks35
+\everyMPshowfont=\toks36
 \MPscratchCnt=\count305
 \MPscratchDim=\dimen183
 \MPnumerator=\count306
 \makeMPintoPDFobject=\count307
-\everyMPtoPDFconversion=\toks36
+\everyMPtoPDFconversion=\toks37
 )
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-
-(C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
-ty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-) (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/grfext\grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-
-(C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
-keys.sty
-Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-))
-(C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
-Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
-(C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
-Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-)
-(C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
-Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-))
-(C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
-.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
-)
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
 
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
 fg
@@ -402,23 +390,23 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: landscape 
-* h-part:(L,W,R)=(22.76228pt, 749.44542pt, 22.76228pt)
-* v-part:(T,H,B)=(22.76228pt, 568.77043pt, 22.76228pt)
+* h-part:(L,W,R)=(17.07182pt, 760.82634pt, 17.07182pt)
+* v-part:(T,H,B)=(34.14322pt, 563.07996pt, 17.07182pt)
 * \paperwidth=794.96999pt
 * \paperheight=614.295pt
-* \textwidth=749.44542pt
-* \textheight=568.77043pt
-* \oddsidemargin=-49.5077pt
-* \evensidemargin=-49.5077pt
-* \topmargin=-86.5077pt
-* \headheight=12.0pt
+* \textwidth=760.82634pt
+* \textheight=563.07996pt
+* \oddsidemargin=-55.19817pt
+* \evensidemargin=-55.19817pt
+* \topmargin=-63.12677pt
+* \headheight=0.0pt
 * \headsep=25.0pt
 * \topskip=9.0pt
 * \footskip=30.0pt
 * \marginparwidth=24.0pt
 * \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=7.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=8.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -428,12 +416,12 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 48.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 55.
 
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 48.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 55.
 
 
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -446,13 +434,18 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout3 = `main.toc'.
 
  (../dataStructure/dsu.cpp
+
+[1{C:/Users/oscar/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}
+
+
+]
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1
 6.
 
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/base\omscmr.fd
 File: omscmr.fd 2024/11/19 v2.5n Standard LaTeX font definitions
 )
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 16.
 LaTeX Font Info:    Trying to load font information for OML+cmr on input line 1
 8.
@@ -460,169 +453,293 @@ LaTeX Font Info:    Trying to load font information for OML+cmr on input line 1
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/base\omlcmr.fd
 File: omlcmr.fd 2024/11/19 v2.5n Standard LaTeX font definitions
 )
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <6> not available
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <7> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 18.
-
-
-[1{C:/Users/oscar/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}
-
-
-])
+)
 (../dataStructure/segmentFull.cpp
 
-) (../dataStructure/segmentUpwards.cpp)
 
-[2] (../dataStructure/persistentSegment.cpp
-
-) (../dataStructure/fenwick.cpp) (../dataStructure/treap.cpp
-
-[3]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-) (../dataStructure/moAlgo.cpp
 
-[4])
+Overfull \vbox (6.14998pt too high) has occurred while \output is active []
 
-(../tree/centroid.cpp) (../tree/hld.cpp
 
-[5]) (../tree/lca.cpp
+[2]) (../dataStructure/segmentUpwards.cpp)
+(../dataStructure/persistentSegment.cpp
+
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+Overfull \vbox (6.14998pt too high) has occurred while \output is active []
+
+
+[3] (../dataStructure/fenwick.cpp) (../dataStructure/treap.cpp
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [4])
+(../dataStructure/moAlgo.cpp
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [5])
+(../tree/centroid.cpp
+
+) (../tree/hld.cpp
+
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [6])
+(../tree/lca.cpp
 
 ) (../tree/binLift_lca.cpp
 
-[6])
-<../images/bitsetWaifu_catVersion.png, id=32, 1027.84pt x 1027.84pt>
+
+Overfull \vbox (6.75pt too high) has occurred while \output is active []
+
+ [7])
+<../images/bitsetWaifu_catVersion.png, id=39, 1027.84pt x 1027.84pt>
 File: ../images/bitsetWaifu_catVersion.png Graphic file (type png)
 <use ../images/bitsetWaifu_catVersion.png>
 Package pdftex.def Info: ../images/bitsetWaifu_catVersion.png  used on input li
-ne 120.
-(pdftex.def)             Requested size: 110.91794pt x 110.9141pt.
- (../graph/dinitz.cpp
+ne 127.
+(pdftex.def)             Requested size: 112.62509pt x 112.62361pt.
 
 
+(../graph/dinitz.cpp
+
+
+Overfull \vbox (6.14998pt too high) has occurred while \output is active []
+
+
+[8 <../images/bitsetWaifu_catVersion.png (PNG copy)>])
+(../graph/blossom_notMine.cpp
+
+) (../graph/hungarian_notMine.cpp
+
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [9])
+(../graph/euler_circuit.cpp
+
+) (../graph/sat_2.cpp
+
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [10])
+(../graph/kosaraju_scc.cpp) (../graph/clique.cpp
+
+) (../string/zFunction.cpp) (../string/prefixFunction.cpp
+
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [11])
+(../string/suffixArray.cpp
+
+) (../string/ahoCorasick.cpp
+
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [12]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[7 <../images/bitsetWaifu_catVersion.png (PNG copy)>])
-(../graph/blossom_notMine.cpp)
-
-(../graph/hungarian_notMine.cpp
-
-[8]) (../graph/euler_circuit.cpp) (../graph/sat_2.cpp
-
-) (../graph/kosaraju_scc.cpp) (../graph/clique.cpp
-
-[9]) (../string/zFunction.cpp) (../string/prefixFunction.cpp)
-
-(../string/suffixArray.cpp
-
-[10]) (../string/ahoCorasick.cpp
-
 ) (../string/manacher_untested.cpp) (../string/hash.cpp
 
-[11]
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [13]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 ) (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
-) (../string/booth.py) (../algebra/fft_notMine.cpp)
+) (../string/booth.py) (../algebra/fft_notMine.cpp
 
-[12] (../algebra/ntt_notMine.cpp) (../algebra/fwt_xorConv.cpp
 
-) (../algebra/bitwise_convolution.cpp)
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
 
-[13] (../algebra/divisibility_convolution.cpp) (../algebra/gcd_notMine.cpp
+ [14])
+(../algebra/ntt_notMine.cpp
 
-) (../algebra/xorBasis.cpp
+) (../algebra/formalPowerSeries.cpp
 
-[14]
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [15]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-) (../algebra/primality_stuff.cpp
 
-[15]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-)
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [16])
+(../algebra/fwt_xorConv.cpp
+
+) (../algebra/bitwise_convolution.cpp
+
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [17])
+(../algebra/divisibility_convolution.cpp
+
+) (../algebra/gcd_notMine.cpp) (../algebra/xorBasis.cpp
+
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [18]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+Overfull \vbox (6.14998pt too high) has occurred while \output is active []
+
+
+[19]) (../algebra/primality_stuff.cpp
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [20])
+
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 236.
+(amsmath)                 on input line 249.
 
 
 
-[16]
+
+Overfull \vbox (6.14998pt too high) has occurred while \output is active []
 
 
+[21]
 
-[17] (../geometry/geotemplate.cpp)
-
-(../geometry/convex_hull.cpp) (../linalg/simplex_notMine.cpp
-
-[18]) (../tipsNtricks.cpp
+(../geometry/geotemplate.cpp
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [22])
+(../geometry/convex_hull.cpp
+
+) (../linalg/simplex_notMine.cpp
 
 
+Overfull \vbox (6.75pt too high) has occurred while \output is active []
 
-[19]) (../my_template.cpp)
+ [23])
+(../linalg/mat_primitives.cpp
 
-(../io_competitiva.py)
-
-[20]
-
+) (../linalg/slae_notMine.cpp
 
 
-[21
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
 
-] (main.aux)
+ [24])
+(../tipsNtricks.cpp
+
+) (../my_template.cpp
+
+
+Overfull \vbox (6.14998pt too high) has occurred while \output is active []
+
+
+[25]) (../io_competitiva.py
+
+)
+
+
+Overfull \vbox (6.25pt too high) has occurred while \output is active []
+
+ [26]
+(main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 9534 strings out of 473536
- 149725 string characters out of 5714956
- 1662929 words of memory out of 5000000
- 32485 multiletter control sequences out of 15000+600000
- 565836 words of font info for 63 fonts, out of 8000000 for 9000
+ 9462 strings out of 473536
+ 147409 string characters out of 5714956
+ 1633660 words of memory out of 5000000
+ 32428 multiletter control sequences out of 15000+600000
+ 565851 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 59i,13n,67p,439b,1834s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,13n,65p,439b,1865s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\oscar\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-0800.pk> <C:\Users\oscar\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
-0\tcrm0600.pk><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmbx10.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmbx8.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/cmextra/cmex8.pfb><C:/Users/oscar/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/oscar/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/oscar/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/
-oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C
-:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
-0.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmr12.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmr5.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmr6.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts
-/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/oscar/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/oscar/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/oscar/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/os
-car/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pf
-b>
-Output written on main.pdf (21 pages, 1040213 bytes).
+0700.pk><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmbx10.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmbx9.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/amsfonts/cmextra/cmex9.pfb><C:/Users/oscar/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/oscar/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/oscar/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/oscar/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/User
+s/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb>
+<C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+r10.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmr12.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmr5.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmr6.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/oscar/AppData/Local/Programs/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/oscar/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl9.pfb><C:/Users/oscar/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/oscar/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/
+oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C
+:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy
+9.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/symbols/msbm10.pfb>
+Output written on main.pdf (26 pages, 1105967 bytes).
 PDF statistics:
- 168 PDF objects out of 1000 (max. 8388607)
+ 194 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
