@@ -4,7 +4,7 @@ Material de referencia para ICPC
 Probado en Codeforces -> ITMO -> SuffixArray -> step4 -> A
 */
 
-const char EOS = '$';
+const char EOS = '#';
 // end-of-string -> se supone que es un caracter 
 //           estrictamente menor a todos los demas del string
 

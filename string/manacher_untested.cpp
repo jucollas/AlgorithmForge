@@ -5,13 +5,13 @@ No ha sido testeado
 
 Calcula p[i]=x donde [i-x,i+x] es un palindromo
 Notar que no lo calculamos sobre la cadena, sino sobre
-	c'='&'+a[0]+'$'+...+a[i]+...+'$'+a[n]+'&'
-Si c'[i]='$' me refiero a un palindromo par (de lo contrario un impar)
+	c'='&'+a[0]+'#'+...+a[i]+...+'#'+a[n]+'&'
+Si c'[i]='#' me refiero a un palindromo par (de lo contrario un impar)
 */
 
 vector<int> manacher( const string &cad ){
-	string c2="&$";
-	for(char c:cad){c2.push_back(c);c2.push_back('$');}
+	string c2="&#";
+	for(char c:cad){c2.push_back(c);c2.push_back('#');}
 	c2.push_back('%');
 	int n=c2.size();
 	vector<int> res(n-1,-1);

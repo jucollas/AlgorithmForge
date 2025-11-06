@@ -90,7 +90,7 @@ int push_dfs( int node, int flow=1e9 ) {
 
 int maxFlow( ) {
 /* Hace el maximo flujo del grafo (retorna el maxFlow, las asignaciones quedan en las aristas)
-	Funciona en peor caso O(v^2*E) */
+	Funciona en peor caso $O(v^2*E)$ */
 	int flow = 0;
 	while ( level_bfs( ) ) {
 		memset( blocked, 0, sizeof(bool)*int(graph.size()) ); // reinicializo esto

@@ -108,9 +108,10 @@ void p_scale(fps &F,int vl){
 	rep(i,0,sz(F))F[i]=(F[i]*1ll*vl)%mod;
 }
 void p_add(fps &A, const fps &B, int sgn=1 ){
-	// A + B*sgn ; I assume sgn\in\{-1,1\}
+	// A + B*sgn ; I assume $sgn\in\{-1,1\}$
 	A.resize(max(sz(A),sz(B)));
 	rep(i,0,min(sz(A),sz(B)))A[i]=(A[i]+B[i]*sgn)%mod;
+	rep(i,0,min(sz(A),sz(B)))if(A[i]<0)A[i]+=mod;
 }
 fps p_deriv(const fps &F){
 	fps G(max(1,sz(F)-1));// G=D(F)
@@ -138,7 +139,7 @@ fps p_inv(const fps &F,int n){
 	return G;
 }
 fps p_log(const fps &F,int n){
-	//first n terms of G=ln(F)=inte(D(F)/F)
+	//first n terms of $G=ln(F)=\int(D(F)/F)$
 	assert(F[0]==1);
 	fps G=p_inv(F,n),dF=p_deriv(F);
 	p_mult(G,dF); p_trunc(G,n-1);
@@ -163,7 +164,7 @@ fps p_exp(const fps &F,int n){
 	return G;
 }
 fps p_pow(const fps &F,lint e,int n){
-	// first n terms of G=F^e O(nlgn)
+	// first n terms of $G=F^e$ O(nlgn)
 	if(!e)return {1};
 	int xi=0;while(xi<sz(F)&&F[xi]==0)++xi;
 	if( xi>=sz(F) || xi > n/e )return {0};
@@ -182,7 +183,7 @@ fps p_pow(const fps &F,lint e,int n){
 	return G;
 }
 fps p_binpow( fps F, lint e, int n){
-	// first n terms of G=F^e O(nlgnlge)
+	// first n terms of $G=F^e$ O(nlgnlge)
 	fps G={1};while(e){
 		if(e&1ll)p_mult(G,F);
 		e>>=1;p_square(F);
@@ -225,7 +226,7 @@ int Tonelli_Shanks(int a, int mod) {
 
 
 fps p_sqrt( const fps &F,int n){
-	// first n terms of G^2=F O(nlgn)
+	// first n terms of $G^2=F$ O(nlgn)
 	const int i2 = mpow(2,mod-2,mod);
 	
 	int xi=0;while(xi<sz(F)&&F[xi]==0)++xi;

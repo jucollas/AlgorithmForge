@@ -12,7 +12,7 @@
 \usepackage{float} % for figures forced placement after text
 \usepackage{fancyhdr}
 \usepackage[compact]{titlesec}
-\usepackage[headheight=0.0cm,left=0.6cm, right=0.6cm, top=1.2cm, bottom=0.6cm, letterpaper]{geometry}
+\usepackage[left=0.6cm, right=0.6cm, top=1.2cm, bottom=0.6cm, letterpaper]{geometry}
 
 
 \pagestyle{headings}
@@ -29,17 +29,19 @@
 	basicstyle=\footnotesize,        % size of fonts used for the code
 	captionpos=b,                    % sets the caption-position to bottom
 	commentstyle=\color{mygreen},    % comment style
-	escapeinside={\$*}{*)},          % if you want to add LaTeX within your code
+	%escapeinside={\\*}{\\*},          % if you want to add LaTeX within your code
 	keywordstyle=\color{myorange},       % keyword style
 	stringstyle=\color{mymauve},     % string literal style
 	language=c++,% my stuff
 	breaklines=true,
+	mathescape=true,
+	escapebegin=\color{mygreen},
 }
 
 
 
 
-\titlespacing*{\section}
+	\titlespacing*{\section}
 {0pt}{0px plus 1px minus 0px}{-2px plus 0px minus 0px}
 \titlespacing*{\subsection}
 {0pt}{0px plus 1px minus 0px}{0px plus 3px minus 3px}
@@ -47,9 +49,8 @@
 \setlength{\columnseprule}{0.4pt}
 \pagenumbering{arabic}
 
-\title{Cuadernillo}
-\author{Sparkies}
-\date{Octubre 2025}
+\title{Cuadernillo Sparkies}
+\date{Noviembre 2025}
 
 \begin{document}
 \maketitle
@@ -106,6 +107,9 @@
 	
 	%\subsection{virtual Tree}
 	%\lstinputlisting[language=c++]{../tree/virtualTree_untested.cpp}
+	
+	\subsection{Random stuff}
+	Remember that for all $A\subseteq V$ we have that $H=\{lca(u,v)|u,v\in A\}$ is computable by ordering via dfs in times and doing $\{lca(A_i,A_{i+1})\}_{i=0}^{|A|-1}$
 
 \section{Graph}
 	\subsection{random shit}
@@ -219,7 +223,7 @@
 	\subsection{Xor Basis}
 	\lstinputlisting[language=c++]{../algebra/xorBasis.cpp}
 	\subsection{prime stuff}
-	The code has pollard rho that works in expected $O(\sqrt{4}{n})$ and miller-rabin that we can (?) assume it won't fail as a prime tester.
+	The code has pollard rho that works in expected $O(\sqrt[4]{n})$ and miller-rabin that we can (?) assume it won't fail as a prime tester.
 	\lstinputlisting[language=c++]{../algebra/primality_stuff.cpp}
 	
 \section{Combinatorics}
@@ -243,7 +247,7 @@
 	where $n=\sum n_i\cdot p^i$ and $k=\sum k_i\cdot p^i$
 	
 	Vandermonde's identity:
-	\[\sum_{k=0}{n}\binom{m}{k}\binom{n}{r-k}=\binom{m+n}{r}\]
+	\[\sum_{k=0}^{n}\binom{m}{k}\binom{n}{r-k}=\binom{m+n}{r}\]
 	
 	\subsubsection{Stirling God}
 	Stirling number of second kind ${n\brace k}$ counts the amount of ways to partition n unlabelled objects in k non-empty subsets. 

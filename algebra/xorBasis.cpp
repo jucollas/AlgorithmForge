@@ -1,7 +1,7 @@
 /*
 Autor: Oscar Vargas Pabon
 
-Remember that the amount of ways of generating x, its 2**(|S|-|bs|) if x is generable
+Remember that the amount of ways of generating x, its $2^{|S|-|bs|}$ if x is generable
 */
 
 // ultra slim impl

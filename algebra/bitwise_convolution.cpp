@@ -22,27 +22,27 @@ public:
 	}
 
 	void trans_subset(vector<T> &vec,int sd){
-		// I assume sd\in\{-1,1\}
+		// I assume $sd\in\{-1,1\}$
 		for(int e=1;e<int(vec.size());e*=2)rep(i,0,vec.size()){
 			if(i&e)vec[i]+=vec[i^e]*sd;
 		}
 	}
 	void or_conv(vector<T> &A,vector<T> &B){
-		// the answer is shown in A; I assume |A|=|B|=2^x for some x
+		// the answer is shown in A; I assume $|A|=|B|=2^x$ for some x
 		trans_subset(A,1);trans_subset(B,1);
 		rep(i,0,A.size())A[i]*=B[i];
 		trans_subset(A,-1);
 	}
 	
 	void trans_superset(vector<T> &vec,int sd){
-		// I assume sd\in\{-1,1\}
+		// I assume $sd\in\{-1,1\}$
 		for(int e=1;e<int(vec.size());e*=2)rep(i,0,vec.size()){
 			if(i&e)vec[i^e]+=vec[i]*sd;
 		}
 	}
 	
 	void and_conv(vector<T> &A,vector<T> &B){
-		// the answer is shown in A; I assume |A|=|B|=2^x for some x
+		// the answer is shown in A; I assume $|A|=|B|=2^x$ for some x
 		trans_superset(A,1);trans_superset(B,1);
 		rep(i,0,A.size())A[i]*=B[i];
 		trans_superset(A,-1);

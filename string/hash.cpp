@@ -78,7 +78,6 @@ public:
   }
   void ldeconc ( const Hash &l ) {
     // quito el prefijo l de *this
-	// cout << l.len << " _ " << endl;
     for ( int i = 0 ; i < N_HASH ; ++i ) {
       h[i] -=(l.h[i]*ebase[len-l.len][i] )%modul[i];
 	  h[i] = ( h[i] + modul[i] ) %modul[i];

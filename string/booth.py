@@ -1,6 +1,7 @@
 ### returns the shift giving
 ### lexicographically minimal string
-### among trans. phi(c_1S) |-> Sc_1
+### among transitions. $S=S_1+S_2$
+### $\phi : S\to S_2+S_1$
 def booth(s: str) -> int:
     s = s + s
     n = len(s) // 2

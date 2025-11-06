@@ -9,10 +9,10 @@ Recordar que existe la idea de balanceo (usar sqrt-decomp o otra de modo que
 Asumo que T(REM) y T(ADD) son los tiempos de remover y anadir un indice
 	del global que maneja MO.
 
-Idea 1: usar bloque de tamano \sqrt(n). Genera tiempo O((n+q)\sqrt(n))
-Idea 2: usar bloque de tamano \frac{n}{\sqrt(q)}. Genera tiempo O(n\sqrt(q))
+Idea 1: usar bloque de tamano $\sqrt(n)$. Genera tiempo $O((n+q)\sqrt(n))$
+Idea 2: usar bloque de tamano $\frac{n}{\sqrt(q)}$. Genera tiempo $O(n\sqrt(q))$
 	source: https://codeforces.com/blog/entry/61203?#comment-451304
-Idea 3: Usar orden de hilbert. Genera tiempo O(n\sqrt(q))
+Idea 3: Usar orden de hilbert. Genera tiempo $O(n\sqrt(q))$
 	source: https://codeforces.com/blog/entry/61203
 	impl:https://codeforces.com/blog/entry/61203?#comment-1064868
 
@@ -47,16 +47,16 @@ const int method=0;
 vector<int> mo_algo( int n, vector<Query> &query ) {
 	int q = query.size();
 	
-	// idea 1 -> O(n\sqrt(q))
+	// idea 1 -> $O(n\sqrt{q})$
 	if(method==0)for(Query &q:query)q.ord=hilbertorder(q.l,q.r);
 	else{
 	  int block_size;
 	  if(method==1){
-	    // idea 2 -> O(n\sqrt(q))
+		// idea 2 -> $O(n\sqrt{q})$
 	    int sqrt=1; while(sqrt*sqrt<q)++sqrt;
 	    block_size=n/sqrt;
 	  } else {
-	    // idea 3 -> O((n+q)\sqrt(n))
+	    // idea 3 ->$ O((n+q)\sqrt{n})$
 	    block_size=1;
 	    while ( block_size*block_size < n ) ++block_size;
 	  }

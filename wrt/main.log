@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.1.14)  5 NOV 2025 22:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.1.14)  6 NOV 2025 18:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -340,20 +340,20 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 ) (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
 
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
@@ -398,8 +398,8 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \textheight=563.07996pt
 * \oddsidemargin=-55.19817pt
 * \evensidemargin=-55.19817pt
-* \topmargin=-63.12677pt
-* \headheight=0.0pt
+* \topmargin=-75.12677pt
+* \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=9.0pt
 * \footskip=30.0pt
@@ -416,17 +416,20 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 55.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 56.
 
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 55.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 56.
 
 
 (C:\Users\oscar\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+
+LaTeX Warning: No \author given.
+
 (main.toc
 
 )
@@ -463,20 +466,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-
-Overfull \vbox (6.14998pt too high) has occurred while \output is active []
-
-
 [2]) (../dataStructure/segmentUpwards.cpp)
 (../dataStructure/persistentSegment.cpp
 
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-
-
-Overfull \vbox (6.14998pt too high) has occurred while \output is active []
 
 
 [3] (../dataStructure/fenwick.cpp) (../dataStructure/treap.cpp
@@ -486,94 +481,63 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [4])
-(../dataStructure/moAlgo.cpp
+[4]) (../dataStructure/moAlgo.cpp
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [5])
-(../tree/centroid.cpp
+[5]) (../tree/centroid.cpp
 
 ) (../tree/hld.cpp
 
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [6])
-(../tree/lca.cpp
+[6]) (../tree/lca.cpp
 
 ) (../tree/binLift_lca.cpp
 
-
-Overfull \vbox (6.75pt too high) has occurred while \output is active []
-
- [7])
-<../images/bitsetWaifu_catVersion.png, id=39, 1027.84pt x 1027.84pt>
+[7])
+<../images/bitsetWaifu_catVersion.png, id=42, 1027.84pt x 1027.84pt>
 File: ../images/bitsetWaifu_catVersion.png Graphic file (type png)
 <use ../images/bitsetWaifu_catVersion.png>
 Package pdftex.def Info: ../images/bitsetWaifu_catVersion.png  used on input li
-ne 127.
+ne 131.
 (pdftex.def)             Requested size: 112.62509pt x 112.62361pt.
+
+Underfull \vbox (badness 3138) has occurred while \output is active []
+
 
 
 (../graph/dinitz.cpp
-
-
-Overfull \vbox (6.14998pt too high) has occurred while \output is active []
-
 
 [8 <../images/bitsetWaifu_catVersion.png (PNG copy)>])
 (../graph/blossom_notMine.cpp
 
 ) (../graph/hungarian_notMine.cpp
 
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [9])
-(../graph/euler_circuit.cpp
-
-) (../graph/sat_2.cpp
+[9]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
 
- [10])
-(../graph/kosaraju_scc.cpp) (../graph/clique.cpp
+) (../graph/euler_circuit.cpp) (../graph/sat_2.cpp
 
-) (../string/zFunction.cpp) (../string/prefixFunction.cpp
+[10]) (../graph/kosaraju_scc.cpp
 
+) (../graph/clique.cpp) (../string/zFunction.cpp
 
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [11])
-(../string/suffixArray.cpp
+[11]) (../string/prefixFunction.cpp) (../string/suffixArray.cpp
 
 ) (../string/ahoCorasick.cpp
 
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [12]
+[12]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 ) (../string/manacher_untested.cpp) (../string/hash.cpp
 
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [13]
+[13]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -582,18 +546,11 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 ) (../string/booth.py) (../algebra/fft_notMine.cpp
 
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [14])
-(../algebra/ntt_notMine.cpp
+[14]) (../algebra/ntt_notMine.cpp
 
 ) (../algebra/formalPowerSeries.cpp
 
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [15]
+[15]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -603,37 +560,22 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [16])
-(../algebra/fwt_xorConv.cpp
-
-) (../algebra/bitwise_convolution.cpp
-
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [17])
-(../algebra/divisibility_convolution.cpp
-
-) (../algebra/gcd_notMine.cpp) (../algebra/xorBasis.cpp
-
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [18]
+[16]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
+) (../algebra/fwt_xorConv.cpp) (../algebra/bitwise_convolution.cpp
+
+[17]) (../algebra/divisibility_convolution.cpp
+
+) (../algebra/gcd_notMine.cpp)
+
+[18] (../algebra/xorBasis.cpp
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-
-
-Overfull \vbox (6.14998pt too high) has occurred while \output is active []
 
 
 [19]) (../algebra/primality_stuff.cpp
@@ -643,73 +585,52 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [20])
+[20])
 
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 249.
+(amsmath)                 on input line 253.
 
-
-
-
-Overfull \vbox (6.14998pt too high) has occurred while \output is active []
 
 
 [21]
 
-(../geometry/geotemplate.cpp
 
 
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [22])
-(../geometry/convex_hull.cpp
-
-) (../linalg/simplex_notMine.cpp
-
-
-Overfull \vbox (6.75pt too high) has occurred while \output is active []
-
- [23])
-(../linalg/mat_primitives.cpp
-
-) (../linalg/slae_notMine.cpp
-
-
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
-
- [24])
-(../tipsNtricks.cpp
-
-) (../my_template.cpp
-
-
-Overfull \vbox (6.14998pt too high) has occurred while \output is active []
-
-
-[25]) (../io_competitiva.py
+[22] (../geometry/geotemplate.cpp) (../geometry/convex_hull.cpp
 
 )
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \vbox (6.25pt too high) has occurred while \output is active []
 
- [26]
-(main.aux)
+[23] (../linalg/simplex_notMine.cpp
+
+) (../linalg/mat_primitives.cpp) (../linalg/slae_notMine.cpp
+
+[24]) (../tipsNtricks.cpp
+
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[25] (../my_template.cpp)
+
+(../io_competitiva.py)
+
+[26] (main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 9462 strings out of 473536
- 147409 string characters out of 5714956
- 1633660 words of memory out of 5000000
- 32428 multiletter control sequences out of 15000+600000
+ 9455 strings out of 473536
+ 147335 string characters out of 5714956
+ 1579409 words of memory out of 5000000
+ 32421 multiletter control sequences out of 15000+600000
  565851 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,13n,65p,439b,1865s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -717,29 +638,31 @@ Here is how much of TeX's memory you used:
 0700.pk><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/publ
 ic/amsfonts/cm/cmbx9.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/amsfonts/cmextra/cmex9.pfb><C:/Users/oscar/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/oscar/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/oscar/AppData/
-Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/oscar/
-AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/User
-s/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb>
-<C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
-r10.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmr12.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/amsfonts/cm/cmr5.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmr6.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/oscar/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/oscar/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl9.pfb><C:/Users/oscar/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/oscar/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/
-oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C
-:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy
-9.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/symbols/msbm10.pfb>
-Output written on main.pdf (26 pages, 1105967 bytes).
+pe1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/oscar/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><C:/Users/oscar/AppData/Loca
+l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/oscar/App
+Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/o
+scar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:
+/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7
+.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmmi9.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmr10.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmr12.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/oscar/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/oscar/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/oscar/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/oscar/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl9.pfb><C:/Users/osca
+r/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/U
+sers/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.p
+fb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmsy6.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmsy7.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmsy9.pfb><C:/Users/oscar/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (26 pages, 1137572 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
+ 203 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

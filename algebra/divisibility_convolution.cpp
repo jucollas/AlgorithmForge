@@ -28,33 +28,33 @@ public:
 	}
 
 	void zeta_mult(vector<T> &vc){
-		// vc'_x=\sum_{x|y}vc_y
+		// $vc'_x=\sum_{x|y}vc_y$
 		for(int p:prm)for(int i=(vc.size()-1)/p;i;--i){
 			vc[i]+=vc[i*p];// vc[i]%=mod;
 		}
 	}
 	void mobi_mult(vector<T> &vc){
-		// vc_x=\sum_{x|y}vc'_y
+		// $vc_x=\sum_{x|y}vc'_y$
 		for(int p:prm)for(int i=1;i*p<int(vc.size());++i){
 			vc[i]-=vc[i*p];// vc[i]%=mod;
 		}
 	}
 	void gcd_conv(vector<T> &A,vector<T> &B){
 		// I assume |A|=|B|
-		// A'_x=\sum_{x=gcd(u,v)}A_uB_v
+		// $A'_x=\sum_{x=gcd(u,v)}A_uB_v$
 		zeta_mult(A);zeta_mult(B);
 		rep(i,0,A.size())A[i]*=B[i];
 		mobi_mult(A);
 	}
 	
 	void zeta_div(vector<T> &vc){
-		// vc_x=\sum_{y|x}vc'_y
+		// $vc_x=\sum_{y|x}vc'_y$
 		for(int p:prm)for(int i=1;i*p<int(vc.size());++i){
 			vc[i*p]+=vc[i];// vc[i*p]%=mod;
 		}
 	}
 	void mobi_div(vector<T> &vc){
-		// vc'_x=\sum_{y|x}vc_y
+		// $vc'_x=\sum_{y|x}vc_y$
 		for(int p:prm)for(int i=(vc.size()-1)/p;i;--i){
 			vc[i*p]-=vc[i];// vc[i*p] %=mod;
 		}
@@ -62,7 +62,7 @@ public:
 	
 	void lcm_conv(vector<T> &A,vector<T> &B){
 		// I assume |A|=|B|
-		// A'_x=\sum_{x=lcm(u,v)}A_uB_v
+		// $A'_x=\sum_{x=lcm(u,v)}A_uB_v$
 		zeta_div(A);zeta_div(B);
 		rep(i,0,A.size())A[i]*=B[i];
 		mobi_div(A);

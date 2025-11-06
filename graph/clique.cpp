@@ -28,7 +28,7 @@ int max_clique(const vector<lint> &g){
 }
 
 // For a diamond free graph, each edge belongs to,
-// at most, 1 maximal clique. O(n^2)
+// at most, 1 maximal clique. $O(n^2)$
 vector<vector<int>> chordal_clique(const vector<vector<bool>> &g){
 	// I assume adj-matrix representation of g
 	int n=g.size();vector<vector<int>> res;

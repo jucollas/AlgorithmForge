@@ -76,7 +76,7 @@ int findAugmentingPath(  ) {
 
 int maxFlow(  ) {
 /* Calculo el maximo flujo del grafo (retorna el maxFlow, en las aristas queda el flujo) 
-	Funciona en peor caso O(V*(E^2)) */
+	Funciona en peor caso $O(V*(E^2))$ */
 	int flow = 0, pFlow=0;
 	do {
 		flow += pFlow;
