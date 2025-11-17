@@ -43,7 +43,7 @@ void update( int x, int val ) {
 // asumo el anterior de mi template
 int binlift( int val ) {
 	/* Retorna el menor indice 'x' tal que query( x ) >= val en tiempo O(lg n) */
-	int x = 0, nxt, sm = 0;
+	int x = 0, nxt;
 	for ( int exp = ilog2(bit_size) ; exp >= 0 ; --exp ) {
 		nxt = x|(1<<exp);
 		if ( nxt < bit_size && bit[nxt] < val ) {

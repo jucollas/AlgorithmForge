@@ -1,3 +1,29 @@
+#include <bits/stdc++.h>
+
+typedef long long lint;
+
+using namespace std;
+
+#define debug(args...) { string _s = #args; replace(_s.begin(), _s.end(), ',', ' '); stringstream _ss(_s); istream_iterator<string> _it(_ss); raw_debug(_it, args);}
+void raw_debug(istream_iterator<string> it) {cerr<<endl;}
+template<typename T, typename... Args>
+void raw_debug(istream_iterator<string> it, T a, Args... args) { cerr <<"<"<< *it << "->" << a << "> "; raw_debug(++it, args...); }
+#define idebug(v) {cout<<'['<<#v<<']';for(const auto &el:v)cout << ' ' << el; cout << endl;}
+#define adebug(ar,n) {cout<<'['<<#ar<<']';for(int i=0;i<n;++i)cout << ' ' << ar[i]; cout << endl;}
+
+#define rep(i,strt,end) for(int i = strt ; i !=int(end) ; (int(strt)<int(end))?++i:--i )
+// #define rall(vec) vec.rbegin(), vec.rend()
+// #define all(vec) vec.begin(), vec.end()
+#define sz(vec) int(vec.size())
+// #define pb push_back
+#define pob pop_back
+// #define pf push_front
+// #define pof pop_front
+
+mt19937_64 rng_64( chrono::steady_clock::now().time_since_epoch().count() );
+constexpr int ilog2( int num ) { return 8*sizeof(int) - __builtin_clz( num ) - 1; }
+constexpr int mpow(int x,int e,int m){int res=1;while(e){if(e&1)res=(res*1ll*x)%m;e>>=1;x=(x*1ll*x)%m;}return res;}
+
 /*
 Author: Oscar Vargas Pabon
 
@@ -20,15 +46,46 @@ Tested in
 
 The first version of this impl is in atcoder fps_24 A
 
-I assume mint from algebra/mint.cpp
-
 I assume from my template:
 everything     :: #define rep(i,strt,end) for(int i = strt ; i !=int(end) ; (int(strt)<int(end))?++i:--i )
 everything     :: #define sz(vec) int(vec.size())
+p_trunc        :: #define pob pop_back
 p_mult,p_square:: int ilog2( int num ) { return 8*sizeof(int) - __builtin_clz( num ) - 1; }
 modInverse     :: int mpow(int x,int e,int m){int res=1;while(e){if(e&1)res=(res*1ll*x)%m;e>>=1;x=(x*1ll*x)%m;}return res;}	
 TonelliShanks  :: mt19937_64 rng_64( chrono::steady_clock::now().time_since_epoch().count() );
 */
+struct mint{
+	const static int mod= 998244353; static_assert(mod>0);
+	
+	int vl;
+	constexpr mint()noexcept:vl(0){};
+	constexpr mint( int v)noexcept:vl(v>=0?v%mod:(v%mod)+mod){};
+	constexpr mint(lint v)noexcept:vl(v>=0?v%mod:(v%mod)+mod){};
+	constexpr mint(unsigned long long v)noexcept:vl(v%mod){};
+	
+	mint &operator +=(const mint &ot){ vl+=ot.vl; if(vl>=mod)vl-=mod; return *this; }
+	mint  operator + (const mint &ot)const{ return mint(*this)+=ot; }
+	mint &operator -=(const mint &ot){ vl-=ot.vl; if(vl<0)vl+=mod; return *this; }
+	mint  operator - (const mint &ot)const{ return mint(*this)-=ot; }
+	mint &operator *=(const mint &ot){ vl=(vl*1ll*ot.vl)%mod; return *this; }
+	mint  operator * (const mint &ot)const{ return mint(*this)*=ot; }
+	mint &operator /=(const mint &ot){ (*this)*=ot.inverse(); return *this; }
+	mint  operator / (const mint &ot)const{ return mint(*this)/=ot; }
+	
+	mint inverse()const{return mint(mpow(vl,mod-2,mod));}//Fermats little theorem
+	mint operator -()const {return mint(-vl);}
+	mint pow(lint e)const{return mint(mpow(vl,e%(mod-1),mod));}
+	
+	bool operator ==(const mint &ot)const{return vl==ot.vl;} 
+	bool operator ==(const  int &ot)const{return vl==ot;   }
+	bool operator !=(const mint &ot)const{return vl!=ot.vl;}
+	
+	operator bool() const { return vl; }
+	operator  int() const { return vl; }
+	
+	friend ostream &operator<<(ostream &os,const mint &ac){return os << ac.vl;}
+	friend istream &operator>>(istream&is,mint &ac){int v;cin>>v;ac=mint(v);return is;}	
+}; const int mod=mint::mod;
 
 typedef mint tfps; typedef vector<tfps> fps; // fps renaming types
 
@@ -39,7 +96,7 @@ int countr_zero(unsigned int n) { return __builtin_ctz(n); }
 constexpr int countr_zero_constexpr(unsigned int n) { int x = 0; while (!(n & (1 << x))) x++; return x; }
 
 struct fft_info {
-	static const int g =3; // primitive root 
+	static const int g =3;//mpow(3,119,mod); // primitive root 
 	
     static constexpr int rank2 = countr_zero_constexpr(mint::mod - 1);
     std::array<mint, rank2 + 1> root;   // root[i]^(2^i) == 1
@@ -208,24 +265,36 @@ void fft(fps&a,bool invert){
 
 void p_trunc(fps &F, int n,bool elim_0=1){
 	F.resize(max(1,min(sz(F),n)));
-	if(elim_0)while(sz(F)>1&&F.back()==0)F.pop_back();
+	if(elim_0)while(sz(F)>1&&F.back()==0)F.pob();
 }
 fps p_mult_naive(const fps&A,const fps &B){
-	fps C(sz(A)+sz(B),0);
+	fps C(sz(A)+sz(B),0); //C[i+j]=(C[i+j]+A[i]*1ll*B[j])%mod;
 	if(sz(A)>=sz(B)) rep(i,0,sz(A))rep(j,0,sz(B)) C[i+j]+=A[i]*B[j];
 	else             rep(i,0,sz(B))rep(j,0,sz(A)) C[i+j]+=B[i]*A[j];
 	return C;
 }
+/*fps p_mult_sparse(const fps&A,const fps &B){
+	fps C(sz(A)+sz(B),0);//deprecate this shit, its useless
+	vector<int> tmp;rep(i,0,sz(A))if(A[i])tmp.push_back(i);
+	rep(i,0,sz(B))if(B[i]){
+		// for(int j:tmp)C[i+j]=(C[i+j]+ B[i]*1ll*A[j])%mod;
+		for(int j:tmp)C[i+j]+=B[i]*A[j];
+	}
+	return C;
+}*/
 void p_mult_fft(fps &A, fps B){
 	// A'=A*B in O(nlgn)
 	int nm=A.size()+B.size();
 	int lgi=ilog2(nm-1)+1;A.resize(1<<lgi,0);B.resize(1<<lgi,0);
 	fft(A,0);fft(B,0);
+	// rep(i,0,sz(A))A[i]=(A[i]*1ll*B[i])%mod;
 	rep(i,0,sz(A))A[i]*=B[i];
 	fft(A,1);
 	p_trunc(A,nm);
 }
 void p_mult(fps &A, const fps &B){
+	/*auto cnt_zeros=[](const fps &F){int cnt=0;for(tfps ac:F){cnt+=ac==0;if(cnt>=Limit)return false;}return true;};
+	else if(cnt_zeros(A)||cnt_zeros(B)) A=p_mult_sparse(A,B);*/
 	static const int Limit=50;
 	if(min(sz(A),sz(B))<=Limit)A=p_mult_naive(A,B);
 	else p_mult_fft(A,B);
@@ -235,6 +304,7 @@ void p_square_fft(fps &A){
 	int nm=A.size()*2;
 	int lgi=ilog2(nm-1)+1;A.resize(1<<lgi);
 	fft(A,0);
+	// for(int &ac:A)ac=(ac*1ll*ac)%mod;
 	for(tfps &ac:A)ac*=ac;
 	fft(A,1);
 	p_trunc(A,nm);
@@ -252,22 +322,27 @@ void p_add(fps &F, tfps vl, int xi=0){
 }
 void p_scale(fps &F,tfps vl){
 	// F*vl
+	// rep(i,0,sz(F))F[i]=(F[i]*1ll*vl)%mod;
 	for(tfps &ac:F)ac*=vl;
 }
 void p_add(fps &A, const fps &B, int sgn=1 ){
 	// A + B*sgn ; I assume sgn\in\{-1,1\}
 	A.resize(max(sz(A),sz(B)));
+	// rep(i,0,min(sz(A),sz(B)))A[i]=(A[i]+B[i]*sgn)%mod;
+	// rep(i,0,min(sz(A),sz(B)))if(A[i]<0)A[i]+=mod;
 	if(sgn==1)      rep(i,0,min(sz(A),sz(B)))A[i]+=B[i];
 	else if(sgn==-1)rep(i,0,min(sz(A),sz(B)))A[i]-=B[i];
 	else assert(0);
 }
 fps p_deriv(const fps &F){
 	fps G(max(1,sz(F)-1));// G=D(F)
+	// rep(i,1,sz(F))G[i-1]=(F[i]*1ll*i)%mod;
 	rep(i,1,sz(F))G[i-1]=F[i]*tfps(i);
 	return G;
 }
 fps p_inte(const fps &F){
 	fps G(sz(F)+1);//D(G)=F
+	// rep(i,0,sz(F))G[i+1]=(F[i]*1ll*mpow(i+1,mod-2,mod))%mod;
 	rep(i,0,sz(F))G[i+1]=F[i]/tfps(i+1);
 	return G;
 }
@@ -284,6 +359,7 @@ fps p_inv(const fps &F,int n){
 	for(int e=2;e<2*n;e<<=1){
 		fps ac=G;// gives a ~/2 speedup
 		p_mult(ac,{F.begin(),F.begin()+min(sz(F),e)});
+		// rep(i,0,sz(ac))ac[i]=(mod-ac[i])%mod;
 		for(tfps &act:ac)act=-act;
 		
 		
@@ -307,8 +383,11 @@ fps p_exp(const fps &F,int n){
 	for(int e=2;e<n*2;e<<=1){
 		ac=p_log(G,e); ac.resize(max(sz(ac),min(e,sz(F))),0);
 		rep(i,0,sz(ac))ac[i]=(i<sz(F)?F[i]:mint(0))- ac[i];
+		// rep(i,0,sz(ac))ac[i]=(
+			// (i<sz(F)?F[i]:0)- ac[i])%mod;
 		// for some reason working with negatives
 		// destroys something (NTT???)
+		// rep(i,0,sz(ac))if(ac[i]<0)ac[i]+=mod;
 		p_add(ac,1);
 		
 		p_mult(G,ac); p_trunc(G,e,0);
@@ -332,6 +411,7 @@ fps p_lgipow(const fps &F,lint e,int n){
 	H=p_exp(H,n-rx);
 	
 	fps G(n,0); H.resize(n-rx);
+	// rep(i,rx,n)G[i]=(H[i-rx]*1ll*alp)%mod;
 	rep(i,rx,n)G[i]=H[i-rx]*alp;
 	return G;
 }
@@ -372,6 +452,7 @@ int Tonelli_Shanks(mint a) {
 
 	int shift = 2;
 	while ( x*x != a) {
+		// int error = (((mpow(a, mod - 2, mod) *1ll* x) % mod) *1ll* x) % mod;
 		mint error= mint(mpow(a,mod-2,mod))*x*x;
 		if (mpow(error, 1 << (Q - shift), mod) != 1) x *= b;
 		b *=b;
@@ -406,4 +487,34 @@ fps p_sqrt( const fps &F,int n){
 	rep(i,0,xi/2)G[i]=0;
 	rep(i,xi/2,sz(G))G[i]=H[i-xi/2];
 	return G;
+}
+
+int main(){
+	ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+	cout << setprecision(12) << fixed;
+	int n;cin>>n;
+	
+	// lint pm=0;cin>>pm;
+	
+	fps A(n);rep(i,0,n)cin>>A[i];
+	p_trunc(A,n);
+	
+	// int i1=mpow(2,pm%mod,mod),i2=mpow(2,pm%(mod-1ll),mod);
+	// debug(i1,i2);
+	
+	// fps B=p_inv(A,n);
+	// fps B=p_log(A,n);
+	// fps B=p_exp(A,m,n);
+	//fps B=p_pow(A,pm,n);
+	// fps C=p_binpow(A,pm,n); idebug(C);
+	// fps D=p_binpow(A,pm%(mod-1),n); idebug(D);
+	// fps E=p_binpow(A,mod+1,n);idebug(E);
+	
+	fps B = p_sqrt(A,n);if(B.empty()){cout << "-1\n";return 0;}
+	// fps C=B;p_square(C);p_trunc(C,n);idebug(C);
+	rep(i,0,n)cout << (i<sz(B)?B[i].vl:0) << ' ';
+	cout << '\n';
+	
+	return 0;
 }
