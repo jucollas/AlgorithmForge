@@ -1,12 +1,22 @@
 /*
-Autor: Oscar Vargas Pabon
+Author: Oscar Vargas Pabon
 
-Las multiplicaciones son menos costosas, pero transformar y detransformar del
-	espacio montgomery cuesta relativamente bastante.
+It is though to work modulo primes, so inv (.inv,/,/=) and pow may not
+	work properly otherwise.
+
+I assume from my template :
+inv :: int mpow(int x,int e,int m){int res=1;while(e){if(e&1)res=(res*1ll*x)%m;e>>=1;x=(x*1ll*x)%m;}return res;}	
+
+Tested in testing/test_alghelp.cpp and in fft/ntt stuff
+
+Multiplications cost less (as we dont take costly modulus), but
+	transforming to montgomery space now implies taking a modulus and
+	detransforming from montgomery space implies the same work as a 
+	multiplication
 	
-	Tener cuidado si tengo que comparar con muchos enteros o cosas por el estilo
+Tener cuidado si tengo que comparar con muchos enteros o cosas por el estilo
 
-Adaptado de https://en.algorithmica.org/hpc/number-theory/montgomery/
+Adapted from https://en.algorithmica.org/hpc/number-theory/montgomery/
 */
 
 typedef unsigned int uint; typedef unsigned long long ulint;
@@ -57,9 +67,9 @@ struct montgomery_int{
 	montgomery_int inv()const{return this->pow(m-2);}//Fermats little theorem
 	
 	bool operator ==(const montgomery_int &ot)const{return vl==ot.vl;} 
-	bool operator ==(const  uint &ot)const{return (*this)==montgomery_int(ot);}
-	bool operator ==(const  int &ot )const{return (*this)==montgomery_int(ot);}
 	bool operator !=(const montgomery_int &ot)const{return vl!=ot.vl;}
+	bool operator ==(const  uint &ot)const{return reduce(vl)==ot;}
+	bool operator ==(const  int &ot )const{return reduce(vl)==ot;}
 	
 	operator bool() const { return itransform(vl); }
 	operator  int() const { return itransform(vl); }
