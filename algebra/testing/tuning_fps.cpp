@@ -1,11 +1,91 @@
 /*
+ ________
+|    ___ |
+|  ,',.(`|
+| :  `'  |
+| :) _  (|
+|  `:_)_,|
+|________|
+
+Autor: Oscar Vargas Pabon
+Fecha: 
+
+*/
+
+#include <bits/stdc++.h>
+
+typedef long long lint;
+
+using namespace std;
+
+#define debug(args...) { string _s = #args; replace(_s.begin(), _s.end(), ',', ' '); stringstream _ss(_s); istream_iterator<string> _it(_ss); raw_debug(_it, args);}
+void raw_debug(istream_iterator<string> it) {cerr<<endl;assert(it==it);}
+template<typename T, typename... Args>
+void raw_debug(istream_iterator<string> it, T a, Args... args) { cerr <<"<"<< *it << "->" << a << "> "; raw_debug(++it, args...); }
+#define idebug(v) {cerr<<'['<<#v<<']';for(const auto &el:v)cerr << ' ' << el; cerr << endl;}
+#define adebug(ar,n) {cerr<<'['<<#ar<<']';for(int i=0;i<n;++i)cerr << ' ' << ar[i]; cerr << endl;}
+
+#define rep(i,strt,end) for(int i = strt ; i !=int(end) ; (int(strt)<int(end))?++i:--i )
+#define rall(vec) vec.rbegin(), vec.rend()
+#define all(vec) vec.begin(), vec.end()
+#define sz(vec) int(vec.size())
+#define pb push_back
+#define pob pop_back
+#define pf push_front
+#define pof pop_front
+
+mt19937_64 rng_64( chrono::steady_clock::now().time_since_epoch().count() );
+constexpr int ilog2( int num ) { return 8*sizeof(int) - __builtin_clz( num ) - 1; }
+constexpr int mpow(int x,int e,int m){int res=1;while(e){if(e&1)res=(res*1ll*x)%m;e>>=1;x=(x*1ll*x)%m;}return res;}
+
+const int template_limit = 1e6;
+// int a[template_limit], b[template_limit];
+
+const int mod = 998244353;
+
+template<int m>
+struct modulo_int{ static_assert(m>0);
+	constexpr static int mod(){return m;}
+	
+	int vl;
+	constexpr modulo_int()noexcept:vl(0){};
+	constexpr modulo_int( int v)noexcept:vl(v>=0?(v<m?v:v%m):(v+m>=0?v+m:(v%m)+m)){};
+	constexpr modulo_int(lint v)noexcept:vl(v>=0?(v<m?v:v%m):(v+m>=0?v+m:(v%m)+m)){};
+	constexpr modulo_int(unsigned long long v)noexcept:vl(v<m?v:v%m){};
+	
+	modulo_int &operator +=(const modulo_int &ot){ vl+=ot.vl; if(vl>=m)vl-=m; return *this; }
+	modulo_int  operator + (const modulo_int &ot)const{ return modulo_int(*this)+=ot; }
+	modulo_int &operator -=(const modulo_int &ot){ vl-=ot.vl; if(vl<0)vl+=m; return *this; }
+	modulo_int  operator - (const modulo_int &ot)const{ return modulo_int(*this)-=ot; }
+	modulo_int &operator *=(const modulo_int &ot){ vl=(vl*1ll*ot.vl)%m; return *this; }
+	modulo_int  operator * (const modulo_int &ot)const{ return modulo_int(*this)*=ot; }
+	modulo_int &operator /=(const modulo_int &ot){ (*this)*=ot.inv(); return *this; }
+	modulo_int  operator / (const modulo_int &ot)const{ return modulo_int(*this)/=ot; }
+	
+	modulo_int inv()const{return modulo_int(vl).pow(m-2);}//Fermats little theorem
+	modulo_int operator -()const {return modulo_int(-vl);}
+	modulo_int pow(lint e)const{return modulo_int(mpow(vl,e%(m-1),m));}
+	
+	bool operator ==(const modulo_int &ot)const{return vl==ot.vl;} 
+	bool operator ==(const  int &ot)const{return vl==ot;   }
+	bool operator !=(const modulo_int &ot)const{return vl!=ot.vl;}
+	
+	operator bool() const { return vl; }
+	operator  int() const { return vl; }
+	
+	friend ostream &operator<<(ostream &os,const modulo_int &ac){return os << ac.vl;}
+	friend istream &operator>>(istream&is,modulo_int &ac){int v;is>>v;ac=modulo_int(v);return is;}	
+}; typedef modulo_int<mod> mint;
+
+/*
 Author: Oscar Vargas Pabon
 
 NTT taken from the atcoder library
 	https://github.com/atcoder/ac-library/
 
-Based on code by MarcosK, other people and multiple blogs all around the place
+Based on code by MarcosK and other people
 	https://codeforces.com/contest/438/submission/340901913
+and multiple blogs all around the place
 	https://cp-algorithms.com/algebra/polynomial.html#inverse-series_1
 	https://codeforces.com/blog/entry/56422
 	https://codeforces.com/blog/entry/12513 - problem E
@@ -16,19 +96,22 @@ Tested in
 	https://judge.yosupo.jp/problem/log_of_formal_power_series
 	https://judge.yosupo.jp/problem/pow_of_formal_power_series
 	https://judge.yosupo.jp/problem/sqrt_of_formal_power_series
-Though this last version was tested in /testing/fps_test.cpp
 
-I assume mint from algebra/modulo_int.cpp
-Note that in this specific version, the ntt wont work well if using
-	montgomery_space. Ill eventually get a montgomery-safe impl
+The first version of this impl is in atcoder fps_24 A
+
+I assume mint from algebra/mint.cpp
 
 Dependencies I assume
 everything     :: #define rep(i,strt,end) for(int i = strt ; i !=int(end) ; (int(strt)<int(end))?++i:--i )
 everything     :: #define sz(vec) int(vec.size())
 mult,square    :: int ilog2( int num ) { return 8*sizeof(int) - __builtin_clz( num ) - 1; }
+modInverse     :: int mpow(int x,int e,int m){int res=1;while(e){if(e&1)res=(res*1ll*x)%m;e>>=1;x=(x*1ll*x)%m;}return res;}	
 TonelliShanks  :: mt19937_64 rng_64( chrono::steady_clock::now().time_since_epoch().count() );
 sqrt           :: TonelliShanks, tfps(?).inv()
 pow            :: tfps(?).inv(), tfps(?).pow()
+
+
+
 */
 
 /* START OF NTT */
@@ -258,7 +341,7 @@ struct FormalPowerSeries{
 	}
 	
 	static void mult(FormalPowerSeries<tfps> &A, const FormalPowerSeries<tfps> &B){
-		static const int Limit=50;
+		static const int Limit=40;
 		if(min(sz(A),sz(B))<=Limit)A=mult_naive(A,B);
 		else mult_fft(A,B);
 	}
@@ -274,6 +357,7 @@ struct FormalPowerSeries{
 		else if(sgn==-1)rep(i,0,min(sz(A),sz(B)))A[i]-=B[i];
 		else assert(0);
 	}
+	
 	
 	static FormalPowerSeries<tfps> shift(const FormalPowerSeries<tfps> &F,int xi){
 		// G=x^{xi}F
@@ -335,8 +419,8 @@ struct FormalPowerSeries{
 	// square - derivative - integration - inverse - log - exp - sqrt
 	
 	FormalPowerSeries<tfps>& square(){
-		const int Limit=50;
-		if(sz(F)<Limit)(*this)=mult_naive(*this,*this);
+		const int Limit=70;
+		if(size()<=Limit)(*this)=mult_naive(*this,*this);
 		else {
 			const int nm=size()*2, lgi=ilog2(nm-1)+1;
 			F.resize(1<<lgi,0);
@@ -423,4 +507,65 @@ struct FormalPowerSeries{
 		}
 		return (G<<(xi/2)).trunc(n);
 	}
+	
 };typedef FormalPowerSeries<mint> fps;
+
+auto take_time=[&](){return std::chrono::high_resolution_clock::now();};
+auto get_durat=[&](auto start){ return std::chrono::duration_cast<std::chrono::nanoseconds>(take_time() - start).count(); };
+//std::chrono::milliseconds
+//std::chrono::microseconds
+//std::chrono::nanoseconds
+void multiplication() {
+	const int m=1e4;
+	// const int m=100;
+	const int u=30,d=120;
+	rep(i,u,d){
+		fps A(i);rep(j,0,i)A[j]=rng_64();
+		fps B(m);rep(j,0,m)B[j]=rng_64();
+		
+		fps Ap=A,Bp=B;
+		
+		auto st1=take_time();
+		fps::mult_fft(A,B);
+		// A.square(0);
+		auto t1=get_durat(st1);
+		auto st2=take_time();
+		// Ap.square(1);
+		fps::mult_naive(Ap,Bp);
+		auto t2=get_durat(st2);
+		debug(t1<t2,i,t1,t2);
+	}
+}
+void expon(){
+	const int n=1e1,m_pow=10;
+	fps F(n);rep(i,0,n)F[i]=rng_64();
+	rep(e,0,m_pow){
+		// int ex=(1<<e)-1;
+		int ex=2;
+		auto st1=take_time();
+		fps G1=F.pow(ex,n);
+		auto t1=get_durat(st1);
+		
+		// debug("xd");
+		
+		auto st2=take_time();
+		fps G2=F.pow2(ex,n);
+		auto t2=get_durat(st2);
+		
+		idebug(G1);idebug(G2);
+		assert(G1==G2);
+		debug(t1,t2,e);
+	}
+	
+}
+
+int32_t main(){
+	ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+	cout << setprecision(12) << fixed;
+
+    // multiplication();
+	expon();
+	return 0;
+}
+

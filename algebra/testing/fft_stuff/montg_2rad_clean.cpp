@@ -57,7 +57,7 @@ struct montgomery_int{
 	montgomery_int  operator - (const montgomery_int &ot)const{ return montgomery_int(*this)-=ot; }
 	montgomery_int &operator *=(const montgomery_int &ot){ vl= reduce((ulint)vl*ot.vl); return *this; }
 	montgomery_int  operator * (const montgomery_int &ot)const{ return montgomery_int(*this)*=ot; }
-	montgomery_int &operator /=(const montgomery_int &ot){ (*this)*=ot.inverse(); return *this; }
+	montgomery_int &operator /=(const montgomery_int &ot){ (*this)*=ot.inv(); return *this; }
 	montgomery_int  operator / (const montgomery_int &ot)const{ return montgomery_int(*this)/=ot; }
 	
 	montgomery_int operator -()const {return montgomery_int(0)-(*this);}
@@ -68,7 +68,7 @@ struct montgomery_int{
 		}
 		return rs;
 	}
-	montgomery_int inverse()const{return this->pow(mod-2);}//Fermats little theorem
+	montgomery_int inv()const{return this->pow(mod-2);}//Fermats little theorem
 	
 	bool operator ==(const montgomery_int &ot)const{return vl==ot.vl;} 
 	bool operator ==(const  uint &ot)const{return vl==transform(ot%mod);}
@@ -95,7 +95,7 @@ struct fft_info{
 		root[rank2]=mint(c_root).pow((mint::mod-1)>>rank2);
 		rep(i,rank2-1,-1) root[i]=root[i+1]*root[i+1];
 		
-		iroot[rank2]=root[rank2].inverse();
+		iroot[rank2]=root[rank2].inv();
 		rep(i,rank2-1,-1) iroot[i]=iroot[i+1]*iroot[i+1];
 	}
 };
@@ -118,7 +118,7 @@ void fft(fps&A,bool invert){
 				w=-w;
 			}
 		}
-		mint n_1 = mint(n).inverse();
+		mint n_1 = mint(n).inv();
         for (mint & x : A)x*=n_1;
 	}else{
 		// direct with gentlema-sandle
