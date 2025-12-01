@@ -5,10 +5,15 @@ Notar que este treap construye un max-heap en el atributo 'key'.
 No tiene anadido ningun tipo de 'lazy propagation'
 Las operaciones asumen indexacion en 0
 
+Notar que en esta version, el valor del nodo (vl) funciona como
+	el tamaño del subarbol que representa (trabajo sobre una lista implicita)
+
+Its a ( max-heap _ ascendent bst )
+
 Testeado en https://www.spoj.com/problems/GSS6/en/
 */
 
-// mt19937_64 random_64( chrono::steady_clock::now().time_since_epoch().count() );
+// mt19937_64 rng_64( chrono::steady_clock::now().time_since_epoch().count() );
 // asumo el anterior elemento de mi template
 
 class Data{
@@ -33,10 +38,10 @@ class Node{
 	public:
 	// mv->MyValue; sv->SubtreeValue;
 	Data mv,sv;
-	int key, sz;
+	int key, vl; //(key,vl) max-heap by key ; bst by vl
 	Node *l,*r; // hijos
 	Node( const Data &dt=Data() ){
-		key = random_64()%(1ll<<30); sz = 1;
+		key = rng_64()%(1<<31); vl = 1;
 		mv=sv=dt;
 		l=r=NULL;
 	}
@@ -45,10 +50,10 @@ class Node{
 			return (act)?act->sv:Data();
 		};
 		sv = subt_dt(l) + mv + subt_dt(r) ;
-		auto subt_sz=[&]( Node *act ){
-			return (act)?act->sz:0;
+		auto subt_vl=[&]( Node *act ){
+			return (act)?act->vl:0;
 		};
-		sz = subt_sz(l) + 1 + subt_sz(r);
+		vl = subt_vl(l) + 1 + subt_vl(r);
 	}
 };
 void join( Node *&t, Node *l, Node *r){
@@ -58,16 +63,16 @@ void join( Node *&t, Node *l, Node *r){
 	t->update();
 }
 void split( Node* t, int x, Node *&l, Node *&r ) {
-	// l=t[0..x); r=t[x..n)
-	int lsz=(t)?((t->l)?t->l->sz+1:1):0;
+	// l=t[0..x]; r=t(x..n)
+	int lvl=(t)?((t->l)?t->l->vl+1:1):0;
 	if (!t) l=r=NULL;
-	else if ( lsz <= x ) split(t->r,x-lsz,t->r,r),l=t;
+	else if ( lvl <= x ) split(t->r,x-lvl,t->r,r),l=t;
 	else split(t->l,x,l,t->l),r=t;
 	if(t)t->update();
 }
 
 void t_in(Node *&t, int pos, Data vl){
-	// a[0..pos)+vl+a[pos..n)
+	// a[0..pos]+vl+a(pos..n)
 	Node *l,*r;
 	split(t,pos,l,r);
 	
@@ -130,7 +135,7 @@ void t_debug(Node*t){
 		aux(nd->l);
 		
 		cout << "( " << nd->key << " ";
-		cout << nd->sv.sum << ' ';
+		cout << nd->mv.sum << ' ';
 	
 		aux(nd->r);
 	}; aux(t); cout << endl;

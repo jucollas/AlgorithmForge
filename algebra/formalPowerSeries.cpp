@@ -313,6 +313,9 @@ struct FormalPowerSeries{
 	FormalPowerSeries<tfps> &operator -=(const FormalPowerSeries<tfps>&B){add(*this,B,-1); return *this;}
 	FormalPowerSeries<tfps> operator - (const FormalPowerSeries<tfps>&B)const{FormalPowerSeries<tfps> tmp=*this; return (tmp-=B);}
 	
+	FormalPowerSeries<tfps> operator % (const FormalPowerSeries<tfps>&B)const{return ((*this)-B*euc_div(B)).trunc(sz(B)); }
+	FormalPowerSeries<tfps> &operator %=(const FormalPowerSeries<tfps>&B)const{ (*this)=(*this)%B; return *this;}
+	
 	FormalPowerSeries<tfps> operator -()const{return FormalPowerSeries<tfps>({0}) - (*this);}
 	
 	//scalar operators
@@ -332,7 +335,7 @@ struct FormalPowerSeries{
 	FormalPowerSeries<tfps> operator>>(int shf)const{return shift(*this,-shf);}
 	FormalPowerSeries<tfps> &operator>>=(int shf){*this=(*this)>>shf;return *this;}
 	
-	// square - derivative - integration - inverse - log - exp - sqrt
+	// square - derivative - integration - inverse - log - exp - sqrt - euc_div
 	
 	FormalPowerSeries<tfps>& square(){
 		const int Limit=50;
@@ -422,5 +425,21 @@ struct FormalPowerSeries{
 			G+=ac; G*=i2; G.trunc(e);
 		}
 		return (G<<(xi/2)).trunc(n);
+	}
+	FormalPowerSeries<tfps> euc_div(const FormalPowerSeries<tfps> &B)const{
+		// Given F,B it computes D of -> F=B*D+R
+		// Where deg(R)<deg(B) ; note it leaves R easy to compute
+		// R=F%B
+		FormalPowerSeries<tfps> tf=*this,tb=B;
+		tf.trunc(sz(tf));tb.trunc(sz(tb));
+		const int n=sz(tf),m=sz(tb),d=n-m;
+		if(d<0)return {1};
+		
+		auto rev=[&](FormalPowerSeries<tfps>&fn)->FormalPowerSeries<tfps>{
+			rep(i,0,sz(fn)/2)swap(fn[i],fn[sz(fn)-i-1]);
+			return fn;
+		}; rev(tf); rev(tb);
+		tf.trunc(d+1);tb.trunc(d+1);
+		return rev((tf*tb.inv(d+1)).trunc(d+1,0)).trunc(d+1);
 	}
 };typedef FormalPowerSeries<mint> fps;
