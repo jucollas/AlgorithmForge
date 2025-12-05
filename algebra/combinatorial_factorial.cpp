@@ -4,7 +4,7 @@ Author:Oscar Vargas Pabon
 This is currently untested
 
 I have 3 versions:
-	1. O(n+lgn) precomputing ; O(1) answer
+	1. O(n+lgn) precomputing ; O(1) answer | TESTED
 	2. O(n^2lgn) using DP
 	3. O(k) using the (n!/k!)*(1/k!) trick
 */

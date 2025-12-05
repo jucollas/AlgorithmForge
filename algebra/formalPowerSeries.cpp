@@ -22,6 +22,9 @@ I assume mint from algebra/modulo_int.cpp
 Note that in this specific version, the ntt wont work well if using
 	montgomery_space. Ill eventually get a montgomery-safe impl
 
+Remember 'primitive_root(mod)' will return a primitive root of the modulo in time
+	$O(\sqrt{mod}+R log^2 mod)$ usefull to get the constant
+
 Dependencies I assume
 everything     :: #define rep(i,strt,end) for(int i = strt ; i !=int(end) ; (int(strt)<int(end))?++i:--i )
 everything     :: #define sz(vec) int(vec.size())
@@ -36,6 +39,23 @@ namespace internal { // taken from atcoder
 
 int countr_zero(unsigned int n) { return __builtin_ctz(n); }
 constexpr int countr_zero_constexpr(unsigned int n) { int x = 0; while (!(n & (1 << x))) x++; return x; }
+
+void primitive_root(int mod){
+	//tests for g such that $\forall_{p|(md-1)} g^{(md-1)/p}=1(mod md)$
+	vector<int> dec;int md=mod-1;
+	int i=2;while(i*i<=md){
+		if(md%i==0){
+			dec.pb(i);
+			while(md%i==0)md/=i;
+		}
+		++i;
+	} if(md>1)dec.pb(md);
+	auto pcond=[&](mint g)->bool{
+		bool rs=1;for(int p:dec)rs&=!(g.pow((mod-1)/p)==1); return rs;
+	};
+	i=2;while(!pcond(i))++i;
+	std::cerr << i << " _ primitive root" << endl;
+}
 
 struct fft_info {
 	static const int g =3; // primitive root 
