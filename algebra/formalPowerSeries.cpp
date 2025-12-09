@@ -32,6 +32,10 @@ mult,square    :: int ilog2( int num ) { return 8*sizeof(int) - __builtin_clz( n
 TonelliShanks  :: mt19937_64 rng_64( chrono::steady_clock::now().time_since_epoch().count() );
 sqrt           :: TonelliShanks, tfps(?).inv()
 pow            :: tfps(?).inv(), tfps(?).pow()
+
+Notes: Some undefined behaviour may ocur whenever F[ind1]=F[ind2] where sz(F)<=ind2 as
+		F[ind1] can be evaluated first and the resize in F[ind2] may 'overwrite' the
+		reference previously established
 */
 
 /* START OF NTT */

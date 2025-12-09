@@ -3,8 +3,15 @@ Author: Oscar Vargas Pabon
 ChineseRemainderTheorem
 
 Helps to represent numbers muli composites with $O(lg m)$ operations.
+
 I added a weird impl that generates nChoose k in time 
-	$O(log_p(n))$ for each prime p. This uses the idea of generalized lucas theorem
+	$O(log_p(n))$, $O(p^e)$ precomputation. This uses the idea of generalized lucas theorem.
+	This can be looked in "Binomial coefficients modulo prime powers" Andrew Granville.
+	The following link shows a way to do it in time $O(e lgn)$ , $O(pe+e^2+elg n)$ precomputation
+	* https://blog.prabowodjonatan.id/posts/binomial-mod-pe/
+	The following also have some better versions of it (but worst than the above)
+	* https://codeforces.com/blog/entry/116681
+	
 	
 This was based on https://www.luogu.com.cn/article/g3wlhtkg
 	* https://www.codeleading.com/article/4340352347/
@@ -20,6 +27,7 @@ crt::comb  ->  mpow<tpow>, crt_info.fact
 All -> crt_info.pk , crt_info.p
 
 Note that with a little more of effort, this could become an arbitrary modulus template.
+
 */
 namespace internal{
 
