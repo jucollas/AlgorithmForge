@@ -15,12 +15,8 @@ Notes: If I want to generate the first n terms then I can also do it by doing
 */
 
 mint bostanMori( lint k, fps P, fps Q ){
-	// computes kth element of the recurrence 
-	// F=P/Q where Q is the characteristic polynomial
-	// F_i=\sum_j F_{i-j}d_j then Q=x^{sz(d)}-\sum_j d_j
-	
-	const int d=sz(Q);reverse(all(Q));
-	P=(P.trunc(sz(Q))*Q).trunc(sz(Q));
+	const int d=sz(Q);
+	// computes |x^k|P/Q in time O(d*lgd*lgk)
 	
 	while(k){
 		fps nQ=Q;rep(i,0,sz(nQ))if(i&1)nQ[i]=-nQ[i];
@@ -36,4 +32,13 @@ mint bostanMori( lint k, fps P, fps Q ){
 		k>>=1;
 	}
 	return P[0]/Q[0];
+}
+mint seq_bostanMori(lint k,fps P,fps Q){
+	// P are assumed to be the first |P| terms of the sequence
+	// Q is assumed to be the characteristic polynomial
+	// F_i=\sum_j F_{i-j}d_j then Q=x^{sz(d)}-\sum_j d_j
+	
+	reverse(all(Q));
+	P=(P.trunc(sz(Q))*Q).trunc(sz(Q));
+	return bostanMori(k,P,Q);
 }

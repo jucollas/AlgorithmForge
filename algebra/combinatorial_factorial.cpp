@@ -23,7 +23,7 @@ struct Combi{
 		if(n<0||k<0||n<k)return 0;
 		return fact[n]*ifact[k]*ifact[n-k];
 	}
-};const Combi<mint> cmb(1000000);
+};const Combi<mint> cmb(1e5);
 
 template<typename tcmb>
 struct Combi{
