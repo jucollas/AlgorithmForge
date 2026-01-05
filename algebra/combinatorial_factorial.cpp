@@ -31,6 +31,7 @@ struct Combi{
 	Combi()=default;
 	tcmb comb(int n,int k){
 		tcmb res; if(n<0||k<0||n<k)res=0;
+		else if(n==0||k==n)res=1;
 		else if(mem.count({n,k}))res=mem[{n,k}];
 		else{
 			res=comb(n-1,k)+comb(n-1,k-1);
@@ -38,7 +39,7 @@ struct Combi{
 		}
 		return res;
 	}
-};const combi<mint> cmb;
+};Combi<mint> cmb;
 
 template<typename tcmb>
 tcmb comb(int n,int k){

@@ -2,12 +2,13 @@
 Shamelessly taken from https://github.com/mochow13/competitive-programming-library/blob/master/Math/Fast%20Walsh-Hadamard%20Transform.cpp
 and adapted by yours truly, osvarp
 
-currently UNTESTED
+Tested in https://codeforces.com/contest/1411/problem/G
 */
 
 template <typename T>
 struct FWT {
 	void fwt( vector<T> & io, bool sd ) {
+		const int n=io.size();
 		for (int d = 1; d < n; d <<= 1) {
 			for (int i = 0, m = d<<1; i < n; i += m) {
 				for (int j = 0; j < d; j++) { /// Don't forget modulo if required
@@ -24,17 +25,18 @@ struct FWT {
 	}
 	// a, b are two polynomials and n is size which is power of two
 	void convolution(vector<T> &A, vector<T> &B) {
+		const int n=A.size();
 		fwt(A,1); fwt(B,1);
 		for (int i = 0; i < n; i++)
-			a[i] = a[i]*b[i];/// Don't forget modulo if required
+			A[i] = A[i]*B[i];/// Don't forget modulo if required
 		fwt(A,0);
 	}
 	// for a*a	
 	void self_convolution(vector<T> &A) {
+		const int n=A.size();
 		fwt(A,1);
 		for (int i = 0; i < n; i++)
-			a[i] = a[i]*a[i];/// Don't forget modulo if required
+			A[i] = A[i]*A[i];/// Don't forget modulo if required
 		fwt(A,0);
 	}
-};
-FWT<ll> fwt;
+};FWT<mint> fwt;

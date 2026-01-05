@@ -27,6 +27,13 @@ void diviter(int n, int L, int R ){
 // This idea can be seen in https://codeforces.com/problemset/problem/1804/E
 
 
+/////// XOR weird properties
+// https://codeforces.com/blog/entry/141285
+// a+b= a^b + 2(a&b)
+// a^b <= 2*max(a,b)
+// a^b=(a|b)-(a&b)
+// a-b <= a^b <= a+b
+// A[0..n) such that A[i]<=A[i+1], then min_{i!=j}(A[i]^A[j])=min_i(A[i]^A[i+1])
 
 /////// Range Xor Shenanigans (assuming range is [l,r])
 // Question: Is subset in range interesting? Is it doable in O(1)?
@@ -38,6 +45,13 @@ int xor_range(int m){
 	int res=(m&1)?0:m;
 	return res^=((m+1)>>1)&1;
 }
+
+// calculating xor in range V.2
+template<typename tXor> tXor xor_range_V2(tXor n){
+	vector<tXor> _p = {n, 1, n + 1, 0}; return _p[n % 4];
+}// This one follows by induction or showing $\Xor_{i=0}^{4n-1}i=0$
+// Close inspection shows both versions do the same
+// https://codeforces.com/blog/entry/141285
  
 // The idea is that if I fix the bits that are always set, then I can exclude them
 // x= 0010100

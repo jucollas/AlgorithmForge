@@ -44,25 +44,20 @@ namespace internal { // taken from atcoder
 int countr_zero(unsigned int n) { return __builtin_ctz(n); }
 constexpr int countr_zero_constexpr(unsigned int n) { int x = 0; while (!(n & (1 << x))) x++; return x; }
 
-void primitive_root(int mod){
+constexpr int primitive_root(int m){
 	//tests for g such that $\forall_{p|(md-1)} g^{(md-1)/p}=1(mod md)$
-	vector<int> dec;int md=mod-1;
-	int i=2;while(i*i<=md){
-		if(md%i==0){
-			dec.pb(i);
-			while(md%i==0)md/=i;
-		}
-		++i;
-	} if(md>1)dec.pb(md);
-	auto pcond=[&](mint g)->bool{
-		bool rs=1;for(int p:dec)rs&=!(g.pow((mod-1)/p)==1); return rs;
-	};
-	i=2;while(!pcond(i))++i;
-	std::cerr << i << " _ primitive root" << endl;
+	int dec[32]={},dind=0, md=m-1;
+	for(int i=2;i*i<=md;++i)if(md%i==0){
+		dec[dind++]=i; while(md%i==0)md/=i;
+	} if(md>1)dec[dind++]=md;
+	
+	bool fnd=0; int pr=1;while(!fnd){
+		++pr; fnd=1; // by properties, this will always end
+		for(int i=0;i<dind&&fnd;++i)fnd=mpow<int>(pr,(m-1)/dec[i],m)!=1;
+	} return pr;// std::cerr <<pr << " _ primitive root" << endl;
 }
-
 struct fft_info {
-	static const int g =3; // primitive root 
+	static const int g =(mod==998244353)?3:primitive_root(mod); // primitive root 
 	
     static constexpr int rank2 = countr_zero_constexpr(mint::mod() - 1);
     std::array<mint, rank2 + 1> root;   // root[i]^(2^i) == 1
@@ -226,8 +221,15 @@ void fft(std::vector<mint> &A,bool invert){
 		for (mint & x : A)x*=n_1;
 	} else internal::butterfly(A);
 }
-
-} //end internal namespace
+void transposed_fft(std::vector<mint> &A,bool invert){
+	if (!invert) internal::butterfly_inv(A);
+	reverse(A.begin() + 1, A.end());
+	if(invert){
+		internal::butterfly(A);
+		mint n_1=mint(sz(A)).inv();
+		for (auto &x: A) x *= n_1;
+	}
+}
 
 int Tonelli_Shanks(mint a) {
 	// usado por sqrt cuando trabajo con enteros modulo algo
@@ -259,6 +261,7 @@ int Tonelli_Shanks(mint a) {
 	}
 	return x;
 }
+} //end internal namespace
 
 template<typename tfps>
 struct FormalPowerSeries{
@@ -438,7 +441,7 @@ struct FormalPowerSeries{
 		if( xi>=sz(F) )return {0};
 		
 		if(xi&1)return {};
-		int vl=Tonelli_Shanks(F[xi]);if(vl==-1)return {};
+		int vl=internal::Tonelli_Shanks(F[xi]);if(vl==-1)return {};
 		FormalPowerSeries<tfps> G={vl},ac;//sqrt{F[0]}
 		//I assume Tonelli_Shanks returns -1 when it's impossible
 		

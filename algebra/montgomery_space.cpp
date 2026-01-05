@@ -42,8 +42,8 @@ struct montgomery_int{
 	uint vl;
 	
 	constexpr montgomery_int()noexcept:vl(0){};
-	constexpr montgomery_int( int v)noexcept:vl(transform(v>=0?(v<int(m)?v:v%m):(m-v<m?m-v:(v%m)+m))){};
-	constexpr montgomery_int(lint v)noexcept:vl(transform(v>=0?(v<int(m)?v:v%m):(m-v<m?m-v:(v%m)+m))){};
+	constexpr montgomery_int( int v)noexcept:vl(transform(v>=0?(v< int(m)?v:v%m):(m+v>=0?m+v:(v%m)+m))){};
+	constexpr montgomery_int(lint v)noexcept:vl(transform(v>=0?(v<lint(m)?v:v%m):(m+v>=0?m+v:(v%m)+m))){};
 	constexpr montgomery_int( uint v)noexcept:vl(transform(v<m?v:v%m)){};
 	constexpr montgomery_int(ulint v)noexcept:vl(transform(v<ulint(m)?v:v%m)){};
 	
@@ -92,7 +92,6 @@ struct montgomery_space{
 		uint y=((ulint)q*m)>>m_pow;
 		
 		uint res=(x>>m_pow)+m-y;
-		// debug(x,"enestaver",q,m,res);
 		if (res >= m) res -= m;
 		return res;
 	}

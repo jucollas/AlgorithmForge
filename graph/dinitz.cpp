@@ -6,6 +6,10 @@ Caso general funciona en $O(v^2*E)$, caso capacidad unitaria funciona en
 	$O(min(E\sqrt{E},EV^{2/3}))$
 	caso red unitaria (cada nodo se responsabiliza por 1 sola arista de
 		capacidad unitaria) funciona en $O(E\sqrt{V})$
+
+Remember,remember. Whenever we have a planar graph, a path of its dual graph represents
+	bijectively a cut on the original graph. Essentially solves with dijkstra min-cut
+Anfelesan taught me this one in regards to https://codeforces.com/gym/106178/problem/G
 */
 
 template <typename ftype, ftype INF>
