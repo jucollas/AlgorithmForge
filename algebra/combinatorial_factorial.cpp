@@ -44,7 +44,7 @@ struct Combi{
 template<typename tcmb>
 tcmb comb(int n,int k){
 	if(n<0||k<0||n<k)return 0;
-	if(n-k<k)return comb(n,n-k);
+	if(n-k<k)return comb<tcmb>(n,n-k);
 	tcmb nk=1;rep(i,n-k+1,n+1)nk*=i;
 	tcmb kf=1;rep(i,1,k+1)kf*=i;
 	return nk/kf;

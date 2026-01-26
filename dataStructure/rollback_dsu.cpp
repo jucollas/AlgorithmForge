@@ -7,6 +7,15 @@ Util en cosas como offline dynamic connectivity
 
 Probado con impl de offlineDynamicConnectivity en
 	https://codeforces.com/gym/100551/problem/A
+Me gusto un problema de offlineDynamicConnectivity en
+	https://www.luogu.com.cn/problem/P5625
+
+Remember that to do XOR path queries (given weighted edges) I do
+	int path_sum(int x){int x=0;if(pi[x]!=x)x=wg[x]^path_sum(pi[x]);return x;}
+	And in merge I modify 
+		wg[x]=edge_weight^path_sum(ex)^path_sum(ey); pi[x]=y; cnt[y]+=cnt[x];
+	where (ex,ey) is the added edge
+Can I extend it to + path queries or * path queries????
 */
 struct DSU{
 	vector<int> pi,cnt,stc;

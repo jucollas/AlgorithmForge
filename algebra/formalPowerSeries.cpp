@@ -455,8 +455,7 @@ struct FormalPowerSeries{
 	}
 	FormalPowerSeries<tfps> euc_div(const FormalPowerSeries<tfps> &B)const{
 		// Given F,B it computes D of -> F=B*D+R
-		// Where deg(R)<deg(B) ; note it leaves R easy to compute
-		// R=F%B
+		// Where deg(R)<deg(B) ; note it leaves R easy to compute R=F%B
 		FormalPowerSeries<tfps> tf=*this,tb=B;
 		tf.trunc(sz(tf));tb.trunc(sz(tb));
 		const int n=sz(tf),m=sz(tb),d=n-m;

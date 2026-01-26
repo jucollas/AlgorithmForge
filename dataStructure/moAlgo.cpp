@@ -19,6 +19,15 @@ Idea 3: Usar orden de hilbert. Genera tiempo $O(n\sqrt(q))$
 Nota: La idea 1 (o tal vez 2 tambien) puede no funcionar muy bien cuando se requiere hacer un balanceo
 Probado con https://www.spoj.com/problems/DQUERY/
 Otro problema interesante https://codeforces.com/problemset/problem/2006/D
+
+If its not easy to implement REM, I can always use the buckets idea and then increase monotonically the
+	right border. For the left border, we always keep a 'snapshot' before starting to move to the left
+	like
+	1 -> while(r<ac.r)add(++r);
+	2 -> snapshot()
+	3 -> l=l_buck;while(l>ac.l)add(--l)
+	4 -> restore()
+	Issue is that it can be really slow and some cases where both r-l<=sqrt{n} are edge-cases
 */
 uint64_t hilbertorder(uint64_t x, uint64_t y) {
 	// https://codeforces.com/blog/entry/61203?#comment-1064868
@@ -45,7 +54,7 @@ public:
 
 const int method=0;
 vector<int> mo_algo( int n, vector<Query> &query ) {
-	int q = query.size();
+	const int q = query.size();
 	
 	// idea 1 -> $O(n\sqrt{q})$
 	if(method==0)for(Query &q:query)q.ord=hilbertorder(q.l,q.r);

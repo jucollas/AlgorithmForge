@@ -44,7 +44,7 @@ class Hash{
 public:
   array<lint,N_HASH> h;
   int len = 0;
-  Hash() :len(0),h({0,0}) {};
+  Hash() :len(0) {rep(i,0,N_HASH)h[i]=0;};
   Hash(const string &cad) {
     len = cad.size();
     for ( int i = 0 ; i < N_HASH ; ++i ) {

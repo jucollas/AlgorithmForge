@@ -6,6 +6,17 @@ tested in https://codeforces.com/problemset/problem/2117/H
 
 l -> left tree bound, r -> right tree bound
 ql -> left op bound, qr -> right op bound
+
+For historic sums -> queries:
+	1 -> A[i]+=x for l<=i<=r
+	2 -> B[i]+=A[i] for 0<=i<n
+	3 -> \sum_{i=l}^r B[i]
+Do stuff with timestamps. Both lazy and data have 'tot,acum,time'
+	normalizing to the actual time is tot'= acum*(ac_time-time)+tot
+	Lazy keeps the value of a single element in acum while Data keeps the whole range
+	so update is tot'=acum*(ac_time-time)+tot +(o.acum*(ac_time-o.time)+o.tot)*(r-l+1)
+Idea applied in subtask of https://www.luogu.com.cn/problem/P11659
+	
 */
 class Lazy{
 public:
@@ -39,7 +50,7 @@ public:
 	vector<Data> tree;
 	vector<Lazy> tag;
 	int t_size;
-	void calc_cons( int ind, int l, int r, int &m, int &rind ) {
+	inline void calc_cons( int ind, int l, int r, int &m, int &rind ) {
 		m = (l+r)/2; rind = ind+2*(m-l+1);
 	}
 void raw_build ( const vector<Data> &arr,int ind=0,int l=0,int r=-1 ) {
@@ -56,7 +67,7 @@ void raw_build ( const vector<Data> &arr,int ind=0,int l=0,int r=-1 ) {
 		tree[ind] = tree[ind+1] + tree[rind];
 	}
 }
-void push( int ind, int l, int r ) {
+inline void push( int ind, int l, int r ) {
 /* Empuja el vlor del tag a los nodos mas profundos */
 	tree[ind].update( tag[ind],l,r );
 	if ( l < r ) { // no hay edge-case cuando lt==rt
