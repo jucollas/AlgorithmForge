@@ -88,14 +88,3 @@ int super_set(int m,int x){
 	if(x)res|=((neo+1)&1)*x;
 	return res;
 }
-
-///// I think it is the key to aladdin from COCI 2009/2010 that I found in the CCPL
-/// floor sum shenanigans
-// taken from https://asfjwd.github.io/2020-04-24-floor-sum-ap/
-long long FloorSumAP(long long a, long long b, long long c, long long n){}
-// calculating $\sum_{x=0}^n \lfloor (ax+b)/c \rfloor$
-  if(!a) return (b / c) * (n + 1);
-  if(a >= c || b >= c) return ( ( n * (n + 1) ) / 2) * (a / c) + (n + 1) * (b / c) + FloorSumAP(a % c, b % c, c, n);
-  long long m = (a * n + b) / c;
-  return m * n - FloorSumAP(c, c - b - 1, a, m - 1);
-}
