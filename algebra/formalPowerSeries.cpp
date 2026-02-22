@@ -18,12 +18,21 @@ Tested in
 	https://judge.yosupo.jp/problem/sqrt_of_formal_power_series
 Though this last version was tested in /testing/fps_test.cpp
 
+Arbitrary modulus multiplication tested/developed in 
+	https://atcoder.jp/contests/arc215/submissions/73551697
+	with help of https://nyaannyaan.github.io/library/ntt/arbitrary-ntt.hpp
+	
+
+
 I assume mint from algebra/modulo_int.cpp
 Note that in this specific version, the ntt wont work well if using
 	montgomery_space. Ill eventually get a montgomery-safe impl
 
 Remember 'primitive_root(mod)' will return a primitive root of the modulo in time
 	$O(\sqrt{mod}+R log^2 mod)$ usefull to get the constant
+
+REMEMBER TO COMMENT 'SHITTY_GCC_VERSION' when sending/using arbitrary_modulus multiplication
+	as my shitty gcc version doesnt support 128-bit integers or 'if constexpr'
 
 Dependencies I assume
 everything     :: #define rep(i,strt,end) for(int i = strt ; i !=int(end) ; (int(strt)<int(end))?++i:--i )
@@ -36,12 +45,20 @@ pow            :: tfps(?).inv(), tfps(?).pow()
 Notes: Some undefined behaviour may ocur whenever F[ind1]=F[ind2] where sz(F)<=ind2 as
 		F[ind1] can be evaluated first and the resize in F[ind2] may 'overwrite' the
 		reference previously established
+Notes: I havent fully finished mult_arbitrary to handle arbitrary modulus.
+		I'm missing cases where I use 3 modulus to do the calculations
+		
+Notes: (1<<59)*27+1 is a 64-bit prime (IntroMathComputational-Shoup pg 484)
+
+
 */
 
 /* START OF NTT */
 namespace internal { // taken from atcoder
 
-int countr_zero(unsigned int n) { return __builtin_ctz(n); }
+#define SHITTY_GCC_VERSION
+
+int countr_zero(unsigned int n) { return __builtin_ctz(int32_t(n)); }
 constexpr int countr_zero_constexpr(unsigned int n) { int x = 0; while (!(n & (1 << x))) x++; return x; }
 
 constexpr int primitive_root(int m){
@@ -56,21 +73,22 @@ constexpr int primitive_root(int m){
 		for(int i=0;i<dind&&fnd;++i)fnd=mpow<int>(pr,(m-1)/dec[i],m)!=1;
 	} return pr;// std::cerr <<pr << " _ primitive root" << endl;
 }
+template<typename tfps>
 struct fft_info {
-	static const int g =(mod==998244353)?3:primitive_root(mod); // primitive root 
+	static const int g =(tfps::mod()==998244353)?3:primitive_root(int(tfps::mod())); // primitive root 
 	
-    static constexpr int rank2 = countr_zero_constexpr(mint::mod() - 1);
-    std::array<mint, rank2 + 1> root;   // root[i]^(2^i) == 1
-    std::array<mint, rank2 + 1> iroot;  // root[i] * iroot[i] == 1
+    static constexpr int rank2 = countr_zero_constexpr(int(tfps::mod()) - 1);
+    std::array<tfps, rank2 + 1> root;   // root[i]^(2^i) == 1
+    std::array<tfps, rank2 + 1> iroot;  // root[i] * iroot[i] == 1
 
-    std::array<mint, std::max(0, rank2 - 2 + 1)> rate2;
-    std::array<mint, std::max(0, rank2 - 2 + 1)> irate2;
+    std::array<tfps, std::max(0, rank2 - 2 + 1)> rate2;
+    std::array<tfps, std::max(0, rank2 - 2 + 1)> irate2;
 
-    std::array<mint, std::max(0, rank2 - 3 + 1)> rate3;
-    std::array<mint, std::max(0, rank2 - 3 + 1)> irate3;
+    std::array<tfps, std::max(0, rank2 - 3 + 1)> rate3;
+    std::array<tfps, std::max(0, rank2 - 3 + 1)> irate3;
 
     fft_info() {
-        root[rank2] = mint(g).pow((mint::mod() - 1) >> rank2);
+        root[rank2] = tfps(g).pow((tfps::mod() - 1) >> rank2);
         iroot[rank2] = root[rank2].inv();
         for (int i = rank2 - 1; i >= 0; i--) {
             root[i] = root[i + 1] * root[i + 1];
@@ -78,7 +96,7 @@ struct fft_info {
         }
 
         {
-            mint prod = 1, iprod = 1;
+            tfps prod = 1, iprod = 1;
             for (int i = 0; i <= rank2 - 2; i++) {
                 rate2[i] = root[i + 2] * prod;
                 irate2[i] = iroot[i + 2] * iprod;
@@ -87,7 +105,7 @@ struct fft_info {
             }
         }
         {
-            mint prod = 1, iprod = 1;
+            tfps prod = 1, iprod = 1;
             for (int i = 0; i <= rank2 - 3; i++) {
                 rate3[i] = root[i + 3] * prod;
                 irate3[i] = iroot[i + 3] * iprod;
@@ -98,18 +116,18 @@ struct fft_info {
     }
 };
 
-
-void butterfly(std::vector<mint>& a) {
+template<typename tfps>
+void butterfly(std::vector<tfps>& a) {
     int n = int(a.size());
     int h = countr_zero((unsigned int)n);
 
-    static const fft_info info;
+    static const fft_info<tfps> info;
 
     int len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed
     while (len < h) {
         if (h - len == 1) {
             int p = 1 << (h - len - 1);
-            mint rot = 1;
+            tfps rot = 1;
             for (int s = 0; s < (1 << len); s++) {
                 int offset = s << (h - len);
                 for (int i = 0; i < p; i++) {
@@ -125,19 +143,19 @@ void butterfly(std::vector<mint>& a) {
         } else {
             // 4-base
             int p = 1 << (h - len - 2);
-            mint rot = 1, imag = info.root[2];
+            tfps rot = 1, imag = info.root[2];
             for (int s = 0; s < (1 << len); s++) {
-                mint rot2 = rot * rot;
-                mint rot3 = rot2 * rot;
+                tfps rot2 = rot * rot;
+                tfps rot3 = rot2 * rot;
                 int offset = s << (h - len);
                 for (int i = 0; i < p; i++) {
-                    auto mod2 = 1ULL * mint::mod() * mint::mod();
+                    auto mod2 = 1ULL * tfps::mod() * tfps::mod();
                     auto a0 = 1ULL * a[i + offset].vl;
                     auto a1 = 1ULL * a[i + offset + p].vl * rot.vl;
                     auto a2 = 1ULL * a[i + offset + 2 * p].vl * rot2.vl;
                     auto a3 = 1ULL * a[i + offset + 3 * p].vl * rot3.vl;
                     auto a1na3imag =
-                        1ULL * mint(a1 + mod2 - a3).vl * imag.vl;
+                        1ULL * tfps(a1 + mod2 - a3).vl * imag.vl;
                     auto na2 = mod2 - a2;
                     a[i + offset] = a0 + a2 + a1 + a3;
                     a[i + offset + 1 * p] = a0 + a2 + (2 * mod2 - (a1 + a3));
@@ -151,18 +169,18 @@ void butterfly(std::vector<mint>& a) {
         }
     }
 }
-
-void butterfly_inv(std::vector<mint>& a) {
+template<typename tfps>
+void butterfly_inv(std::vector<tfps>& a) {
     int n = int(a.size());
     int h = countr_zero((unsigned int)n);
 
-    static const fft_info info;
+    static const fft_info<tfps> info;
 
     int len = h;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed
     while (len) {
         if (len == 1) {
             int p = 1 << (h - len);
-            mint irot = 1;
+            tfps irot = 1;
             for (int s = 0; s < (1 << (len - 1)); s++) {
                 int offset = s << (h - len + 1);
                 for (int i = 0; i < p; i++) {
@@ -170,7 +188,7 @@ void butterfly_inv(std::vector<mint>& a) {
                     auto r = a[i + offset + p];
                     a[i + offset] = l + r;
                     a[i + offset + p] =
-                        (unsigned long long)((unsigned int)(l.vl - r.vl) + mint::mod()) *
+                        (unsigned long long)((unsigned int)(l.vl - r.vl) + tfps::mod()) *
                         irot.vl;
                     ;
                 }
@@ -181,10 +199,10 @@ void butterfly_inv(std::vector<mint>& a) {
         } else {
             // 4-base
             int p = 1 << (h - len);
-            mint irot = 1, iimag = info.iroot[2];
+            tfps irot = 1, iimag = info.iroot[2];
             for (int s = 0; s < (1 << (len - 2)); s++) {
-                mint irot2 = irot * irot;
-                mint irot3 = irot2 * irot;
+                tfps irot2 = irot * irot;
+                tfps irot3 = irot2 * irot;
                 int offset = s << (h - len + 2);
                 for (int i = 0; i < p; i++) {
                     auto a0 = 1ULL * a[i + offset + 0 * p].vl;
@@ -194,16 +212,16 @@ void butterfly_inv(std::vector<mint>& a) {
 
                     auto a2na3iimag =
                         1ULL *
-                        mint((mint::mod() + a2 - a3) * iimag.vl).vl;
+                        tfps((tfps::mod() + a2 - a3) * iimag.vl).vl;
 
                     a[i + offset] = a0 + a1 + a2 + a3;
                     a[i + offset + 1 * p] =
-                        (a0 + (mint::mod() - a1) + a2na3iimag) * irot.vl;
+                        (a0 + (tfps::mod() - a1) + a2na3iimag) * irot.vl;
                     a[i + offset + 2 * p] =
-                        (a0 + a1 + (mint::mod() - a2) + (mint::mod() - a3)) *
+                        (a0 + a1 + (tfps::mod() - a2) + (tfps::mod() - a3)) *
                         irot2.vl;
                     a[i + offset + 3 * p] =
-                        (a0 + (mint::mod() - a1) + (mint::mod() - a2na3iimag)) *
+                        (a0 + (tfps::mod() - a1) + (tfps::mod() - a2na3iimag)) *
                         irot3.vl;
                 }
                 if (s + 1 != (1 << (len - 2)))
@@ -213,48 +231,119 @@ void butterfly_inv(std::vector<mint>& a) {
         }
     }
 }
-
-void fft(std::vector<mint> &A,bool invert){
+template<typename tfps>
+void fft(std::vector<tfps> &A,bool invert){
 	if(invert){
-		internal::butterfly_inv(A);
-		mint n_1 = mint(sz(A)).inv();
-		for (mint & x : A)x*=n_1;
-	} else internal::butterfly(A);
+		internal::butterfly_inv<tfps>(A);
+		tfps n_1 = tfps(sz(A)).inv();
+		for (tfps & x : A)x*=n_1;
+	} else internal::butterfly<tfps>(A);
 }
-void transposed_fft(std::vector<mint> &A,bool invert){
-	if (!invert) internal::butterfly_inv(A);
+template<typename tfps>
+void transposed_fft(std::vector<tfps> &A,bool invert){
+	if (!invert) internal::butterfly_inv<tfps>(A);
 	reverse(A.begin() + 1, A.end());
 	if(invert){
-		internal::butterfly(A);
-		mint n_1=mint(sz(A)).inv();
-		for (auto &x: A) x *= n_1;
+		internal::butterfly<tfps>(A);
+		tfps n_1=tfps(sz(A)).inv();
+		for (tfps &x: A) x *= n_1;
+	}
+}
+template<typename tfps>
+void mult_arbitrary(std::vector<tfps>&A,const std::vector<tfps> &B ){
+	// Im guiding miself on nyaan's library for this
+	// https://nyaannyaan.github.io/library/ntt/arbitrary-ntt.hpp
+	#ifndef SHITTY_GCC_VERSION
+		using u128 = __uint128_t;
+	#else 
+		using u128=unsigned long long;
+	#endif
+	const int nm=A.size()+B.size(),lgi=ilog2(nm-1)+1,n=1<<lgi,bsz=B.size();
+	A.resize(n,0); // IntroMathComputational-Shoup pg 484 __ they get overflow
+	// constexpr int m0 = (1<<30)*3+1, m1 = (1<<28)*13+1, m2 = (1<<27)*29+1;
+	constexpr int m0 = 167772161, m1 = 469762049, m2 = 754974721;
+	
+	std::vector<modulo_int<m0>> A0(n),B0=A0;
+	for(int i=0;i<n;++i)A0[i]=lint(A[i]),B0[i]=(i>=bsz)?0:lint(B[i]);
+	internal::fft<modulo_int<m0>>(A0,0);internal::fft<modulo_int<m0>>(B0,0);
+	rep(i,0,1<<lgi)A0[i]*=B0[i];
+	internal::fft<modulo_int<m0>>(A0,1);
+	
+	#ifndef SHITTY_GCC_VERSION
+	if constexpr ( tfps::mod()<m0 && tfps::mod()*1ll*tfps::mod() < m0 ){
+	#else
+	if ( tfps::mod()<m0 && tfps::mod()*1ll*tfps::mod() < m0 ){
+	#endif
+		for(int i=0;i<n;++i)A[i]=int(A0[i]);
+		return;
+	}
+	std::vector<modulo_int<m1>> A1(1<<lgi),B1=A1;
+	for(int i=0;i<n;++i)A1[i]=lint(A[i]),B1[i]=(i>=bsz)?0:lint(B[i]);
+	internal::fft<modulo_int<m1>>(A1,0);internal::fft<modulo_int<m1>>(B1,0);
+	rep(i,0,1<<lgi)A1[i]*=B1[i];
+	internal::fft<modulo_int<m1>>(A1,1);
+		
+		
+	constexpr bool only_2=1,cond_2=tfps::mod()<max<int>(m0,m1) && tfps::mod()*1ll*tfps::mod() < m0*1ll*m1;
+	#ifndef SHITTY_GCC_VERSION
+	if constexpr ( only_2 || cond_2 ){
+	#else
+	if ( only_2 || cond_2 ){
+	#endif
+		constexpr int i01=modulo_int<m0>(m1).inv(),i10=modulo_int<m1>(m0).inv();
+		constexpr lint m01=m0*1ll*m1;
+		for(int i=0;i<n;++i){
+			A[i]= lint( (
+			        int(A0[i])*u128( i01*1ll*m1 ) +
+				    int(A1[i])*u128( i10*1ll*m0 ) ) %m01 );
+		} return;
+	}
+	assert(0); // esta parte aun no esta terminada xdxdxdxdxdxd
+	
+	std::vector<modulo_int<m2>> A2(1<<lgi),B2=A2;
+	for(int i=0;i<n;++i)A2[i]=lint(A[i]),B2[i]=(i>=bsz)?0:lint(B[i]);
+	internal::fft<modulo_int<m2>>(A2,0);internal::fft<modulo_int<m2>>(B2,0);
+	rep(i,0,1<<lgi)A2[i]*=B2[i];
+	internal::fft<modulo_int<m2>>(A2,1);
+		
+	constexpr int i12=modulo_int<m0>(m1*1ll*m2).inv(),
+				  i02=modulo_int<m1>(m0*1ll*m2).inv(),
+				  i01=modulo_int<m2>(m0*1ll*m1).inv();
+	constexpr u128 m012=u128(m0)*m1*m2;
+	for(int i=0;i<n;++i){
+		A[i]=lint( (
+			  int(A0[i])*u128( (m1*1ll*m2*u128(i12))%m012 ) +
+			  int(A1[i])*u128( (m0*1ll*m2*u128(i02))%m012 ) +
+			  int(A2[i])*u128( (m0*1ll*m1*u128(i01))%m012 ) )%tfps::mod() );
 	}
 }
 
-int Tonelli_Shanks(mint a) {
+
+template<typename tfps>
+int Tonelli_Shanks(tfps a) {
 	// usado por sqrt cuando trabajo con enteros modulo algo
 	//plagiado epicamente de https://judge.yosupo.jp/submission/270105
-	
+	const int mod=tfps::mod();
 	if (a < 2) return a;
 	if (mpow<int>(a, (mod - 1) / 2, mod) != 1) return -1;
 	if (mod % 4 == 3) return mpow<int>(a, (mod + 1) / 4, mod);
 
-	mint b = 3;
+	tfps b = 3;
 	if (mod != 998244353) {
 		while (mpow<int>(b, (mod - 1) / 2, mod) == 1) {
-			b=mint(int(rng_64()%(mod-3)) + 2);
+			b=tfps(int(rng_64()%(mod-3)) + 2);
 		}
 	}
 
 	int q = mod - 1,Q = 0;
 	while ( !(q&1) ) Q++, q /= 2;
 
-	mint x = mpow<int>(a, (q + 1) / 2, mod);
+	tfps x = mpow<int>(a, (q + 1) / 2, mod);
 	b = mpow<int>(b, q, mod);
 
 	int shift = 2;
 	while ( x*x != a) {
-		mint error= mint(mpow<int>(a,mod-2,mod))*x*x;
+		tfps error= tfps(mpow<int>(a,mod-2,mod))*x*x;
 		if (mpow<int>(error, 1 << (Q - shift), mod) != 1) x *= b;
 		b *=b;
 		++shift;
@@ -278,16 +367,24 @@ struct FormalPowerSeries{
 		const int nm=A.size()+B.size();
 		const int lgi=ilog2(nm-1)+1;
 		A.F.resize(1<<lgi,0);B.F.resize(1<<lgi,0);
-		internal::fft(A.F,0);internal::fft(B.F,0);
+		internal::fft<tfps>(A.F,0);internal::fft<tfps>(B.F,0);
 		rep(i,0,sz(A))A[i]*=B[i];
-		internal::fft(A.F,1);
-		A.trunc(nm);
+		internal::fft<tfps>(A.F,1);
 	}
 	
 	static void mult(FormalPowerSeries<tfps> &A, const FormalPowerSeries<tfps> &B){
-		static const int Limit=50;
+		const int nm=A.F.size()+B.F.size();
+		static const int Limit=0;
 		if(min(sz(A),sz(B))<=Limit)A=mult_naive(A,B);
-		else mult_fft(A,B);
+		else {
+			#ifndef SHITTY_GCC_VERSION
+			if constexpr( tfps::arbitrary_ntt() )
+			#else
+			if ( tfps::arbitrary_ntt() )
+			#endif
+				internal::mult_arbitrary<tfps>(A.F,B.F);
+			else mult_fft(A,B);
+		} A.trunc(nm);
 	}
 	
 	static void scale(FormalPowerSeries<tfps> &F,tfps vl){
@@ -306,7 +403,6 @@ struct FormalPowerSeries{
 		// G=x^{xi}F
 		FormalPowerSeries<tfps> G(max(1,sz(F)+xi),0);
 		rep(i,0,sz(F))if(i+xi>=0&&i+xi<sz(G)) G[i+xi]=F[i];
-		// idebug(F.F);idebug(G.F);
 		return G;
 	}
 	
@@ -317,13 +413,14 @@ struct FormalPowerSeries{
 	constexpr FormalPowerSeries(int n,tfps vl=tfps(0)){F.resize(n,vl);}
 	
 	// iterator stuff
-	using iterator=typename std::vector<mint>::iterator;
-	using const_iterator=typename std::vector<mint>::const_iterator;
+	using iterator=typename std::vector<tfps>::iterator;
+	using const_iterator=typename std::vector<tfps>::const_iterator;
 	iterator begin() { return F.begin(); } iterator end() { return F.end(); }
 	const_iterator begin() const { return F.begin(); } const_iterator end() const { return F.end(); }
 	
 	// utilities
-	FormalPowerSeries<tfps>& trunc(int n,bool elim_0=1){
+	FormalPowerSeries<tfps>& trunc(int n=-1,bool elim_0=1){
+		if(n==-1)n=sz(F);
 		F.resize(max(1,min(sz(F),n)));
 		if(elim_0)while(sz(F)>1&&F.back()==0)F.pop_back();
 		return *this;
@@ -413,7 +510,7 @@ struct FormalPowerSeries{
 		for(int e=2;e<n*2;e<<=1){
 			ac=G.log(e);ac.F.resize(max(sz(ac),min(e,sz(F))),0);
 			
-			rep(i,0,sz(ac))ac[i]=(i<sz(F)?F[i]:mint(0))- ac[i];
+			rep(i,0,sz(ac))ac[i]=(i<sz(F)?F[i]:tfps(0))- ac[i];
 			ac+={1}; (G*=ac).trunc(e);
 		}
 		return G.trunc(n);
@@ -425,7 +522,7 @@ struct FormalPowerSeries{
 		if( xi>=sz(F) || lint(xi) > lint(n)/e )return {0};
 		
 		// alp could go wrong if its not a integer modulo smthng
-		tfps alp=F[xi].pow(e%(mod-1)),ainv=F[xi].inv();
+		tfps alp=F[xi].pow(e%(tfps::mod()-1)),ainv=F[xi].inv();
 		
 		int rx=xi?xi*int(e):0; // F^i=exp(i*log(F)) ; shifts and alp,ainv  for making F[0]=1
 		return ( ( ( ((*this)>>xi)*ainv).trunc(n-xi).log(n-rx)*tfps(e) 
@@ -441,7 +538,7 @@ struct FormalPowerSeries{
 		if( xi>=sz(F) )return {0};
 		
 		if(xi&1)return {};
-		int vl=internal::Tonelli_Shanks(F[xi]);if(vl==-1)return {};
+		int vl=internal::Tonelli_Shanks<tfps>(F[xi]);if(vl==-1)return {};
 		FormalPowerSeries<tfps> G={vl},ac;//sqrt{F[0]}
 		//I assume Tonelli_Shanks returns -1 when it's impossible
 		
