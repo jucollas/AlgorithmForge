@@ -374,7 +374,7 @@ struct FormalPowerSeries{
 	
 	static void mult(FormalPowerSeries<tfps> &A, const FormalPowerSeries<tfps> &B){
 		const int nm=A.F.size()+B.F.size();
-		static const int Limit=0;
+		static const int Limit=50;
 		if(min(sz(A),sz(B))<=Limit)A=mult_naive(A,B);
 		else {
 			#ifndef SHITTY_GCC_VERSION
