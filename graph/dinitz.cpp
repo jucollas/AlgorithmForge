@@ -50,7 +50,7 @@ struct Dinitz{
 		blocked.resize(n);
 	}
 
-	void addEdge( int u, int v, ftype c1, ftype c2=0 ) {
+	void add_edge( int u, int v, ftype c1, ftype c2=0 ) {
 		// u->v has capacity c1; v->u has capacity c2
 		
 		graph[u].push_back( edges.size() );
@@ -97,7 +97,7 @@ struct Dinitz{
 		return push_flow;
 	}
 
-	ftype maxFlow( ) {
+	ftype max_flow( ) {
 	/* Hace el maximo flujo del grafo (retorna el maxFlow, las asignaciones quedan en las aristas)
 		Funciona en peor caso $O(v^2*E)$ */
 		ftype flow = 0;

@@ -24,7 +24,7 @@ struct modulo_int{
 	
 	constexpr modulo_int &operator +=(const modulo_int &ot){ vl+=ot.vl; if(vl>=m)vl-=m; return *this; }
 	constexpr modulo_int  operator + (const modulo_int &ot)const{ return modulo_int(*this)+=ot; }
-	constexpr modulo_int &operator -=(const modulo_int &ot){ vl=(vl>ot.vl)?vl-ot.vl:vl+m-ot.vl; return *this; }
+	constexpr modulo_int &operator -=(const modulo_int &ot){ vl=(vl>=ot.vl)?vl-ot.vl:vl+m-ot.vl; return *this; }
 	constexpr modulo_int  operator - (const modulo_int &ot)const{ return modulo_int(*this)-=ot; }
 	constexpr modulo_int &operator *=(const modulo_int &ot){ vl=(vl*1ll*ot.vl)%m; return *this; }
 	constexpr modulo_int  operator * (const modulo_int &ot)const{ return modulo_int(*this)*=ot; }
