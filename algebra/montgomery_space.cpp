@@ -21,25 +21,27 @@ Adapted from https://en.algorithmica.org/hpc/number-theory/montgomery/
 
 typedef unsigned int uint; typedef unsigned long long ulint;
 constexpr uint constexpr_calc_mr(uint n,int m_pow){uint nr=1;for(int i=0;i<ilog2(m_pow);++i)nr*=2-n*+nr;return nr;}
-template < uint m, int m_pow=32 >
+template < ulint raw_m, int m_pow=32, typename tint=uint,bool arbi_ntt=0 >
 struct montgomery_int{
-	static_assert(m_pow>0&&m_pow<=32); static_assert(m>0);
-	static constexpr uint mr=constexpr_calc_mr(m,m_pow);
-	constexpr static uint mod(){return m;}
+	constexpr static tint m=raw_m; static_assert(m>0);
+	static_assert(m_pow>0&&m_pow<=32); 
+	static constexpr tint mr=constexpr_calc_mr(m,m_pow);
+	constexpr static tint mod(){return m;}
+	constexpr static bool arbitrary_ntt(){return arbi_ntt;}
 	
-	constexpr static uint reduce(ulint x)noexcept{
+	constexpr static tint reduce(ulint x)noexcept{
 		
-		uint q= uint(x)*mr;
-		uint y=((ulint)q*m)>>m_pow;
+		tint q= tint(x)*mr;
+		tint y=((ulint)q*m)>>m_pow;
 		
-		uint res=(x>>m_pow)+m-y;
+		tint res=(x>>m_pow)+m-y;
 		if (res >= m) res -= m;
 		return res;
 	}
-	constexpr static uint transform (uint x)noexcept{return (ulint(x)<<m_pow)%m;}
-	constexpr static uint itransform(uint x)noexcept{return reduce(x);}
+	constexpr static tint transform (tint x)noexcept{return (ulint(x)<<m_pow)%m;}
+	constexpr static tint itransform(tint x)noexcept{return reduce(x);}
 	
-	uint vl;
+	tint vl;
 	
 	constexpr montgomery_int()noexcept:vl(0){};
 	constexpr montgomery_int( int v)noexcept:vl(transform(v>=0?(v< int(m)?v:v%m):(m+v>=0?m+v:(v%m)+m))){};
@@ -47,36 +49,37 @@ struct montgomery_int{
 	constexpr montgomery_int( uint v)noexcept:vl(transform(v<m?v:v%m)){};
 	constexpr montgomery_int(ulint v)noexcept:vl(transform(v<ulint(m)?v:v%m)){};
 	
-	montgomery_int &operator +=(const montgomery_int &ot){ vl+=ot.vl; if(vl>=m)vl-=m; return *this; }
-	montgomery_int  operator + (const montgomery_int &ot)const{ return montgomery_int(*this)+=ot; }
-	montgomery_int &operator -=(const montgomery_int &ot){ vl=(vl>=ot.vl)?vl-ot.vl:vl+m-ot.vl; return *this; }
-	montgomery_int  operator - (const montgomery_int &ot)const{ return montgomery_int(*this)-=ot; }
-	montgomery_int &operator *=(const montgomery_int &ot){ vl= reduce((ulint)vl*ot.vl); return *this; }
-	montgomery_int  operator * (const montgomery_int &ot)const{ return montgomery_int(*this)*=ot; }
-	montgomery_int &operator /=(const montgomery_int &ot){ (*this)*=ot.inv(); return *this; }
-	montgomery_int  operator / (const montgomery_int &ot)const{ return montgomery_int(*this)/=ot; }
+	constexpr montgomery_int &operator +=(const montgomery_int &ot){ vl+=ot.vl; if(vl>=m)vl-=m; return *this; }
+	constexpr montgomery_int  operator + (const montgomery_int &ot)const{ return montgomery_int(*this)+=ot; }
+	constexpr montgomery_int &operator -=(const montgomery_int &ot){ vl=(vl>=ot.vl)?vl-ot.vl:vl+m-ot.vl; return *this; }
+	constexpr montgomery_int  operator - (const montgomery_int &ot)const{ return montgomery_int(*this)-=ot; }
+	constexpr montgomery_int &operator *=(const montgomery_int &ot){ vl= reduce((ulint)vl*ot.vl); return *this; }
+	constexpr montgomery_int  operator * (const montgomery_int &ot)const{ return montgomery_int(*this)*=ot; }
+	constexpr montgomery_int &operator /=(const montgomery_int &ot){ (*this)*=ot.inv(); return *this; }
+	constexpr montgomery_int  operator / (const montgomery_int &ot)const{ return montgomery_int(*this)/=ot; }
 	
-	montgomery_int operator -()const {return montgomery_int(0)-(*this);}
-	montgomery_int pow(lint e)const{
+	constexpr montgomery_int operator -()const {return montgomery_int(0)-(*this);}
+	constexpr montgomery_int pow(lint e)const{
 		montgomery_int rs=1,ac=*this;while(e){
 			if(e&1ll)rs*=ac;
 			e>>=1;ac*=ac;
 		}
 		return rs;
 	}
-	montgomery_int inv()const{return this->pow(m-2);}//Fermats little theorem
+	constexpr montgomery_int inv()const{return this->pow(m-2);}//Fermats little theorem
 	
-	bool operator ==(const montgomery_int &ot)const{return vl==ot.vl;} 
-	bool operator !=(const montgomery_int &ot)const{return vl!=ot.vl;}
-	bool operator ==(const  uint &ot)const{return reduce(vl)==ot;}
-	bool operator ==(const  int &ot )const{return reduce(vl)==ot;}
+	constexpr bool operator ==(const montgomery_int &ot)const{return vl==ot.vl;} 
+	constexpr bool operator !=(const montgomery_int &ot)const{return vl!=ot.vl;}
+	constexpr bool operator ==(const  uint &ot)const{return reduce(vl)==ot;}
+	constexpr bool operator ==(const  int &ot )const{return reduce(vl)==ot;}
 	
-	operator bool() const { return itransform(vl); }
-	operator  int() const { return itransform(vl); }
+	constexpr operator bool() const { return itransform(vl); }
+	constexpr operator  int() const { return itransform(vl); }
+	constexpr operator long long() const{ return int(*this); }
 	
 	friend ostream &operator<<(ostream &os,const montgomery_int &ac){return os << itransform(ac.vl);}
 	friend istream &operator>>(istream&is,montgomery_int &ac){int v;is>>v;ac=montgomery_int(v);return is;}	
-}; typedef montgomery_int<mod> mint;
+};  typedef montgomery_int<mod> mint;
 
 // for a more focalized use
 struct montgomery_space{

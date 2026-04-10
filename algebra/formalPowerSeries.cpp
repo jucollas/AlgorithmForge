@@ -1,15 +1,15 @@
 /*
 Author: Oscar Vargas Pabon
-
+ 
 NTT taken from the atcoder library
 	https://github.com/atcoder/ac-library/
-
+ 
 Based on code by MarcosK, other people and multiple blogs all around the place
 	https://codeforces.com/contest/438/submission/340901913
 	https://cp-algorithms.com/algebra/polynomial.html#inverse-series_1
 	https://codeforces.com/blog/entry/56422
 	https://codeforces.com/blog/entry/12513 - problem E
-
+ 
 Tested in
 	https://judge.yosupo.jp/problem/inv_of_formal_power_series
 	https://judge.yosupo.jp/problem/exp_of_formal_power_series
@@ -17,23 +17,23 @@ Tested in
 	https://judge.yosupo.jp/problem/pow_of_formal_power_series
 	https://judge.yosupo.jp/problem/sqrt_of_formal_power_series
 Though this last version was tested in /testing/fps_test.cpp
-
+ 
 Arbitrary modulus multiplication tested/developed in 
 	https://atcoder.jp/contests/arc215/submissions/73551697
 	with help of https://nyaannyaan.github.io/library/ntt/arbitrary-ntt.hpp
 	
-
-
+ 
+ 
 I assume mint from algebra/modulo_int.cpp
 Note that in this specific version, the ntt wont work well if using
 	montgomery_space. Ill eventually get a montgomery-safe impl
-
+ 
 Remember 'primitive_root(mod)' will return a primitive root of the modulo in time
 	$O(\sqrt{mod}+R log^2 mod)$ usefull to get the constant
-
+ 
 REMEMBER TO COMMENT 'SHITTY_GCC_VERSION' when sending/using arbitrary_modulus multiplication
 	as my shitty gcc version doesnt support 128-bit integers or 'if constexpr'
-
+ 
 Dependencies I assume
 everything     :: #define rep(i,strt,end) for(int i = strt ; i !=int(end) ; (int(strt)<int(end))?++i:--i )
 everything     :: #define sz(vec) int(vec.size())
@@ -41,7 +41,7 @@ mult,square    :: int ilog2( int num ) { return 8*sizeof(int) - __builtin_clz( n
 TonelliShanks  :: mt19937_64 rng_64( chrono::steady_clock::now().time_since_epoch().count() );
 sqrt           :: TonelliShanks, tfps(?).inv()
 pow            :: tfps(?).inv(), tfps(?).pow()
-
+ 
 Notes: Some undefined behaviour may ocur whenever F[ind1]=F[ind2] where sz(F)<=ind2 as
 		F[ind1] can be evaluated first and the resize in F[ind2] may 'overwrite' the
 		reference previously established
@@ -49,18 +49,18 @@ Notes: I havent fully finished mult_arbitrary to handle arbitrary modulus.
 		I'm missing cases where I use 3 modulus to do the calculations
 		
 Notes: (1<<59)*27+1 is a 64-bit prime (IntroMathComputational-Shoup pg 484)
-
-
+ 
+ 
 */
-
+ 
 /* START OF NTT */
 namespace internal { // taken from atcoder
-
-#define SHITTY_GCC_VERSION
-
+ 
+// #define SHITTY_GCC_VERSION
+ 
 int countr_zero(unsigned int n) { return __builtin_ctz(int32_t(n)); }
 constexpr int countr_zero_constexpr(unsigned int n) { int x = 0; while (!(n & (1 << x))) x++; return x; }
-
+ 
 constexpr int primitive_root(int m){
 	//tests for g such that $\forall_{p|(md-1)} g^{(md-1)/p}=1(mod md)$
 	int dec[32]={},dind=0, md=m-1;
@@ -72,21 +72,20 @@ constexpr int primitive_root(int m){
 		++pr; fnd=1; // by properties, this will always end
 		for(int i=0;i<dind&&fnd;++i)fnd=mpow<int>(pr,(m-1)/dec[i],m)!=1;
 	} return pr;// std::cerr <<pr << " _ primitive root" << endl;
-}
-template<typename tfps>
+} template<typename tfps>
 struct fft_info {
 	static const int g =(tfps::mod()==998244353)?3:primitive_root(int(tfps::mod())); // primitive root 
 	
     static constexpr int rank2 = countr_zero_constexpr(int(tfps::mod()) - 1);
     std::array<tfps, rank2 + 1> root;   // root[i]^(2^i) == 1
     std::array<tfps, rank2 + 1> iroot;  // root[i] * iroot[i] == 1
-
+ 
     std::array<tfps, std::max(0, rank2 - 2 + 1)> rate2;
     std::array<tfps, std::max(0, rank2 - 2 + 1)> irate2;
-
+ 
     std::array<tfps, std::max(0, rank2 - 3 + 1)> rate3;
     std::array<tfps, std::max(0, rank2 - 3 + 1)> irate3;
-
+ 
     fft_info() {
         root[rank2] = tfps(g).pow((tfps::mod() - 1) >> rank2);
         iroot[rank2] = root[rank2].inv();
@@ -94,7 +93,7 @@ struct fft_info {
             root[i] = root[i + 1] * root[i + 1];
             iroot[i] = iroot[i + 1] * iroot[i + 1];
         }
-
+ 
         {
             tfps prod = 1, iprod = 1;
             for (int i = 0; i <= rank2 - 2; i++) {
@@ -114,15 +113,13 @@ struct fft_info {
             }
         }
     }
-};
-
-template<typename tfps>
+}; template<typename tfps>
 void butterfly(std::vector<tfps>& a) {
     int n = int(a.size());
     int h = countr_zero((unsigned int)n);
-
+ 
     static const fft_info<tfps> info;
-
+ 
     int len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed
     while (len < h) {
         if (h - len == 1) {
@@ -168,14 +165,13 @@ void butterfly(std::vector<tfps>& a) {
             len += 2;
         }
     }
-}
-template<typename tfps>
+} template<typename tfps>
 void butterfly_inv(std::vector<tfps>& a) {
     int n = int(a.size());
     int h = countr_zero((unsigned int)n);
-
+ 
     static const fft_info<tfps> info;
-
+ 
     int len = h;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed
     while (len) {
         if (len == 1) {
@@ -209,11 +205,11 @@ void butterfly_inv(std::vector<tfps>& a) {
                     auto a1 = 1ULL * a[i + offset + 1 * p].vl;
                     auto a2 = 1ULL * a[i + offset + 2 * p].vl;
                     auto a3 = 1ULL * a[i + offset + 3 * p].vl;
-
+ 
                     auto a2na3iimag =
                         1ULL *
                         tfps((tfps::mod() + a2 - a3) * iimag.vl).vl;
-
+ 
                     a[i + offset] = a0 + a1 + a2 + a3;
                     a[i + offset + 1 * p] =
                         (a0 + (tfps::mod() - a1) + a2na3iimag) * irot.vl;
@@ -230,16 +226,14 @@ void butterfly_inv(std::vector<tfps>& a) {
             len -= 2;
         }
     }
-}
-template<typename tfps>
+} template<typename tfps>
 void fft(std::vector<tfps> &A,bool invert){
 	if(invert){
 		internal::butterfly_inv<tfps>(A);
 		tfps n_1 = tfps(sz(A)).inv();
 		for (tfps & x : A)x*=n_1;
 	} else internal::butterfly<tfps>(A);
-}
-template<typename tfps>
+} template<typename tfps>
 void transposed_fft(std::vector<tfps> &A,bool invert){
 	if (!invert) internal::butterfly_inv<tfps>(A);
 	reverse(A.begin() + 1, A.end());
@@ -248,9 +242,8 @@ void transposed_fft(std::vector<tfps> &A,bool invert){
 		tfps n_1=tfps(sz(A)).inv();
 		for (tfps &x: A) x *= n_1;
 	}
-}
-template<typename tfps>
-void mult_arbitrary(std::vector<tfps>&A,const std::vector<tfps> &B ){
+} template<typename tfps,const bool square=0>
+void mult_arbitrary(std::vector<tfps>&A,const std::vector<tfps> &B={} ){
 	// Im guiding miself on nyaan's library for this
 	// https://nyaannyaan.github.io/library/ntt/arbitrary-ntt.hpp
 	#ifndef SHITTY_GCC_VERSION
@@ -263,11 +256,22 @@ void mult_arbitrary(std::vector<tfps>&A,const std::vector<tfps> &B ){
 	// constexpr int m0 = (1<<30)*3+1, m1 = (1<<28)*13+1, m2 = (1<<27)*29+1;
 	constexpr int m0 = 167772161, m1 = 469762049, m2 = 754974721;
 	
-	std::vector<modulo_int<m0>> A0(n),B0=A0;
-	for(int i=0;i<n;++i)A0[i]=lint(A[i]),B0[i]=(i>=bsz)?0:lint(B[i]);
-	internal::fft<modulo_int<m0>>(A0,0);internal::fft<modulo_int<m0>>(B0,0);
-	rep(i,0,1<<lgi)A0[i]*=B0[i];
-	internal::fft<modulo_int<m0>>(A0,1);
+	std::vector<modulo_int<m0>> A0(n);
+	for(int i=0;i<n;++i)A0[i]=lint(A[i]);
+	internal::fft<modulo_int<m0>>(A0,0);
+	
+	#ifndef SHITTY_GCC_VERSION
+	if constexpr(square){
+	#else
+	if(square){
+	#endif
+		rep(i,0,1<<lgi)A0[i]*=A0[i];
+	} else{
+		std::vector<modulo_int<m0>> B0(n);
+		for(int i=0;i<n;++i)B0[i]=(i>=bsz)?0:lint(B[i]);
+		internal::fft<modulo_int<m0>>(B0,0);
+		rep(i,0,1<<lgi)A0[i]*=B0[i];	
+	}internal::fft<modulo_int<m0>>(A0,1);
 	
 	#ifndef SHITTY_GCC_VERSION
 	if constexpr ( tfps::mod()<m0 && tfps::mod()*1ll*tfps::mod() < m0 ){
@@ -276,15 +280,25 @@ void mult_arbitrary(std::vector<tfps>&A,const std::vector<tfps> &B ){
 	#endif
 		for(int i=0;i<n;++i)A[i]=int(A0[i]);
 		return;
-	}
-	std::vector<modulo_int<m1>> A1(1<<lgi),B1=A1;
-	for(int i=0;i<n;++i)A1[i]=lint(A[i]),B1[i]=(i>=bsz)?0:lint(B[i]);
-	internal::fft<modulo_int<m1>>(A1,0);internal::fft<modulo_int<m1>>(B1,0);
-	rep(i,0,1<<lgi)A1[i]*=B1[i];
-	internal::fft<modulo_int<m1>>(A1,1);
+	} std::vector<modulo_int<m1>> A1(1<<lgi);
+	for(int i=0;i<n;++i)A1[i]=lint(A[i]);
+	internal::fft<modulo_int<m1>>(A1,0);
+	
+	#ifndef SHITTY_GCC_VERSION
+	if constexpr(square){
+	#else
+	if(square){
+	#endif
+		rep(i,0,1<<lgi)A1[i]*=A1[i];
+	} else {
+		std::vector<modulo_int<m1>> B1(1<<lgi);
+		for(int i=0;i<n;++i)B1[i]=(i>=bsz)?0:lint(B[i]);
+		internal::fft<modulo_int<m1>>(B1,0);
+		rep(i,0,1<<lgi)A1[i]*=B1[i];
+	}internal::fft<modulo_int<m1>>(A1,1);
 		
 		
-	constexpr bool only_2=1,cond_2=tfps::mod()<max<int>(m0,m1) && tfps::mod()*1ll*tfps::mod() < m0*1ll*m1;
+	constexpr bool only_2=0,cond_2=tfps::mod()<max<int>(m0,m1) && tfps::mod()*1ll*tfps::mod() < m0*1ll*m1;
 	#ifndef SHITTY_GCC_VERSION
 	if constexpr ( only_2 || cond_2 ){
 	#else
@@ -297,28 +311,35 @@ void mult_arbitrary(std::vector<tfps>&A,const std::vector<tfps> &B ){
 			        int(A0[i])*u128( i01*1ll*m1 ) +
 				    int(A1[i])*u128( i10*1ll*m0 ) ) %m01 );
 		} return;
-	}
-	assert(0); // esta parte aun no esta terminada xdxdxdxdxdxd
+	} std::vector<modulo_int<m2>> A2(1<<lgi);
+	for(int i=0;i<n;++i)A2[i]=lint(A[i]);
+	internal::fft<modulo_int<m2>>(A2,0);
+	#ifdef SHITTY_GCC_VERSION
+	if(square){
+	#else
+	if constexpr(square){
+	#endif
+		rep(i,0,1<<lgi)A2[i]*=A2[i];
+	} else {
+		std::vector<modulo_int<m2>> B2(1<<lgi);
+		for(int i=0;i<n;++i)B2[i]=(i>=bsz)?0:lint(B[i]);
+		internal::fft<modulo_int<m2>>(B2,0);
+		rep(i,0,1<<lgi)A2[i]*=B2[i];
+	} internal::fft<modulo_int<m2>>(A2,1);
 	
-	std::vector<modulo_int<m2>> A2(1<<lgi),B2=A2;
-	for(int i=0;i<n;++i)A2[i]=lint(A[i]),B2[i]=(i>=bsz)?0:lint(B[i]);
-	internal::fft<modulo_int<m2>>(A2,0);internal::fft<modulo_int<m2>>(B2,0);
-	rep(i,0,1<<lgi)A2[i]*=B2[i];
-	internal::fft<modulo_int<m2>>(A2,1);
-		
 	constexpr int i12=modulo_int<m0>(m1*1ll*m2).inv(),
 				  i02=modulo_int<m1>(m0*1ll*m2).inv(),
 				  i01=modulo_int<m2>(m0*1ll*m1).inv();
 	constexpr u128 m012=u128(m0)*m1*m2;
 	for(int i=0;i<n;++i){
-		A[i]=lint( (
+		A[i]=lint( ( (
 			  int(A0[i])*u128( (m1*1ll*m2*u128(i12))%m012 ) +
 			  int(A1[i])*u128( (m0*1ll*m2*u128(i02))%m012 ) +
-			  int(A2[i])*u128( (m0*1ll*m1*u128(i01))%m012 ) )%tfps::mod() );
+			  int(A2[i])*u128( (m0*1ll*m1*u128(i01))%m012 ) )%m012 )%tfps::mod() );
 	}
 }
-
-
+ 
+ 
 template<typename tfps>
 int Tonelli_Shanks(tfps a) {
 	// usado por sqrt cuando trabajo con enteros modulo algo
@@ -327,20 +348,20 @@ int Tonelli_Shanks(tfps a) {
 	if (a < 2) return a;
 	if (mpow<int>(a, (mod - 1) / 2, mod) != 1) return -1;
 	if (mod % 4 == 3) return mpow<int>(a, (mod + 1) / 4, mod);
-
+ 
 	tfps b = 3;
 	if (mod != 998244353) {
 		while (mpow<int>(b, (mod - 1) / 2, mod) == 1) {
 			b=tfps(int(rng_64()%(mod-3)) + 2);
 		}
 	}
-
+ 
 	int q = mod - 1,Q = 0;
 	while ( !(q&1) ) Q++, q /= 2;
-
+ 
 	tfps x = mpow<int>(a, (q + 1) / 2, mod);
 	b = mpow<int>(b, q, mod);
-
+ 
 	int shift = 2;
 	while ( x*x != a) {
 		tfps error= tfps(mpow<int>(a,mod-2,mod))*x*x;
@@ -351,7 +372,7 @@ int Tonelli_Shanks(tfps a) {
 	return x;
 }
 } //end internal namespace
-
+ 
 template<typename tfps>
 struct FormalPowerSeries{
 	std::vector<tfps> F;
@@ -374,7 +395,7 @@ struct FormalPowerSeries{
 	
 	static void mult(FormalPowerSeries<tfps> &A, const FormalPowerSeries<tfps> &B){
 		const int nm=A.F.size()+B.F.size();
-		static const int Limit=50;
+		static const int Limit=70;
 		if(min(sz(A),sz(B))<=Limit)A=mult_naive(A,B);
 		else {
 			#ifndef SHITTY_GCC_VERSION
@@ -462,15 +483,22 @@ struct FormalPowerSeries{
 	// square - derivative - integration - inverse - log - exp - sqrt - euc_div
 	
 	FormalPowerSeries<tfps>& square(){
-		const int Limit=50;
+		const int Limit=70;
 		if(sz(F)<Limit)(*this)=mult_naive(*this,*this);
 		else {
 			const int nm=size()*2, lgi=ilog2(nm-1)+1;
-			F.resize(1<<lgi,0);
-			internal::fft(F,0);
-			for(tfps&ac:F)ac*=ac;
-			internal::fft(F,1);
-			trunc(nm);
+			#ifndef SHITTY_GCC_VERSION
+			if constexpr(tfps::arbitrary_ntt())
+			#else
+			if (tfps::arbitrary_ntt())
+			#endif
+				internal::mult_arbitrary<tfps,bool(1)>(F);
+			else{
+				F.resize(1<<lgi,0);
+				internal::fft(F,0);
+				for(tfps&ac:F)ac*=ac;
+				internal::fft(F,1);
+			} trunc(nm);
 		}
 		return *this;
 	}
@@ -503,7 +531,7 @@ struct FormalPowerSeries{
 		assert(F[0]==1);
 		return (inv(n)*deriv()).trunc(n-1).integ();
 	}
-
+ 
 	FormalPowerSeries<tfps> exp(int n) const {
 		assert(!F[0]);// first n terms of G=exp(F) 
 		FormalPowerSeries<tfps> G={1},ac;
