@@ -1,0 +1,2 @@
+kPowers_summation.pdf was found in the editorial of the problem "K.ToxicCulinarity" of 2025 ICPC Asia Manila Regional.
+https://codeforces.com/gym/106262
