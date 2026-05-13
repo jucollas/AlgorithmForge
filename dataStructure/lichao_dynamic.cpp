@@ -1,8 +1,10 @@
 // Author: Oscar Vargas Pabon. Motivated by Judival
 // tested in https://codeforces.com/problemset/problem/932/F
+// Min convex hull trick implementation
 // requires Point from ..\geometry\geotemplate.cpp supporting dot product (*)
-// and '=='.
-// It works by assigning an id to each tree. It supports update, alias add line;
+// and '=='. P(m,b) = <P.x,P.y> = L(x)=m*x+b
+// It works by assigning an id to each tree (-1 is code for no tree).
+// It supports update, alias add line;
 // querys and merge trees. The tree has size O(n) for n:linear functions added
 // and query/update time O(lgn), merge time O(nlg m) for m being the tree being merged to
 

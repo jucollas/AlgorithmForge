@@ -7,6 +7,7 @@ NO OLVIDAR INVOCAR 'precompute_prime' ANTES DE USAR
 
 Testeado en; https://codeforces.com/problemset/problem/2132/G
 			https://codeforces.com/problemset/problem/727/E
+			https://codeforces.com/problemset/problem/2209/E
 */
 
 // const int template_limit=1e6;
@@ -15,7 +16,7 @@ Testeado en; https://codeforces.com/problemset/problem/2132/G
 // template<typename tpow> constexpr tpow mpow(tpow x,lint e,tpow m){tpow res=1;while(e){if(e&1ll)res=(res*1ll*x)%m;e>>=1;x=(x*1ll*x)%m;}return res;}
 // asumo el anterior de mi template
 
-const int N_HASH=2, PRIME_TESTING=3;
+const int N_HASH=1, PRIME_TESTING=5;
 const int LH_B=1e9,RH_B=1<<31;
 int base[N_HASH],modul[N_HASH],ebase[template_limit][N_HASH];
 
@@ -48,27 +49,28 @@ struct Hash{
     }
   } Hash( char c ) { len=1;
 	rep(i,0,N_HASH)h[i]= int(c)%modul[i];  
-  } bool operator == ( const Hash &o ) const { return len==o.len&&h==o.h; }
-  bool operator < ( const Hash &o ) const { return h<o.h; }
+  } inline bool operator == ( const Hash &o ) const { return len==o.len&&h==o.h; }
+  inline bool operator !=( const Hash &o ) const { return !(*this==o); }
+  inline bool operator < ( const Hash &o ) const { return h<o.h; }
   Hash operator + ( const Hash &o ) const { // *this + o
     Hash res; for ( int i = 0 ; i < N_HASH ; ++i ) {
       res.h[i] = ( ebase[o.len][i]*1ll*h[i] + o.h[i] )%modul[i];
     } res.len = len+o.len; return res;
-  } void lconc( char c ) { // hago this = c + this
+  } inline void lconc( char c ) { // hago this = c + this
 	rep(i,0,N_HASH) h[i] = ( ebase[len][i]*1ll*lint(c) + h[i] ) % modul[i];
 	++len;
-  } void rconc( char c ) { // hago this=this+c
+  } inline void rconc( char c ) { // hago this=this+c
 	rep(i,0,N_HASH) h[i] = ( h[i]*1ll*base[i] + lint(c))%modul[i];
 	++len;
-  } void ldeconc ( const Hash &l ) { // quito el prefijo l de *this
+  } inline void ldeconc ( const Hash &l ) { // quito el prefijo l de *this
     for ( int i = 0 ; i < N_HASH ; ++i ) {
       h[i] -=(l.h[i]*1ll*ebase[len-l.len][i] )%modul[i];
 	  if(h[i]<0)h[i]+=modul[i];
     } len -= l.len;
-  } void rdeconc( const Hash &r ) { // quito el sufijo r de *this
+  } inline void rdeconc( const Hash &r ) { // quito el sufijo r de *this
     for ( int i = 0 ; i < N_HASH ; ++i ) {
       h[i] = ( (h[i]-r.h[i])*1ll*mpow<int>(ebase[r.len][i], modul[i]-2,modul[i]) ) %modul[i];
 	  if(h[i]<0)h[i]+=modul[i];
     } len -=r.len;
-  }
+  } Hash operator - ( const Hash&o ) const { Hash res=*this; res.rdeconc(o); return res; }
 };

@@ -61,8 +61,8 @@ struct UnSegTree{
 	} int update( int nd, int ql,int qr, const Lazy &upd, int l=0, int r=-1 ){ if(r==-1)r=t_sz;
 		if(nd==-1)nd=new_node();
 		push(nd,l,r);
-		Data&mdat=pool[nd].dat;if(mdat.mx<=upd.vl)return nd;  // non-standard line (segmentTreeBeats)
-		int neo = nd; if ( ql<=l && r <= qr && mdat.mx>upd.vl&& mdat.smx<upd.vl ) {
+		// Data&mdat=pool[nd].dat;if(mdat.mx<=upd.vl)return nd;  // non-standard line (segmentTreeBeats)
+		int neo = nd; if ( ql<=l && r <= qr ){//&& mdat.mx>upd.vl&& mdat.smx<upd.vl ) {
 		    if(persistent){neo=new_node();pool[neo]=pool[nd];}// non-standard cond (SegmentTreeBeats)
 			pool[neo].tag=upd; push(neo,l,r); 
 		} else if (!(r<ql||qr<l)){ const int m =(l+r)/2; if(persistent)neo=new_node();

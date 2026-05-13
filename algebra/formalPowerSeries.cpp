@@ -56,7 +56,7 @@ Notes: (1<<59)*27+1 is a 64-bit prime (IntroMathComputational-Shoup pg 484)
 /* START OF NTT */
 namespace internal { // taken from atcoder
  
-// #define SHITTY_GCC_VERSION
+#define SHITTY_GCC_VERSION
  
 int countr_zero(unsigned int n) { return __builtin_ctz(int32_t(n)); }
 constexpr int countr_zero_constexpr(unsigned int n) { int x = 0; while (!(n & (1 << x))) x++; return x; }
