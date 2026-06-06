@@ -4,6 +4,10 @@ Autor: Oscar Vargas Pabon
 Usado en https://codeforces.com/contest/2120/problem/F
 y en https://codeforces.com/gym/105053/problem/E
 
+HAY MUCHAS COSAS MALAS CON ESTA IMPL. REVISAR LO QUE TENGO DE 
+	https://codeforces.com/problemset/problem/1903/F
+	PARA ESO
+
 Esta version no esta testeada por completo (es mas para dar la idea)
 Mi representacion de las clausulas es una mierda
 */
