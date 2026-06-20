@@ -3,12 +3,35 @@ Autor: Oscar Vargas Pabon
 Material de referencia para ICPC
 Lo probe en testing\rangeQtest.cpp
 */
+template<typename tint> struct fenw{
+	tint bit[max_n]; int n;
+	fenw(int nn=0){ n=nn;memset(bit,0,sizeof(tint)*(n+1));}
+	fenw(tint*arr,int nn) { assert(arr[0]==0);
+		int nxt;n=nn;memset(bit,0,sizeof(tint)*(n+1));
+		for(int i=0;i<=n;++i) {//note arr[0] is undefined
+			bit[i]+=arr[i];nxt=i+(i&(-i));
+			if(nxt<=n)bit[nxt]+=bit[i]; }
+	} void update( int x, tint val ) {
+		for(;x<=n;x+=x&(-x))bit[x]+=val;
+	} tint query(int l,int r=-1){ // [l,r]
+		tint res=0; if(r==-1)r=l,l=0;//(0,r]
+		for(;l<r;r-=r&(-r))res+=bit[r];
+		for(;r<l;l-=l&(-l))res-=bit[l];
+		return res;
+	}int binlift( tint vl ) {
+		int x=0,nxt;//$min\{i|\sum_{j<=i}bit_j>=val\}$
+		for(int exp=ilog2(n+1);exp>=0;--exp){
+			nxt=x|(1<<exp);if(nxt<=n&&bit[nxt]<vl){
+				vl-=bit[nxt];x=nxt; }
+		} return x+1; }
+};
 
+//////////////////// previous version
 int bit[template_limit], bit_size; // BIT -> Binary Indexed Tree
 
 void build( int *arr, int n ) {
 	/* Crea el arbol en tiempo O(n) sobre el arreglo 'arr' */
-	int nxt; bit_size = n+1; // porque esta indexado en 1
+	int nxt, bit_size = n+1; // porque esta indexado en 1
 	memset( bit, 0, sizeof(int)*bit_size );
 	for ( int i = 0 ; i < bit_size ; ++i ) {
 		bit[i] += arr[i]; nxt = i + (i&(-i));

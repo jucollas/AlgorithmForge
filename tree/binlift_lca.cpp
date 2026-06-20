@@ -29,7 +29,7 @@ class Data{
 		neo.mnsq=min({mnsq,o.mnsq,mnsf+o.mnpr});
 		return neo;
 	}
-	void invert(){ swap(mnpr,mnsf); swap(mxpr,mxsf); }
+	Data&invert(){ swap(mnpr,mnsf); swap(mxpr,mxsf);return *this;}
 };
 
 const int lgi=20;
@@ -62,4 +62,24 @@ Data query(int u,int v){
 	jump(l,u,0); jump(r,v,0);
 	l=l+bl[u][0]; r.invert();
 	return l+r;
+}
+/////// untested part. O(n) preprocessing and memory. O(lgn) query-time
+// https://codeforces.com/blog/entry/74847
+Data bl[max_n][2];int pi[max_n][2],dpt[max_n];
+void build_lca(const vector<vector<int>>&t,const vector<Data> &arr,int nd=0,int p=0,int d=0){
+	dpt[nd]=d;pi[nd][0]=p;bl[nd][0]=arr[nd]; // this ensures somehow O(lgn) query time
+	int pp=pi[p][1],ppp=pi[pp][1]; if(dpt[p]-dpt[pp]==dpt[pp]-dpt[ppp])
+		pi[nd][1]=ppp,bl[nd][1]=arr[nd]+bl[p][1]+bl[pp][1];
+	else pi[nd][1]=p,bl[nd][1]=arr[nd];
+	for(int e:t[nd])if(e!=p)build_lca(t,arr,e,nd,d+1);
+} Data lca(int u,int v){
+	if(dpt[u]>dpt[v])swap(u,v);
+	Data l,r; while(dpt[u]<dpt[v]){
+		int jmp=dpt[pi[u][1]]<=dpt[v];
+		l=l+bl[u][jmp];u=pi[u][jmp];
+	}if(u==v)return l+bl[u][0];
+	while(u!=v){ int jmp=pi[u][1]!=pi[v][1];
+		l=l+bl[u][jmp];u=pi[u][jmp];
+		r=r+bl[v][jmp];v=pi[v][jmp];
+	} return l+bl[u][0]+r.invert();
 }
