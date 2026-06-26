@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-
+#include<cassert>
 typedef long long lint;
 
 using namespace std;
@@ -132,6 +132,8 @@ void fft(fps&A,bool invert){
 				}
 				w*=wlen;
 			}
+
+			//cerr<<"["<<e"for(int i=0;i<n;++i)cerr << 
 		}
 	}
 }
@@ -166,8 +168,8 @@ void p_mult(fps &A, const fps &B){
 	if(min(sz(A),sz(B))<=Limit)A=p_mult_naive(A,B);
 	else p_mult_fft(A,B);
 }
-auto take_time=[&](){return std::chrono::high_resolution_clock::now();};
-auto get_durat=[&](auto start){ return std::chrono::duration_cast<std::chrono::milliseconds>(take_time() - start).count(); };
+auto take_time=[](){return std::chrono::high_resolution_clock::now();};
+auto get_durat=[](auto start){ return std::chrono::duration_cast<std::chrono::milliseconds>(take_time() - start).count(); };
 int main(){
 	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
@@ -184,6 +186,8 @@ int main(){
 	if(ios)rep(i,0,n)cin>>A[i];
 	else rep(i,0,n){int tmp;scanf("%d",&tmp);A[i]=tmp;}
 	
+	// fft(A,0);for(auto ac:A)cerr << ac << " ";cerr << endl; return 0;
+
 	fps B(n);
 	if(ios)rep(i,0,n)cin>>B[i];
 	else rep(i,0,n){int tmp;scanf("%d",&tmp);B[i]=tmp;}

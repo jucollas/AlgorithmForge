@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-
+#include<cassert>
 typedef long long lint;
 
 using namespace std;
@@ -292,8 +292,8 @@ void p_mult(fps &A, const fps &B){
 	if(min(sz(A),sz(B))<=Limit)A=p_mult_naive(A,B);
 	else p_mult_fft(A,B);
 }
-auto take_time=[&](){return std::chrono::high_resolution_clock::now();};
-auto get_durat=[&](auto start){ return std::chrono::duration_cast<std::chrono::milliseconds>(take_time() - start).count(); };
+auto take_time=[](){return std::chrono::high_resolution_clock::now();};
+auto get_durat=[](auto start){ return std::chrono::duration_cast<std::chrono::milliseconds>(take_time() - start).count(); };
 int main(){
 	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
@@ -305,6 +305,10 @@ int main(){
 	else scanf("%d",&n);
 	
 	// lint pm=0;cin>>pm;
+    // internal::fft_info info;
+    // for(int i=0;i<=info.rank2;++i)cerr << info.root[i] << " ";
+    //     cerr << endl;
+
 	
 	fps A(n);
 	if(ios)rep(i,0,n)cin>>A[i];

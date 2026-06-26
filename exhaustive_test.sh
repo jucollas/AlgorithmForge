@@ -1,10 +1,10 @@
 # https://codeforces.com/blog/entry/102287
 # linux
 for i in {1..100}; do
-    echo on test $i 
+    echo "on test $i"
     ./gen.out > input.txt
     ./a.out < input.txt > output.txt
-    if [ $? -ne 0 ]; do
+    if [ $? -ne 0 ]; then
     	echo "Something wrong"
     	cat input.txt
     	cat output.txt

@@ -63,8 +63,9 @@ Data query(int u,int v){
 	l=l+bl[u][0]; r.invert();
 	return l+r;
 }
-/////// untested part. O(n) preprocessing and memory. O(lgn) query-time
+/////// O(n) preprocessing and memory. O(lgn) query-time
 // https://codeforces.com/blog/entry/74847
+// tested in https://repovive.com/contests/13/problems/F
 Data bl[max_n][2];int pi[max_n][2],dpt[max_n];
 void build_lca(const vector<vector<int>>&t,const vector<Data> &arr,int nd=0,int p=0,int d=0){
 	dpt[nd]=d;pi[nd][0]=p;bl[nd][0]=arr[nd]; // this ensures somehow O(lgn) query time

@@ -5,6 +5,7 @@ Es ligeramente peor que la version en la que toda el algebra modular esta en esp
 	pero no es muy perceptivble
 */
 #include <bits/stdc++.h>
+#include<cassert>
 
 typedef long long lint;
 
