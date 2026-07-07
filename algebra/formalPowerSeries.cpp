@@ -330,7 +330,7 @@ template<typename tfps> struct FormalPowerSeries{
 		
 		int rx=xi?xi*int(e):0; // F^i=exp(i*log(F)) ; shifts and alp,ainv  for making F[0]=1
 		return ( ( ( ((*this)>>xi)*ainv).trunc(n-xi).log(n-rx)*tfps(e) 
-				).exp(n-rx) >> rx )*alp;
+				).exp(n-rx) << rx )*alp;
 	} FormalPowerSeries<tfps> sqrt(int n)const {
 		// this impl only works on numbers modulo a prime
 		// first n terms of G^2=F O(nlgn)

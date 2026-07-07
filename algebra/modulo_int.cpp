@@ -33,7 +33,7 @@ struct modulo_int{
 	
 	inline constexpr modulo_int inv()const{return modulo_int(vl).pow(m-2);}//Fermats little theorem
 	inline constexpr modulo_int operator -()const {return modulo_int(-vl);}
-	inline constexpr modulo_int pow(lint e)const{return modulo_int(mpow<tint>(vl,e%(m-1),m));}
+	inline constexpr modulo_int pow(lint e)const{return modulo_int(mpow<tint>(vl,e>=0?e%(m-1):(((m-2)*(-e%(m-1)))%(m-1)),m));}
 	
 	inline constexpr bool operator ==(const modulo_int &ot)const{return vl==ot.vl;} 
 	inline constexpr bool operator ==(const  int &ot)const{return vl==ot;   }

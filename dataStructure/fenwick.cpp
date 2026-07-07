@@ -4,17 +4,17 @@ Material de referencia para ICPC
 Lo probe en testing\rangeQtest.cpp
 */
 template<typename tint> struct fenw{
-	tint bit[max_n]; int n;
-	fenw(int nn=0){ n=nn;memset(bit,0,sizeof(tint)*(n+1));}
-	fenw(tint*arr,int nn) { assert(arr[0]==0);
-		int nxt;n=nn;memset(bit,0,sizeof(tint)*(n+1));
-		for(int i=0;i<=n;++i) {//note arr[0] is undefined
+	vector<tint>bit; int n;
+	fenw(int nn=0,int vl=0){ n=nn;bit.resize(nn);}
+	fenw(const vector<tint>&arr) { assert(arr[0]==0);//note arr[0] is undefined
+		n=arr.size();bit.resize(nn,0);fill(bit.begin(),bit.end(),tint(0));
+		int nxt; for(int i=0;i<=n;++i) {
 			bit[i]+=arr[i];nxt=i+(i&(-i));
 			if(nxt<=n)bit[nxt]+=bit[i]; }
 	} void update( int x, tint val ) {
 		for(;x<=n;x+=x&(-x))bit[x]+=val;
 	} tint query(int l,int r=-1){ // [l,r]
-		tint res=0; if(r==-1)r=l,l=0;//(0,r]
+		tint res=0; if(r==-1)r=l,l=1; --l;//(0,r]
 		for(;l<r;r-=r&(-r))res+=bit[r];
 		for(;r<l;l-=l&(-l))res-=bit[l];
 		return res;
