@@ -109,7 +109,7 @@ void mult_arbitrary(std::vector<tfps>&A,const std::vector<tfps> &B={} ){
 	// Im guiding miself on nyaan's library for this
 	// https://nyaannyaan.github.io/library/ntt/arbitrary-ntt.hpp
 	using u128 = __uint128_t;
-	const int nm=A.size()+B.size(),lgi=ilog2(nm-1)+1,n=1<<lgi,bsz=B.size();
+	const int nm=A.size()+B.size()-1,lgi=ilog2(nm-1)+1,n=1<<lgi,bsz=B.size();
 	A.resize(n,0); // IntroMathComputational-Shoup pg 484 __ they get overflow
 	// constexpr int m0 = (1<<30)*3+1, m1 = (1<<28)*13+1, m2 = (1<<27)*29+1;
 	constexpr int m0 = 167772161, m1 = 469762049, m2 = 754974721;
@@ -202,17 +202,16 @@ void mult_arbitrary(std::vector<tfps>&A,const std::vector<tfps> &B={} ){
 template<typename tfps> struct FormalPowerSeries{
 	std::vector<tfps> F;
 	static FormalPowerSeries<tfps> mult_naive(const FormalPowerSeries<tfps>&A,const FormalPowerSeries<tfps>&B){
-		FormalPowerSeries<tfps> C(A.size()+B.size(),0);
+		FormalPowerSeries<tfps> C(A.size()+B.size()-1,0);
 		if(A.size()>=B.size())rep(i,0,A.size())rep(j,0,B.size())C[i+j]+=A[i]*B[j];
 		else                  rep(i,0,B.size())rep(j,0,A.size())C[i+j]+=B[i]*A[j];
 		return C;
 	} static void mult_fft(FormalPowerSeries<tfps> &A, FormalPowerSeries<tfps> B){
 		// A'=A*B in O(nlgn)
-		const int nm=A.size()+B.size();
-		const int lgi=ilog2(nm-1)+1;
+		const int nm=A.size()+B.size()-1,lgi=ilog2(nm-1)+1;
 		A.F.resize(1<<lgi,0);B.F.resize(1<<lgi,0);
 		internal::fft<tfps>(A.F,0);internal::fft<tfps>(B.F,0);
-		rep(i,0,A.size())A[i]*=B[i];
+		rep(i,0,1<<lgi)A[i]*=B[i];
 		internal::fft<tfps>(A.F,1);
 	} static void mult(FormalPowerSeries<tfps> &A, const FormalPowerSeries<tfps> &B){
 		const int nm=A.F.size()+B.F.size();

@@ -16,8 +16,8 @@ template<typename tcmb> struct Combi{
 	} tcmb comb(int n,int k)const{ // n choose k
 		if(n<0||k<0||n<k)return 0;
 		return fact[n]*ifact[k]*ifact[n-k]; }
-};const Combi<mint> cmb(1e5);//can be changed to constexpr if n < 262144
-
+};const Combi<mint> cmb(1e5);
+//can be changed to constexpr if n < 262144
 template<typename tcmb> struct Combi{
 	map<pair<int,int>,tcmb>mem;
 	Combi()=default;

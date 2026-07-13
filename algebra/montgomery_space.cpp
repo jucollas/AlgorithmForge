@@ -18,7 +18,6 @@ Tener cuidado si tengo que comparar con muchos enteros o cosas por el estilo
 
 Adapted from https://en.algorithmica.org/hpc/number-theory/montgomery/
 */
-
 typedef unsigned int uint; typedef unsigned long long ulint;
 constexpr uint constexpr_calc_mr(uint n,int m_pow){uint nr=1;for(int i=0;i<ilog2(m_pow);++i)nr*=2-n*+nr;return nr;}
 template < ulint raw_m, int m_pow=32, typename tint=uint,bool arbi_ntt=0 >
@@ -87,9 +86,7 @@ struct montgomery_space{
 	uint m,mr;
 	constexpr montgomery_space(uint md):m(md),mr(1){
 		mr=constexpr_calc_mr(m,m_pow);
-	}
-	
-	uint reduce(ulint x)const{
+	} uint reduce(ulint x)const{
 		
 		uint q= uint(x)*mr;
 		uint y=((ulint)q*m)>>m_pow;
@@ -104,5 +101,4 @@ struct montgomery_space{
 	uint mul(uint x,uint y)const {return reduce((ulint)x*y);}
 	uint add(uint x,uint y)const {uint rs=x+y;if(rs>=m)rs-=m;return rs;}
 	uint sub(uint x,uint y)const {return (x>=y)?x-y:x+m-y;}
-	
 };
