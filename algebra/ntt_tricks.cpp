@@ -5,6 +5,7 @@ A bunch of scattered implementations regarding fps and ntt stuff.
 	chirpz: $F(x^0),F(x^1),F(x^2),...,F(x^n)$
 	inner_product: $(F . G)_k=\sum_i F[i]*G[i+k]$
 	prefab_hand: exemplifies stuff like $F=F*G+1$
+	fps sqrt: using Tonelli shanks to get a sqrt
 */
 vector<mint> circular_convolution(vector<mint>F,vector<mint>G){
     // Inspiration from the toeplitz matrix part on 
@@ -19,20 +20,17 @@ vector<mint> circular_convolution(vector<mint>F,vector<mint>G){
     rep(i,0,1<<lgi)F[i]*=G[i];
     internal::fft(F,1);
     F.resize(n); return F;
-} vector<mint> chirpz(vector<mint>A,const mint x=internal::primitive_root(mod) ){
-    // some stuff adapted from * https://nyaannyaan.github.io/library/ntt/chirp-z.hpp
-    // and * https://codeforces.com/blog/entry/83532
+} vector<mint> chirpz(vector<mint>A,const mint x=internal::primitive_root(mod)){
     const int n=A.size(),lgi=ilog2(n-1)+1;
-    vector<mint> B(2<<lgi,0),ixs(n);
+    vector<mint>B(2<<lgi,0),ixs(n);A.resize(2<<lgi,0);
     const mint ix=x.inv(); mint ixa=1,xa=1;
     ixs[0]=1; rep(i,1,n)ixs[i]=ixs[i-1]*ixa,ixa*=ix,A[i]*=ixs[i];
     B[0]=1; rep(i,1,2*n)B[i]=B[i-1]*xa,xa*=x;
-    reverse(A.begin(),A.end());A.resize(2<<lgi,0);
-    internal::fft(A,0);internal::fft(B,0);
-    rep(i,0,2<<lgi)A[i]*=B[i];
-    internal::fft(A,1);A=vector<mint>(A.begin()+n-1,A.begin()+2*n-1);
+    internal::transposed_fft(B,1);internal::fft(A,0);
+    rep(i,0,2<<lgi)A[i]*=B[i]; // this shit is symmetrical, lol
+    internal::transposed_fft(A,0);
     rep(i,0,n)A[i]*=ixs[i];
-    return A;
+    A.resize(n); return A;
 } fps inner_product(fps A,fps B){
 	const int n=A.size(),lgi=ilog2(n-1)+2;
 	A.F.resize(1<<lgi,0);B.F.resize(1<<lgi,0);
@@ -68,4 +66,48 @@ vector<mint> circular_convolution(vector<mint>F,vector<mint>G){
 			cdq(m+1,r);
 		}
 	};cdq(0,n); return H;
+} namespace internal{
+template<typename tfps> int Tonelli_Shanks(tfps a) {
+	// usado por sqrt cuando trabajo con enteros modulo algo
+	//plagiado epicamente de https://judge.yosupo.jp/submission/270105
+	const int mod=tfps::mod();
+	if (int(a) < 2) return a;
+	if (mpow<int>(a, (mod - 1) / 2, mod) != 1) return -1;
+	if (mod % 4 == 3) return mpow<int>(a, (mod + 1) / 4, mod);
+ 
+	tfps b = 3; if (mod != 998244353) {
+		while (mpow<int>(b, (mod - 1) / 2, mod) == 1) {
+			b=tfps(int(rng_64()%(mod-3)) + 2);
+		}
+	} int q = mod - 1,Q = 0;
+	while ( !(q&1) ) Q++, q /= 2;
+ 
+	tfps x = mpow<int>(a, (q + 1) / 2, mod);
+	b = mpow<int>(b, q, mod);
+ 
+	int shift = 2; while ( x*x != a) {
+		tfps error= tfps(mpow<int>(a,mod-2,mod))*x*x;
+		if (mpow<int>(error, 1 << (Q - shift), mod) != 1) x *= b;
+		b *=b; ++shift;
+	} return x; }
+} template<typename tfps>
+FormalPowerSeries<tfps> fps_sqrt(const FormalPowerSeries<tfps>&F,int n){
+	// this impl only works on numbers modulo a prime
+	// first n terms of G^2=F O(nlgn)
+	const tfps i2 = tfps(2).inv();//mpow(2,mod-2,mod);
+	
+	int xi=0;while(xi<F.size()&&F[xi]==0)++xi;
+	if(xi>=F.size())return {0};
+	
+	if(xi&1)return {};
+	int vl=internal::Tonelli_Shanks<tfps>(F[xi]);if(vl==-1)return {};
+	FormalPowerSeries<tfps> G={vl},ac;//sqrt{F[0]}
+	//I assume Tonelli_Shanks returns -1 when it's impossible
+	
+	FormalPowerSeries<tfps> H=(*this)>>xi;H.trunc(n-xi);
+	
+	for(int e=2;e<(n-xi)*2;e<<=1){
+		ac=G.inv(e)*H;ac.trunc(e);
+		G+=ac; G*=i2; G.trunc(e);
+	} return (G<<(xi/2)).trunc(n);
 }

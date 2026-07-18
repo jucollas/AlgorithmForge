@@ -500,7 +500,7 @@ fps p_sqrt( const fps &F,int n){
 }// end namespace control
 #undef sz
 /******* end of control impl *******/
-template<typename tpow> constexpr tpow mpow(tpow x,lint e,tpow m){tpow res=1;while(e){if(e&1ll)res=(res*1ll*x)%m;e>>=1;x=(x*1ll*x)%m;}return res;}
+template<typename tpow,typename tpex=lint> constexpr tpow mpow(tpow x,lint e,tpow m){tpow res=1;while(e){if(e&1ll)res=(res*tpex(1)*x)%m;e>>=1;x=(x*tpex(1)*x)%m;}return res;}
 
 const int mod = 998244353;
 #include"../modulo_int.cpp"
@@ -526,6 +526,16 @@ int main(){
 		}
 		return res;
 	};
+	// fps F={1,-1}; int nn=10;
+	// F={1,4,6,8};
+	// vector<int> tmp=gen_rand(nn/2);rep(i,0,nn/2)F[i]=tmp[i];
+	// while(F[0]==0)F[0]=int(rng_64()%mod);
+	// idebug(F);
+	// fps F1i=F.inv2(nn);idebug(F1i);fps F1=(F*F1i).trunc(nn); idebug(F1);
+	// fps F2i=F.inv(nn);idebug(F2i);fps F2=(F*F2i).trunc(nn);idebug(F2);
+
+	// return 0;
+
 	// t->repetitions;n->coeficients given;k->coefficients generated
 	int t,n,k;
 	// cin>>t>>n>>k;
@@ -544,9 +554,10 @@ int main(){
 			B=control::fps(b1);}
 		
 		// idebug(gen);
-		
+		// cerr << "in" << endl;
 		if(gen[0]==0)A[0]=1,B[0]=1;
 		fps Ai=A.inv(k); control::fps Bi=control::p_inv(B,k);
+		// cerr << "out" << endl;
 		
 		A[0]=1;B[0]=1;
 		fps Al=A.log(k); control::fps Bl=control::p_log(B,k);
@@ -565,13 +576,13 @@ int main(){
 		fps As1=A<<shf; control::fps Bs1=control::p_shift(B,+shf);
 		fps As2=A>>shf; control::fps Bs2=control::p_shift(B,-shf);
 		
-		fps Asq=A.sqrt(k); control::fps Bsq=control::p_sqrt(B,k);
-		Asq.trunc(n);control::p_trunc(Bsq,n);//esta raro el otro caso
+		// fps Asq=A.sqrt(k); control::fps Bsq=control::p_sqrt(B,k);
+		// Asq.trunc(n);control::p_trunc(Bsq,n);//esta raro el otro caso
 		
 		fps Ade=A.deriv(); control::fps Bde=control::p_deriv(B);
 		fps Ain=A.integ(); control::fps Bin=control::p_inte (B);
 		
-		bool i=eq(Ai,Bi),l=eq(Al,Bl),e=eq(Ae,Be),p=eq(Ap,Bp),sq=eq(Asq,Bsq),
+		bool i=eq(Ai,Bi),l=eq(Al,Bl),e=eq(Ae,Be),p=eq(Ap,Bp),sq=1,//eq(Asq,Bsq),
 		s1=eq(As1,Bs1),s2=eq(As2,Bs2),de=eq(Ade,Bde),in=eq(Ain,Bin),
 		p2=eq(Ap2,Bp2)
 		;

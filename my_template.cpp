@@ -43,7 +43,7 @@ template <typename t1,typename t2> ostream &operator<<(ostream &os, const pair<t
 
 mt19937_64 rng_64( chrono::steady_clock::now().time_since_epoch().count() );
 constexpr int ilog2( int num ) { return 8*sizeof(int) - __builtin_clz( num ) - 1; }
-template<typename tpow,typename texp=lint> constexpr tpow mpow(tpow x,lint e,tpow m){tpow res=1;while(e){if(e&1ll)res=(res*texp(1)*x)%m;e>>=1;x=(x*texp(1)*x)%m;}return res;}
+template<typename tpow,typename texp=lint> constexpr tpow mpow(tpow x,unsigned long long e,tpow m){tpow res=1;while(e){if(e&1)res=(texp(res)*x)%m;e>>=1;x=(texp(x)*x)%m;}return res;}
 
 const int max_n = 1e6;
 int a[max_n], b[max_n];
