@@ -539,7 +539,7 @@ int main(){
 	// t->repetitions;n->coeficients given;k->coefficients generated
 	int t,n,k;
 	// cin>>t>>n>>k;
-	t=100,n=1e5,k=3*1e5;
+	t=100,n=1e5,k=4*1e5;
 	// t=1,n=10,k=10;
 	
 	assert(t>0&&k>0&&n>0);

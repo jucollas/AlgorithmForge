@@ -17,7 +17,7 @@ Fecha:
 #include <cassert>
 
 typedef long long lint;
-typedef __int128_t int128;
+// __uint128_t, __int128_t, __uint64_t, __int64_t, __uint32_t,__int32_t
 using namespace std;
 #ifdef OSVARP
     #include<sys/resource.h>

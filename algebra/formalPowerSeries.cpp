@@ -2,7 +2,7 @@
 NTT made by yours truly under the help of several books and
 	the almighty idea behind the recent progress on:  https://codeforces.com/blog/entry/151162
 previously, NTT was taken from the atcoder library: https://github.com/atcoder/ac-library/
-Operations on FPST based on code by MarcosK, other people and multiple blogs all around the place
+Operations on FPS based on code by MarcosK, other people and multiple blogs all around the place
 	https://codeforces.com/contest/438/submission/340901913
 	https://cp-algorithms.com/algebra/polynomial.html#inverse-series_1
 	https://codeforces.com/blog/entry/56422
@@ -65,7 +65,7 @@ template<typename tfps,bool inv,int n> void butterfly_rec(tfps*a){
         const tfps u=a[i],v=a[i+m];
         a[i]=u+v; a[i+m]=(u-v)*w; w*=wlen;
     }butterfly_rec<tfps,inv,m>(a);butterfly_rec<tfps,inv,m>(a+m);
-}template<typename tfps,bool inv=bool(0),int n=min<long long>(1<<25,(tfps::mod()-1)&(1-tfps::mod()))>
+}template<typename tfps,bool inv=bool(0),int n=min<__uint64_t>(1<<30,(tfps::mod()-1)&(1-tfps::mod()))>
 void butterfly(std::vector<tfps>&a){
     if constexpr(n<=1)return;
     if (n==int(a.size()))butterfly_rec<tfps,inv,n>(a.data());
@@ -77,11 +77,21 @@ void butterfly(std::vector<tfps>&a){
     tfps w=1;for(int i=0;i<m;++i){
         const tfps u=a[i],v=w*a[i+m];
         a[i]=u+v; a[i+m]=u-v; w*=wlen; }
-}template<typename tfps,bool inv=bool(0),int n=min<long long>(1<<25,(tfps::mod()-1)&(1-tfps::mod()))>
+}template<typename tfps,bool inv=bool(0),int n=min<__uint64_t>(1<<30,(tfps::mod()-1)&(1-tfps::mod()))>
 void ibutterfly(std::vector<tfps>&a){
     if constexpr(n<=1)return;
     if (n==int(a.size()))ibutterfly_rec<tfps,inv,n>(a.data());
     else ibutterfly<tfps,inv,n/2>(a);
+} template<typename tfps,int N=min<__uint64_t>(1<<30,(tfps::mod()-1)&(1-tfps::mod()))>
+	void fft_doubling(tfps*a,int n){ // given a'[0,n/2) I compute a'[0,n)
+	if constexpr(N<=1)return; // assuming a[n/2,n)=0,..,0
+	constexpr int N2=N/2; if(N/2<n){
+		for(int i=0;i<N2;++i)a[i+N2]=a[i];
+		ibutterfly_rec<tfps,bool(0),N2>(a+N2);
+		constexpr tfps wlen=fft_root<tfps,N>(),iN2=tfps(N2).inv();
+		tfps w=iN2;for(int i=N2;i<N;++i)a[i]*=w,w*=wlen;
+		butterfly_rec<tfps,bool(0),N2>(a+N2);
+	} else fft_doubling<tfps,N2>(a,n);
 } template<typename tfps> inline void fft(std::vector<tfps>&a,bool invert){
     if(invert){ internal::ibutterfly<tfps>(a);
         tfps n_1 = tfps(int(a.size())).inv();
@@ -161,14 +171,14 @@ template<typename tfps> struct FormalPowerSeries{ std::vector<tfps> F;
 		else                  for(int i=0;i<int(B.size());++i)for(int j=0;j<int(A.size());++j)C[i+j]+=B[i]*A[j];
 		return C;
 	} static void mult_fft(FormalPowerSeries<tfps>&A,FormalPowerSeries<tfps>B){
-		const int nm=A.size()+B.size()-1,lgi=ilog2(nm-1)+1;// A'=A*B in O(nlgn)
+		const int nm=A.size()+B.size()-1,lgi=ilog2(nm)+1;// A'=A*B in O(nlgn)
 		A.F.resize(1<<lgi,tfps(0));B.F.resize(1<<lgi,tfps(0));
 		internal::fft<tfps>(A.F,0);internal::fft<tfps>(B.F,0);
 		for(int i=0;i<(1<<lgi);++i) A[i]*=B[i];
 		internal::fft<tfps>(A.F,1);
 	} static void mult(FormalPowerSeries<tfps>&A, const FormalPowerSeries<tfps>&B){
 		const int nm=A.F.size()+B.F.size()-1;
-		static const int Limit=0;
+		static const int Limit=20;
 		if(std::min<int>(A.size(),B.size())<=Limit)A=mult_naive(A,B);
 		else { if constexpr( tfps::arbitrary_ntt() )
 				internal::mult_arbitrary<tfps>(A.F,B.F);
@@ -230,7 +240,7 @@ template<typename tfps> struct FormalPowerSeries{ std::vector<tfps> F;
 	FormalPowerSeries<tfps>& square(){
 		const int Limit=20; if(size()<Limit)
 			(*this)=mult_naive(*this,*this);
-		else { const int nm=size()*2-1,lgi=ilog2(nm-1)+1;
+		else { const int nm=size()*2-1,lgi=ilog2(nm)+1;
 			if constexpr(tfps::arbitrary_ntt())
 				internal::mult_arbitrary<tfps,bool(1)>(F);
 			else{ F.resize(1<<lgi,0); internal::fft(F,0);
@@ -251,19 +261,23 @@ template<typename tfps> struct FormalPowerSeries{ std::vector<tfps> F;
 		if constexpr(N<=1)return;
 		rec_inv<N/2>(FF,G); constexpr int N2=N*2;
 		const int k=N<int(F.size())?N:F.size(); 
-		for(int i=0;i<k;++i)FF[i]=F[i];
-		for(int i=k;i<N2;++i)FF[i]=0;
-		internal::butterfly_rec<tfps,bool(0),N2>(FF);
-		internal::butterfly_rec<tfps,bool(0),N2>(G);
+		if(k<N/2){ constexpr tfps wlen=internal::fft_root<tfps,N2>();
+			tfps w=1;for(int i=N;i<N2;++i)FF[i]=(i<k+N?F[i-N]:tfps(0))*w,w*=wlen;
+			internal::butterfly_rec<tfps,bool(0),N>(FF+N);
+		} else{ for(int i=0;i<k;++i)FF[i]=F[i];
+			for(int i=k;i<N2;++i)FF[i]=0;
+			internal::butterfly_rec<tfps,bool(0),N2>(FF);	
+		} internal::butterfly_rec<tfps,bool(0),N2>(G);
 		for(int i=0;i<N2;++i)G[i]=G[i]+G[i]-G[i]*G[i]*FF[i];
 		internal::ibutterfly_rec<tfps,bool(0),N2>(G);
 		for(int i=0;i<N ;++i)G[i]*=tfps(N2).inv();
 		for(int i=N;i<N2;++i)G[i] =0;
-	} template<int N=std::min<long long>(1<<25,(tfps::mod()-1)&(1-tfps::mod()))>
+	} template<int N=std::min<__uint64_t>(1<<30,(tfps::mod()-1)&(1-tfps::mod()))>
 	FormalPowerSeries<tfps> inv(int n) const {
 		if constexpr(N<1) return FormalPowerSeries<tfps>();
 		constexpr int N2=N/2; if(N2<n){ assert(F[0]);
 			std::vector<tfps> FF(N*2),GF(N*2,tfps(0));
+			// internal::fft(GF,1);
 			rec_inv<N>(FF.data(),GF.data());
 			return FormalPowerSeries<tfps>(GF).trunc(n);
 		} else return inv<N2>(n);
@@ -280,11 +294,10 @@ template<typename tfps> struct FormalPowerSeries{ std::vector<tfps> F;
 		} return G.trunc(n);
 	} FormalPowerSeries<tfps> pow(long long e,int n)const{
 		if(!e)return {1}; // first n terms of G=F^e O(nlgn)
-		if(e<0)return inv(n).pow(-e,n);
 		int xi=0;while(xi<size()&&F[xi]==0)++xi;
-		if(xi>=size()||xi>n/e)return {0};
-		const tfps alp=F[xi].pow(e%(tfps::mod()-1)),ainv=F[xi].inv();
-		int rx=xi?xi*int(e):0; // F^i=exp(i*log(F)) ; shifts and alp,ainv  for making F[0]=1
+		if(xi>=size()||(xi>n/e&&e>0ll))return {0};// shifts and alp,ainv  
+		const tfps alp=F[xi].pow(e),ainv=F[xi].inv();// for making F[0]=1
+		const int rx=xi?xi*int(e):0; // F^i=exp(i*log(F))
 		return ( ( ( ((*this)>>xi)*ainv).trunc(n-xi).log(n-rx)*tfps(e) 
 				).exp(n-rx) << rx )*alp;
 	} FormalPowerSeries<tfps> euc_div(const FormalPowerSeries<tfps> &B)const{

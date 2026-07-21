@@ -6,7 +6,6 @@ I have 3 versions:
 	2. O(n^2lgn) using DP
 	3. O(k) using the (n!/k!)*(1/k!) trick
 */
-
 template<typename tcmb> struct Combi{
 	vector<tcmb> fact,ifact; constexpr Combi(int n){
 		fact.resize(n);ifact.resize(n);
