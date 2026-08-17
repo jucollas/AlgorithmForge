@@ -36,8 +36,8 @@ template<typename Tpt> struct Point{
 	bool operator<(const Point &o)const{return make_pair(x,y)<make_pair(o.x,o.y);}
 	bool operator==(const Point&o)const{return x==o.x&&y==o.y;}
 	bool operator!=(const Point&o)const{return!(*this==o);}
+	friend ostream & operator << (ostream &out, const Point<Tpt> &p){ out << "("<<p.x<<","<<p.y<<")"; return out; }
 }; typedef Point<double> Pt;
-ostream & operator << (ostream &out, const Pt &p){ out << "("<<p.x<<","<<p.y<<")"; return out; }
 
 template<typename Tpt> struct Line{
 	Point<Tpt> p,v;// L(t)=p+tv
@@ -52,6 +52,6 @@ template<typename Tpt> struct Line{
 	
 	// dados v,u vectores; el valor h donde {0,v(h),u} forman un triangulo rectangulo
 	// con con angulo recto A{o,v(h),u} =90 es tal que u*v=h*(v*v)
-};typename Line<double> Ln;
+	friend ostream & operator << (ostream &out, const Line<Tpt> &l){ out << "<L(t)="<<l.p<<"+t"<<l.v<<">"; return out; }
+};typedef Line<double> Ln;
 
-ostream & operator << (ostream &out, const Ln &l){ out << "<L(t)="<<l.p<<"+t"<<l.v<<">"; return out; }

@@ -11,13 +11,13 @@ Autor: Oscar Vargas Pabon
 Fecha: 
 
 */
-//#pragma GCC optimize("Ofast")
+//#pragma GCC optimize("O3")
 //#define NDEBUG
 #include <bits/stdc++.h>
 #include <cassert>
 
 typedef long long lint;
-// __uint128_t, __int128_t, __uint64_t, __int64_t, __uint32_t,__int32_t
+// __uint128_t, __int128_t, uint64_t, int64_t, uint32_t,int32_t
 using namespace std;
 #ifdef OSVARP
     #include<sys/resource.h>
@@ -41,9 +41,9 @@ template <typename t1,typename t2> ostream &operator<<(ostream &os, const pair<t
 #define pf push_front
 #define pof pop_front
 
-mt19937_64 rng_64( chrono::steady_clock::now().time_since_epoch().count() );
-constexpr int ilog2( int num ) { return 8*sizeof(int) - __builtin_clz( num ) - 1; }
-template<typename tpow,typename texp=lint> constexpr tpow mpow(tpow x,unsigned long long e,tpow m){tpow res=1;while(e){if(e&1)res=(texp(res)*x)%m;e>>=1;x=(texp(x)*x)%m;}return res;}
+std::mt19937_64 rng_64( std::chrono::steady_clock::now().time_since_epoch().count() );
+constexpr int ilog2( int num ) { return 8*sizeof(int) - std::__builtin_clz( num ) - 1; }
+template<typename tpow,typename texp=int64_t> constexpr tpow mpow(tpow x,uint64_t e,tpow m){tpow res=1;while(e){if(e&1)res=(texp(res)*x)%m;e>>=1;x=(texp(x)*x)%m;}return res;}
 
 const int max_n = 1e6;
 int a[max_n], b[max_n];

@@ -3,6 +3,10 @@ Autor: Oscar Vargas Pabon
 These are various tricks to be used at will
 */
 
+// this pragmas optimize somehow bitset
+#pragma GCC optimize("O3", "unroll-loops")
+#pragma GCC target("avx2", "popcnt")
+
 // iterating over ranges [l_i,r_i]\subseteq[L,R] such that (assuming integer division)
 //////   $ \forall_{j,h\in[l_i,r_i]}n/j=n/h $
 /// can be seen in https://codeforces.com/problemset/problem/2072/G

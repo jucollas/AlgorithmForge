@@ -1,5 +1,6 @@
 // taken from yosupo's submission on https://judge.yosupo.jp/submission/49544
-// the answer seems to be the characteristic polynomial of the sequence
+// Returns c such that for the sequence s -> $s(n)=\sum_{i=1}^d c(i)s(n-i)$
+// where |c|=d ; c(0)=-1 in this impl
 
 template <class T> std::vector<T> berlekamp_massey(const std::vector<T>& s) {
     int n = int(s.size());

@@ -6,8 +6,7 @@ La implementacion asume reinicializar 'states' - states=vector<Node>(1);
 	* Notar que pattern no considera el vertice actual como un posible pattern
 Remember to use 'next()' and 'pattern()' to do the queries because of the lazy stuff.
 */
-
-const int K = 26; const char NORM='a';
+const int K = 'z'-'a'+1; const char NORM='a';
 
 class Node {
 	public:
@@ -19,9 +18,7 @@ class Node {
 		memset( next, -1, sizeof(next) );
 		link=pattern=-1;
 	}
-};
-
-vector<Node> states(1);
+}; vector<Node> states(1);
 
 void add_string( const string & str, int strInd=0 ) {
 	/* anade la cadena 'str' al trie, la marca con 'strInd' */
@@ -47,8 +44,7 @@ int next( int act, char letter ) {
 		if ( act ) {
 			states[act].next[ch] = next( link(act), letter );
 		} else states[act].next[ch] = 0;
-	}
-	return states[act].next[ch];
+	} return states[act].next[ch];
 }
 
 int link( int act ) {
@@ -57,8 +53,7 @@ int link( int act ) {
 		if ( act && states[act].parent ) {
 			states[act].link = next(link(states[act].parent),states[act].letter);
 		} else states[act].link = 0;
-	}
-	return states[act].link;
+	} return states[act].link;
 }
 
 int pattern( int act ) {
@@ -69,8 +64,7 @@ int pattern( int act ) {
 		if ( !nxt ) states[act].pattern = 0;
 		else if ( states[nxt].output != -1 ) states[act].pattern = nxt;
 		else states[act].pattern = pattern( nxt );
-	}
-	return states[act].pattern;
+	} return states[act].pattern;
 }
 
 int main(){
@@ -86,9 +80,7 @@ int main(){
 		act = next(act,t[i]);//salto al nuevo estado
 		
 		// esto lo hago en tiempo proporcional a los patrones
-		int jmp=(states[jmp].output==-1)?pattern(act):act;
+		int jmp=(states[act].output==-1)?pattern(act):act;
 		while(jmp){++ocur[states[jmp].output];jmp=pattern(jmp);}
-	}
-	
-	return 0;
+	} return 0;
 }

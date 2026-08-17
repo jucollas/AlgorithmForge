@@ -7,7 +7,7 @@ I have 3 versions:
 	3. O(k) using the (n!/k!)*(1/k!) trick
 */
 template<typename tcmb> struct Combi{
-	vector<tcmb> fact,ifact; constexpr Combi(int n){
+	vector<tcmb> fact,ifact; Combi(int n){
 		fact.resize(n);ifact.resize(n);
 		fact[0]=1;rep(i,1,n)fact[i]=fact[i-1]*tcmb(i);
 		ifact[n-1]=fact[n-1].inv();
@@ -16,7 +16,7 @@ template<typename tcmb> struct Combi{
 		if(n<0||k<0||n<k)return 0;
 		return fact[n]*ifact[k]*ifact[n-k]; }
 };const Combi<mint> cmb(1e5);
-//can be changed to constexpr if n < 262144
+
 template<typename tcmb> struct Combi{
 	map<pair<int,int>,tcmb>mem;
 	Combi()=default;

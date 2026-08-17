@@ -1,16 +1,7 @@
-# ===============================================
-# ENTRADA Y SALIDA EN PYTHON (PROGRAMACION COMPETITIVA)
-# ===============================================
-# Autor: Ejemplo generado por ChatGPT
-# Descripcion:
-# Este archivo muestra distintas maneras eficientes de
-# recibir e imprimir datos en Python para programacion competitiva.
-
 import sys
+sys.set_int_max_str_digits(10**9)
+sys.setrecursionlimit(10**9)
 
-# ------------------------------
-# 1. Redefinir input para simplicidad
-# ------------------------------
 input = sys.stdin.readline  # ahora input() sera rapido
 
 # ------------------------------

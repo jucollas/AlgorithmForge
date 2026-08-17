@@ -82,7 +82,7 @@ struct Dinitz{
 		if ( node == sink || flow==0 ) return flow; // ya llegamos o no podemos empujar mas
 		
 		ftype push_flow = 0, edge_flow; int edge, nxt;
-		while ( ptr[node] < sz(graph[node]) && flow > push_flow ) {
+		while ( ptr[node] < int(graph[node].size()) && flow > push_flow ) {
 			edge_flow = 0; edge = graph[node][ptr[node]]; nxt = edges[edge].to(node);
 			// si la arista pertenece al 'layered graph' y el vertice NO esta bloqueado
 			if ( level[node] < level[nxt] && !blocked[nxt] )  {

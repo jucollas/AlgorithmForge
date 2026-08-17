@@ -8,6 +8,19 @@ Diamond free version tested in https://codeforces.com/gym/105505/problem/D
 Add version for chordal graphs
 */
 
+int max_clique(const vector<uint64_t> &g){
+    int res=0,am=0; // this one seems faster? or at least less memory hungry
+    auto backt=[&](auto rec,int i,uint64_t msk)->void{
+        int pp=__builtin_popcountll(msk);if(pp+am<=res)return;
+        while(msk){
+            if(msk>>i&1ull){ msk^=1ull<<i; --pp;
+                ++am;rec(rec,i+1,msk&g[i]);--am;
+                if(pp+am<=res)return;
+            }++i;
+        } if(res<am)res=am;
+    };backt(backt,0,(1ull<<g.size())-1);
+    return res;
+}
 // Note it can be transformed to give the maximal clique by
 // keeping the used vertices instead of 'am'
 int max_clique(const vector<lint> &g){

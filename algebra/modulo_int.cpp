@@ -9,7 +9,7 @@ inv :: int mpow(int x,int e,int m){int res=1;while(e){if(e&1)res=(res*1ll*x)%m;e
 
 Tested in testing/test_alghelp.cpp and in fft/ntt stuff
 */
-template<__uint64_t raw_m,typename tint=__uint32_t,typename tmul=__uint64_t,bool arbi_ntt=0>
+template<uint64_t raw_m,typename tint=uint32_t,typename tmul=uint64_t,bool arbi_ntt=0>
 struct modulo_int{ constexpr static tint m=raw_m; static_assert(m>0);
 	constexpr static tint mod(){return m;}
 	constexpr static bool arbitrary_ntt(){return arbi_ntt;}
@@ -18,9 +18,8 @@ struct modulo_int{ constexpr static tint m=raw_m; static_assert(m>0);
 	inline constexpr modulo_int()noexcept:vl(0){};
 	inline constexpr modulo_int(      int v)noexcept:vl(v>=0?(v<m?v:v%m):(v+m>=0?v+m:(m+(v%m))%m)){};
 	inline constexpr modulo_int(long long v)noexcept:vl(v>=0?(v<m?v:v%m):(v+m>=0?v+m:(m+(v%m))%m)){};
-
-	inline constexpr modulo_int(unsigned       int v)noexcept:vl(v<m?v:v%m){};
-	inline constexpr modulo_int(unsigned long long v)noexcept:vl(v<m?v:v%m){};
+	inline constexpr modulo_int(uint32_t v)noexcept:vl(v<m?v:v%m){};
+	inline constexpr modulo_int(uint64_t v)noexcept:vl(v<m?v:v%m){};
 	
 	inline constexpr modulo_int &operator +=(const modulo_int &ot){ vl= m-vl>ot.vl?vl+ot.vl:ot.vl-(m-vl); return *this; }
 	inline constexpr modulo_int  operator + (const modulo_int &ot)const{ return modulo_int(*this)+=ot; }
@@ -39,11 +38,11 @@ struct modulo_int{ constexpr static tint m=raw_m; static_assert(m>0);
 	inline constexpr bool operator ==(const  int &ot)const{return vl==ot;}
 	inline constexpr bool operator !=(const modulo_int &ot)const{return vl!=ot.vl;}
 	
-	inline constexpr operator               bool() const{return vl;}
-	inline constexpr operator                int() const{return vl;}
-	inline constexpr operator unsigned       int() const{return vl;}
-	inline constexpr operator          long long() const{return vl;}
-	inline constexpr operator unsigned long long() const{return vl;}
+	inline constexpr operator     bool() const{return vl;}
+	inline constexpr operator  int32_t() const{return vl;}
+	inline constexpr operator uint32_t() const{return vl;}
+	inline constexpr operator  int64_t() const{return vl;}
+	inline constexpr operator uint64_t() const{return vl;}
 	
 	friend ostream &operator<<(ostream &os,const modulo_int &ac){return os << ac.vl;}
 	friend istream &operator>>(istream&is,modulo_int &ac){int v;is>>v;ac=modulo_int(v);return is;}	
