@@ -11,7 +11,7 @@ Autor: Oscar Vargas Pabon
 Fecha: 
 
 */
-
+#include<cassert>
 #include <bits/stdc++.h>
 
 typedef long long lint;
@@ -39,11 +39,12 @@ lint seed=chrono::steady_clock::now().time_since_epoch().count();
 // lint seed=1769878272471046000;
 mt19937_64 rng_64( seed );
 constexpr int ilog2( int num ) { return 8*sizeof(int) - __builtin_clz( num ) - 1; }
-template<typename tpow> constexpr tpow mpow(tpow x,lint e,tpow m){tpow res=1;while(e){if(e&1ll)res=(res*1ll*x)%m;e>>=1;x=(x*1ll*x)%m;}return res;}
+template<typename tpow,typename texp=int64_t> constexpr tpow mpow(tpow x,uint64_t e,tpow m){tpow res=1;while(e){if(e&1)res=(texp(res)*x)%m;e>>=1;x=(texp(x)*x)%m;}return res;}
 
 const int mod=1e9+7;
-#include"..\modulo_int.cpp"
-#include"..\set_power_series.cpp"
+#include"../modulo_int.cpp"
+#include"../set_power_series.cpp"
+
 
 template<typename T> vector<T> brute_or_conv(const vector<T> &A,const vector<T>&B){
 	const int n=A.size();
@@ -77,6 +78,8 @@ void solve() {
 		vector<mint> A(1<<lgi),B=A,BB;
 		rep(i,0,1<<lgi)A[i]=rng_64(),B[i]=rng_64();
 		while(A[0]==0)A[0]=rng_64();
+
+		// idebug(A);subset(A,1);idebug(A);subset(A,0);idebug(A);exit(0);
 		
 		vector<mint> b_or,r_or,b_and,r_and,b_sub,r_sub,b_exp,r_exp,r_log;
 		

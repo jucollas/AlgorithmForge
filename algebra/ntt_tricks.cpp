@@ -32,6 +32,7 @@ vector<mint> circular_convolution(vector<mint>F,vector<mint>G){
     rep(i,0,n)A[i]*=ixs[i];
     A.resize(n); return A;
 } fps inner_product(fps A,fps B){
+	// C_k=\sum_{k=i-j}A_iB_j
 	const int n=A.size(),lgi=ilog2(n-1)+2;
 	A.F.resize(1<<lgi,0);B.F.resize(1<<lgi,0);
 	internal::fft(B.F,0); internal::transposed_fft(A.F,1);

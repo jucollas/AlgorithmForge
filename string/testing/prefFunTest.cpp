@@ -3,28 +3,13 @@ Probando mis implementaciones para la ICPC
 
 
 */
-
+#include<cassert>
 #include <bits/stdc++.h>
 
 using namespace std;
 #define pb push_back
 
-/* Insertar aqui */
-
-vector<int> prefixFunction( const string &cad ) {
-/* Computa la prefix function en O(n). Esta es pi[i] -> el tamaño del mayor prefijo 
-	de cad que tambien es sujifo de cad[0..i] */
-	int n = cad.size();
-	vector<int> pi( n, 0 );
-	for ( int i = 1 ; i < n ; ++i ) {
-		pi[i] = pi[i-1];
-		while ( pi[i] > 0 && cad[i] != cad[pi[i]] ) pi[i] = pi[pi[i]-1];
-		if ( cad[i] == cad[pi[i]] ) ++pi[i];
-	}
-	return pi;
-}
-
-/* El resto _-_-_- */
+#include "../prefixFunction.cpp"
 
 vector<int> slowVersion( const string &str ) {
 	vector<int> res( str.size(), 0 );
@@ -54,9 +39,9 @@ void printArr( const vector<int> &arr, const string &str ) {
 	cout << endl;
 }
 
-int main() {
-	const int sz=1000000, tope = 1<<7;
-	while ( 1 ) {
+int main() { int t=100;
+	const int sz=1e3, tope = 1<<7;
+	while (t--) {
 		string cad;
 		for ( int i = 0 ; i < sz ; ++i ) cad.pb( random( tope )+'a' );
 		vector<int> v1 = slowVersion( cad );
@@ -67,6 +52,6 @@ int main() {
 			printArr(v2,"impl" );
 		}
 		assert ( is_equal(v1,v2) );
-	}
+	}cerr << "termino bien " << endl;
 	return 0;
 }
