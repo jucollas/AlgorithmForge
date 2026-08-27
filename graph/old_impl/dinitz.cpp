@@ -1,11 +1,10 @@
-/* Author: Oscar Vargas Pabon
+/* Autor: Oscar Vargas Pabon
 Lo probe en https://codeforces.com/problemset/problem/2026/E 
 Mi implementacion interpreta los valores de 'graph' como indices de 'edges'
-Caso general funciona en $O(V*E*lgU)$, donde U es la capacidad maxima
-	caso capacidad unitaria funciona en $O(min(E\sqrt{E},EV^{2/3}))$
+Caso general funciona en $O(v^2*E)$, caso capacidad unitaria funciona en 
+	$O(min(E\sqrt{E},EV^{2/3}))$
 	caso red unitaria (cada nodo se responsabiliza por 1 sola arista de
 		capacidad unitaria) funciona en $O(E\sqrt{V})$
-Es facil reducirlo a la version usual de dinitz
 
 Remember,remember. Whenever we have a planar graph, a path of its dual graph represents
 	bijectively a cut on the original graph. Essentially solves with dijkstra min-cut
@@ -28,17 +27,32 @@ Anfelesan taught me this one in regards to https://codeforces.com/gym/106178/pro
 	}; // level -> para el 'layered network'
 	// blocked-> para omitir vertices 'blocked'
 	// ptr -> para omitir aristas 'blocked'
-	vector<int> level,ptr,q; vector<bool>blocked;
+	vector<int> level,ptr; vector<bool>blocked;
 
 	vector<vector<int>> graph; vector<Edge> edges;
 	int source, sink; Dinitz(int n){
-		graph.resize(n); level.resize(n); q.resize(graph.size());
+		graph.resize(n); level.resize(n);
 		ptr.resize(n); blocked.resize(n);
 	} void add_edge( int u, int v, ftype c1, ftype c2=0 ) {
 		// u->v has capacity c1; v->u has capacity c2	
 		graph[u].push_back( edges.size() );
 		graph[v].push_back( edges.size() );
 		edges.emplace_back( Edge( u, v, c1, c2 ) );
+	} bool level_bfs( ) {
+// construye el 'layered network' de manera implicita con 'level' en O(V+E) 
+		fill(all(level),-1); level[source] = 0;
+		// 'level' es la profundidad el el BFS-Tree
+		queue<int> q; q.push( source );
+		while ( !q.empty() && level[sink] == -1 ) {
+			int act = q.front(); q.pop();
+			for ( int edge : graph[act] ) {
+				int nxt = edges[edge].to(act); // el siguiente vertice
+				if ( level[nxt] == -1 && edges[edge].cap(act)>0 ) {
+					level[nxt] = level[act] + 1;
+					q.push( nxt );
+				}
+			}
+		} return level[sink]!=-1; // para saber si ya terminamos
 	} ftype push_dfs( int nd, ftype flow=INF ) {
 // Empuja el flujo por todas las aristas del 'layered graph' que pueda 
 		if ( nd == sink || flow==0 ) return flow; // ya llegamos o no podemos empujar mas
@@ -57,20 +71,10 @@ Anfelesan taught me this one in regards to https://codeforces.com/gym/106178/pro
 		return push_flow;
 	} ftype max_flow( ) {
 // Hace el maximo flujo del grafo (retorna el maxFlow, las asignaciones quedan en las aristas)
-//		Funciona en peor caso $O(V*E*lgU)$
-		ftype mx=0;for(const Edge&e:edges){//quitar esto para reducir
-			if(mx<e.c1)mx=e.c1;if(mx<e.c2)mx=e.c2;// a la version
-		}int ex=0;while((1<<ex)<mx)++ex;// usual de dinitz
-		ftype flow=0;for(;ex>=0;--ex)do{
-			fill(all(level),0);level[source]=1;
-			int iq=0,nq=1;q[nq]=source;while(iq<nq&&!level[sink]){
-				const int nd=q[iq++]; for(int eind:graph[nd]){
-					const int e=edges[eind].to(nd);
-					if(!level[e]&&(edges[eind].cap(nd)>>ex))
-						level[e]=level[nd]+1,q[nq++]=e;
-				}
-			} if(!level[sink])continue;
+//		Funciona en peor caso $O(V^2*E)$
+		ftype flow = 0; while ( level_bfs( ) ) {
 			fill(all(blocked),0); fill(all(ptr),0);
-			flow+=push_dfs( source );
-		} while(level[sink]); return flow; }
-};
+			
+			flow += push_dfs( source );
+		} return flow; }
+}; typedef Dinitz<lint,lint(1e18+333)> Flow; typedef Flow::Edge Edge;

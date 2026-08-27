@@ -35,8 +35,9 @@ struct modulo_int{ constexpr static tint m=raw_m; static_assert(m>0);
 	inline constexpr modulo_int pow(long long e)const{return e>=0?modulo_int(mpow<tint,tmul>(vl,e%(m-1),m)):inv().pow(-e);}
 	
 	inline constexpr bool operator ==(const modulo_int &ot)const{return vl==ot.vl;} 
-	inline constexpr bool operator ==(const  int &ot)const{return vl==ot;}
-	inline constexpr bool operator !=(const modulo_int &ot)const{return vl!=ot.vl;}
+    template<typename otint> inline constexpr bool operator ==(const otint&ot)const{return *this==modulo_int(ot);}
+    inline constexpr bool operator !=(const modulo_int&ot)const{return vl!=ot.vl;}
+    template<typename otint> inline constexpr bool operator !=(const otint&ot)const{return *this!=modulo_int(ot);}
 	
 	inline constexpr operator     bool() const{return vl;}
 	inline constexpr operator  int32_t() const{return vl;}
