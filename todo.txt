@@ -1,7 +1,14 @@
+Cosas para ICPC:
+	* cosas por hacer en /graph/notebook
+	* revisar HLD en /tree
+	* En /string todo va. Solo falta testear manacher y incluir suffix automata.
+	* Mucho que hacer en /dataStructure. La mayoria esta relacionado con sparse - persistent segment tree que no he logrado
+		una version estable no-cancerigena.
+	* revisar geometry, linalg y los 'trucos'
+
 * Cranearme de nuevo los updates de sumas de elementos en un set del DSU
 * Probar algunas estructuras de datos maa
 * organizar el latex con las propiedades/teoremas nuevos
-* Organizar un template para trabajar con series formales
 * GEOMETRIA GEOMETRIA (añadir lo de geometria en una esfera, convex hull, sweepline, rotatingCalipers, area_poligono, etc)
 * LINALG??????
 * graph/euler_circuit.cpp puede no funcionar bien para no dirigidos
@@ -9,3 +16,6 @@
 * test string/manacher_untested.cpp
 * make the sparse segment tree (with lazy eval)
 * Enrich further my combinatorics properties (like stirling numbers of first kind)
+
+Can be usefull to use:
+https://github.com/pin3da/notebook-generator/tree/master

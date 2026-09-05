@@ -1,0 +1,7 @@
+They are notebook-adapted
+I shall use all impl in there (except for clique use the one in /notebook)
+
+I must modernize a bit the euler_circuit.cpp and sat_2.cpp is a wrong implementation.
+Furthermore, I must find some MinCostMaxFlow that I can use. Perhaps it can be useful to 
+	include some max-matching? given it tends to have lower constant. Furthermore, I shall
+	eventually explore push-relabel as it tends to have better constant than dinitz.

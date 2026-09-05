@@ -1,0 +1,15 @@
+These are mostly notebook-specific implementations (as they are a bit tedious to work with in general)
+Lets also include (from ../) :
+	* floor_sums.cpp
+	* complex_fft.cpp
+	* fwt_xorConv.cpp
+	* berlekamp_massey_notMine.cpp
+	* divisibility_convolution.cpp
+	* gcd.cpp
+	* maxplus_convolution.cpp (CHECK IF ITS BETTER TO JUST INCLUDE MINKOWSKI SUM)
+	* primality_stuff_notMine.cpp
+	* sieve.cpp
+I should leave "expressed" some of the basic operations of FPS (log,exp,pow,sqrt).
+Should I talk about basis modulo m? this is part of the xorBasis.cpp
+Should I talk about min25 sieve? I dont really understand that much that technique and would be
+	surprised if the Colombian problemsetters know about that.

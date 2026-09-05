@@ -60,7 +60,7 @@ Anfelesan taught me this one in regards to https://codeforces.com/gym/106178/pro
 //		Funciona en peor caso $O(V*E*lgU)$
 		ftype mx=0;for(const Edge&e:edges){//quitar esto para reducir
 			if(mx<e.c1)mx=e.c1;if(mx<e.c2)mx=e.c2;// a la version
-		}int ex=0;while((1<<ex)<mx)++ex;// usual de dinitz
+		}int ex=0;while((mx>>ex)>1)++ex;// usual de dinitz
 		ftype flow=0;for(;ex>=0;--ex)do{
 			fill(all(level),0);level[source]=1;
 			int iq=0,nq=1;q[nq]=source;while(iq<nq&&!level[sink]){

@@ -1,11 +1,7 @@
-/*
-Autor: Oscar Vargas Pabon
-
+/* Author: Oscar Vargas Pabon
 Backtracking version tested in https://open.kattis.com/problems/maxclique
 	(it seems to do well with V<=50)
 Diamond free version tested in https://codeforces.com/gym/105505/problem/D
-
-Add version for chordal graphs
 */
 
 int max_clique(const vector<uint64_t> &g){

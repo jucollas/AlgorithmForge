@@ -1,0 +1,11 @@
+Aparte de lo que tengo aqui
+Incluyo:
+	* rollback_dsu.cpp
+	* segmentFull.cpp
+	* moAlgo.cpp
+	* lichao_dynamic.cpp
+	* fenwick.cpp
+	* treap.cpp
+Quiero incluir un persistent lazy segtree pero no tengo una version estable.
+	Tengo muchas versiones muy exoticas del segtree...
+	

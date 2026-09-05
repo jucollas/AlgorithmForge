@@ -1,0 +1,3 @@
+No pienso incluir virtual tree (eso no sale nunca) ni centroid (eso es trivial).
+	Puede ser bueno mencionarlos escritos
+Ademas de lca estoy pensando en incluir hld (aunque no se que tan util sea o si halla que modernizar eso)

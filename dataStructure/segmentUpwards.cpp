@@ -1,9 +1,9 @@
+// https://atcoder.jp/contests/abc473/submissions/78908547
 /*
 Autor : Oscar Vargas Pabon
 Material de referencia para ICPC
 Lo probe en 12299 - RMQ with Shifts
-*/
-struct Data{
+*/ struct Data{
     int mn,mx;
     Data(int n=inf,int x=-inf):mn(n),mx(x){};
     Data operator +(const Data&o)const{
@@ -18,11 +18,11 @@ struct Data{
 		for(int i=0;i<n;++i)tree[i+n]=arr[i];
 		for(int i=n-1;i;--i)tree[i]=tree[i*2]+tree[i*2+1];
 	} void update( int x,const Data&val ) {
-	/* Modifica el valor en arr[x] segun la representacion del arbol en O(lg n) */
+// Modifica el valor en arr[x] segun la representacion del arbol en O(lg n) 
 		tree[x+=n]=val;
 		for(x/=2;x;x/=2)tree[x]=tree[x*2]+tree[x*2+1];
 	} Data query( int l, int r )const{
-	/* Responde a la query arr[l] + ... + arr[r] en tiempo O(lg n) */
+// Responde a la query arr[l] + ... + arr[r] en tiempo O(lg n) 
 		Data res;
 		for (l+=n,r+=n;l<=r;l/=2,r/=2) {
 			if(  l&1 )res=res+tree[l++];
