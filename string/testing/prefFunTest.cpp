@@ -45,7 +45,7 @@ int main() { int t=100;
 		string cad;
 		for ( int i = 0 ; i < sz ; ++i ) cad.pb( random( tope )+'a' );
 		vector<int> v1 = slowVersion( cad );
-		vector<int> v2 = prefixFunction(cad );
+		vector<int> v2 = prefix_function(cad );
 		if ( !is_equal( v1, v2 ) ) {
 			cout << cad << endl;
 			printArr( v1, "slow" );

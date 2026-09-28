@@ -38,8 +38,9 @@ vector<int> suffixArray( string &str ) {
     str.push_back( EOS ); const int n = sufix.size();
     vector<int> lcp(n-1),inv(n); for(int i=0;i<n;++i)inv[sufix[i]]=i;
     int k=0; for(int i=0;i<n-1;++i) {
-        const int j=sufix[inv[i]-1];// inv[i]-1 no se sale porque 
-        while(str[i+k]==str[j+k])++k;// sufix[0] representa EOS
+        if(inv[i]-1<0)continue;// a veces sale de memoria si no pongo
+        const int j=sufix[inv[i]-1];// esto xdxdxd
+        while(str[i+k]==str[j+k])++k;
         lcp[inv[i]-1] = k;
         --k;if(k<0)k=0;
     } str.pop_back(); return lcp; } // quito EOS

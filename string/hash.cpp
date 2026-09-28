@@ -16,8 +16,8 @@ Testeado en; https://codeforces.com/problemset/problem/2132/G
 // template<typename tpow> constexpr tpow mpow(tpow x,lint e,tpow m){tpow res=1;while(e){if(e&1ll)res=(res*1ll*x)%m;e>>=1;x=(x*1ll*x)%m;}return res;}
 // asumo el anterior de mi template
 
-const int N_HASH=1, PRIME_TESTING=5;
-const int LH_B=1e9,RH_B=1<<31;
+const int N_HASH=2, PRIME_TESTING=5;
+const int LH_B=1e9,RH_B=1<<30;
 int base[N_HASH],modul[N_HASH],ebase[template_limit][N_HASH];
 
 void precompute_prime(){
