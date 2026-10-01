@@ -6,7 +6,7 @@ No tiene anadido ningun tipo de 'lazy propagation'
 Las operaciones asumen indexacion en 0
 
 Notar que en esta version, el valor del nodo (vl) funciona como
-	el tamaño del subarbol que representa (trabajo sobre una lista implicita)
+	el tamano del subarbol que representa (trabajo sobre una lista implicita)
 
 Its a ( max-heap _ ascendent bst )
 

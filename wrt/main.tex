@@ -61,17 +61,14 @@
 \section{Data Structures}
 	
 	\subsection{Disjoint Set Union Find (DSU)}
-	\lstinputlisting[language=c++]{../dataStructure/dsu.cpp}
+	\lstinputlisting[language=c++]{../dataStructure/rollback_dsu.cpp}
 	\subsection{Segment Tree}
-	
 	\subsubsection{Lazy Recursive}
 	\lstinputlisting[language=c++]{../dataStructure/segmentFull.cpp}
-	
 	\subsubsection{Iterative}
-	\lstinputlisting[language=c++]{../dataStructure/segmentUpwards.cpp}
-	\subsubsection{Persistent}
-	\lstinputlisting[language=c++]{../dataStructure/persistentSegment.cpp}
-	
+	\lstinputlisting[language=c++]{../dataStructure/notebook/segtree_up_icpc.cpp}
+	\subsection{Lichao}
+	\lstinputlisting[language=c++]{../dataStructure/lichao_dynamic.cpp}
 	\subsection{Fenwick Tree}
 	\lstinputlisting[language=c++]{../dataStructure/fenwick.cpp}
 	\subsection{Treap}
@@ -82,33 +79,22 @@
 	Remember doing binary lifting (sparse table) is posible (precalculating all jumps)
 	
 	Remember doing coordinate compression is possible
-	
-	
 
 \section{Trees}
 
-	\subsection{Centroid}
-	\lstinputlisting[language=c++]{../tree/centroid.cpp}
+	%\subsection{Centroid}
+	%\lstinputlisting[language=c++]{../tree/centroid.cpp}
 	
-	\subsection{Heavy Light Decomposition (HLD)}
-	\lstinputlisting[language=c++]{../tree/hld.cpp}
-	
-	\subsection{Lowest Common Ancestor (LCA)}
-	Recordar que la version por Binary Lifting implica computar \(\pi : V\times\mathbb{N}\to V\) donde \(\pi (v,k)\) significa hacer \(2^k\) saltos sucesivos a los ancestros, iniciando desde \(v\).
-	
-	Recordar que dado $A\subseteq V$, entonces $C=\{lca(a,b)|a,b\in A\}$ se puede lograr ordenando los vertices en $A$ por tiempos de entrada del DFS y hallando $LCA(a_i,a_{i+1})$.
-	
-	\subsubsection{Euler Tour version}
-	Recordar que esta version ayuda a 'aplanar' el arbol para trabajar queries sobre subarboles.
-	\lstinputlisting[language=c++]{../tree/lca.cpp}
-	\subsubsection{Binary Lifting}
-	Recordar que esta version ayuda a agregar valores sobre caminos en el arbol (version estatica de lo que se hace en HLD).
-	\lstinputlisting[language=c++]{../tree/binLift_lca.cpp}
-	
+	%\subsection{Heavy Light Decomposition (HLD)}
+	%\lstinputlisting[language=c++]{../tree/hld.cpp}
 	%\subsection{virtual Tree}
 	%\lstinputlisting[language=c++]{../tree/virtualTree_untested.cpp}
+	\subsection{Lowest Common Ancestor (LCA)}
+	\lstinputlisting[language=c++]{../tree/notebook/lca_icpc.cpp}
+	\subsection{Tree tricks}
+	\lstinputlisting[language=c++]{../tree/tree_tricks.cpp}
+	Remember centroid decomposition exists and generates a tree of height $O(\log n)$. Furthermore, remember HLD also exists and that it allows for queries in $O(\log n T(n))$ where $T(n)$ is the time to query some range data structure.
 	
-	\subsection{Random stuff}
 	Remember that for all $A\subseteq V$ we have that $H=\{lca(u,v)|u,v\in A\}$ is computable by ordering via dfs in times and doing $\{lca(A_i,A_{i+1})\}_{i=0}^{|A|-1}$
 
 \section{Graph}
@@ -132,7 +118,7 @@
 	\end{figure}
 
 	\subsection{Dinitz}
-	Note that it usually works in $O(V^2E)$. In unit networks (they all have capacity of 1 except for source and sink) it works in $O(E\sqrt{v})$
+	Note that it usually works in $O(V^2E)$. In unit networks (they all have capacity of 1 except for source and sink) it works in $O(E\sqrt{v})$. Leaving the implementation as is, it works as dinitz with scaling so complexity on integers is $O(VE\log U)$ where $U$ is the max capacity.
 	\lstinputlisting[language=c++]{../graph/dinitz.cpp}
 	
 	%\subsection{Edmonds-Karps}
@@ -150,16 +136,16 @@
 	\lstinputlisting[language=c++]{../graph/euler_circuit.cpp}
 	
 	\subsection{2 SAT}
-	Nota: mi impl es una mierda. Tomadlo de guia nada mas
-	\lstinputlisting[language=c++]{../graph/sat_2.cpp}
-	
-	\subsection{Kosaraju for strongly connected components}
-	Nota: no lo he testeado.
-	\lstinputlisting[language=c++]{../graph/kosaraju_scc.cpp}
+	For $\land_i(x_i\lor y_i)$ generate a graph with nodes $V=\{x_i,\lnot x_i,y_i,\lnot y_i\}_i$ and edges $(\lnot x_i,y_i),(\lnot y_i,x_i)\in E$ for all $i$. Then one should greedily try to take elements from the 'terminal' StronglyConnectedComponents to prevent paths $x_i\rightsquigarrow\lnot x_i$ (or viceversa). I still don't understand why the CP-Algorithms implementation work, but here it is (it was slightly adapted).
+	\lstinputlisting[language=c++]{../graph/sat2_notMine.cpp}
+	Notice that this has 'in-built' an implementation for Kosaraju's algorithm for strongly connected components.
+	%\subsection{Kosaraju for strongly connected components}
+	%Nota: no lo he testeado.
+	%\lstinputlisting[language=c++]{../graph/kosaraju_scc.cpp}
 	
 	\subsection{clique}
-	This shit shouldnt exists. But here we are
-	\lstinputlisting[language=c++]{../graph/clique.cpp}
+	Some optimizations may be nontrivial?
+	\lstinputlisting[language=c++]{../graph/notebook/clique_icpc.cpp}
 
 \section{Strings}
 	\subsection {Z function}
@@ -168,7 +154,7 @@
 	
 	\subsection{Prefix function}
 	Computa \(\pi : 1..N\to 1..N\) donde \(\pi(i)\) implica que \(str[1..\pi(i)]=str[i-\pi(i)..i]\) y este es maximal.
-	\lstinputlisting[language=c++]{../string/prefixFunction.cpp}
+	\lstinputlisting[language=c++]{../string/prefix_function.cpp}
 	
 	\subsection{Suffix Array}
 	Computa \(A : 1..N\to 1..N\) donde \(i<j\) implica \(str[A(i)..N]<str[A(j)..N]\).
@@ -179,8 +165,8 @@
 	\lstinputlisting[language=c++]{../string/ahoCorasick.cpp}
 	
 	\subsection{Manacher}
-	Note: its currently untested
-	\lstinputlisting[language=c++]{../string/manacher_untested.cpp}
+	plagiarized epicly from cp-algorithms. manacher\_odd returns as $res[i]$ the length of the longest palindromes centered in $i$ (odd palindrome, ranges is $[i-res[i],i+res[i]]$). manacher then modifies the problem to include the even-length palindromes by centering them 'in the middle'. This last function then returns for $i=2k$ the $res'[i]=2\cdot res[k]$ and $i=2k+1$ returns $res'[i]=2\cdot res[k]+1$ assuming stuff I dont want to explain.
+	\lstinputlisting[language=c++]{../string/manacher_notMine.cpp}
 	
 	\subsection{Hash}
 	\lstinputlisting[language=c++]{../string/hash.cpp}
@@ -190,41 +176,52 @@
 	\lstinputlisting[language=python]{../string/booth.py}
 
 \section{Algebra and friends}
-	\subsection{Convolutions}
-	Calculamos \(C(k)=\Sigma_{i+j=k}A(i)\cdot B(j)\).
-	Recordar que con \(B'(i)=B(N-i)\) podemos tambien calcular \(C(k)=\Sigma_{i-j=k}A(i)\cdot B(j)\).
+	Remember that most of this stuff kind of depends on my modulo\_int template, so the modulus often is missing.
 	
-	\subsubsection{Fourier Fast Transform (FFT)}
-	
-	\lstinputlisting[language=c++]{../algebra/fft_notMine.cpp}
-	
-	\subsubsection{Numeric Theoretic Transform (NTT)}
-	
-	\lstinputlisting[language=c++]{../algebra/ntt_notMine.cpp}
-	
-	% the world isn't ready for this madness
-	\subsubsection{Operations on FormalPowerSeries}
-	\lstinputlisting[language=c++]{../algebra/formalPowerSeries.cpp}
+	\subsection{FPS}
+	\lstinputlisting[language=c++]{../algebra/notebook/fft_icpc.cpp}
+	$$Log(F)=\int\frac{D(F)}{F}$$
+	EXP
+	$$ G_{<2n>}\equiv G_{<n>}\left(1-Log(G_{<n>})+F \right)(\text{mod }x^{2n})$$
+	POW
+	$$ F^k=Exp(k\cdot Log(F))$$
+	SQRT
+	$$G_{<2n>}\equiv 1/2(G_{<n>}+F\cdot G_{<n>}^{-1})(\text{mod }x^{2n})$$
+	\subsection{Berlekamp-Massey}
+	\lstinputlisting[language=c++]{../algebra/berlekamp_massey_notMine.cpp}
+	\subsection{Bostan-Mori}
+To calculate linear recurrences, $P/Q$ then $Q$ is as outputed by Berlekamp-Massey, while $P=B\cdot Q$ for $B$ the base cases of the recurrence.
+	\lstinputlisting[language=c++]{../algebra/notebook/bostan_mori_icpc.cpp}
+	\subsection{Tonelli-Shanks}
+	\lstinputlisting[language=c++]{../algebra/notebook/tonelli_shanks_notMine.cpp}
 	
 	\subsubsection{Fast Walsh Hadamard Transform (FWH)}
 	This allows to do $C(k)=\sum_{k=i^j}A_iB_j$ and the bitwise convolutions
 	\lstinputlisting[language=c++]{../algebra/fwt_xorConv.cpp}
 	
-	\subsubsection{bitwise convolution}
-	This allows to do $C(k)=\sum_{k=i|j}A_iB_j$ and $C(k)=\sum_{k=i\&j}A_iB_j$
-	\lstinputlisting[language=c++]{../algebra/bitwise_convolution.cpp}
+	\subsubsection{SOS-DP}
+	This allows to do $g(Y)=\sum_{X\subseteq Y}f(X)$ (subset) or $g(Y)=\sum_{Y\subseteq X}f(X)$ (superset) and their inverses happen whenever $tp=0$. Notice this is another way to calculate the And transformation for FWH and the Or transformation.
+	\lstinputlisting[language=c++]{../algebra/notebook/sos_dp_icpc.cpp}
 	\subsubsection{divisibility convolution}
 	This allows to do $C(k)=\sum_{k=gcd(i,j)}A_iB_j$ and $C(k)=\sum_{k=lcm(i,j)}A_iB_j$
 	\lstinputlisting[language=c++]{../algebra/divisibility_convolution.cpp}
 	
 	\subsection{extended gcd}
 	Remember there exist \lstinline|__gcd(a,b);| and its usable
-	\lstinputlisting[language=c++]{../algebra/gcd_notMine.cpp}
+	\lstinputlisting[language=c++]{../algebra/gcd.cpp}
 	\subsection{Xor Basis}
-	\lstinputlisting[language=c++]{../algebra/xorBasis.cpp}
+	\lstinputlisting[language=c++]{../algebra/notebook/xorBasis_icpc.cpp}
 	\subsection{prime stuff}
 	The code has pollard rho that works in expected $O(\sqrt[4]{n})$ and miller-rabin that we can (?) assume it won't fail as a prime tester.
-	\lstinputlisting[language=c++]{../algebra/primality_stuff.cpp}
+	\lstinputlisting[language=c++]{../algebra/primality_stuff_notMine.cpp}
+	
+	\subsection{Floor Sums}
+	\lstinputlisting[language=c++]{../algebra/floor_sums.cpp}
+	\subsection{Max-plus convolution}
+	Notice that this is a specific case of Minkowski Sum of convex polygons.
+	\lstinputlisting[language=c++]{../algebra/maxplus_convolution.cpp}
+	\subsection{sieve}
+	\lstinputlisting[language=c++]{../algebra/sieve.cpp}
 	
 \section{Combinatorics}
 	Muchas de estas propiedades fueron sacadas de https://cp-algorithms.com/combinatorics
@@ -313,21 +310,6 @@
 	\[C_i = \frac{1}{n+1}\binom{2n}{n}\]
 	\[C_i = \frac{4i-2}{i+1}C_{i-1},C_0=1\]
 	
-	\subsubsection{Fibonacci}
-	\textbf{Fibonacci}
-	\[fibo(0)=0,fibo(1)=1,fibo(n)=fibo(n-1)+fibo(n-2)\]
-	
-	\[
-	\begin{bmatrix}
-		1 & 1 \\
-		1 & 0
-	\end{bmatrix}^n
-	=
-	\begin{bmatrix}
-		fibo(n+1) & fibo(n) \\
-		fibo(n) & fibo(n-1)
-	\end{bmatrix}
-	\]
 	\subsection{Techniques}
 	
 	\textbf{Principle of Inclusion-Exclusion (PIE)}
@@ -360,7 +342,7 @@
 	
 	Lo use en el gym 101242 I (Road Times ICPC WF 2016). 
 	\lstinputlisting[language=c++]{../linalg/simplex_notMine.cpp}
-	\subsection{MatMultiply}
+	\subsection{matrix primitives}
 	\lstinputlisting[language=c++]{../linalg/mat_primitives.cpp}
 	\subsection{slae}
 	When dealing with modulo 2 stuff bitset can also carry hard
@@ -380,7 +362,7 @@
 	
 	\subsection{My tipsNtricks stuff}
 	Remember the trick of the transpose graph in $O((n+m)lg n)$ using the set to keep track of the unvisited ones.
-	\lstinputlisting{../tipsNtricks.cpp}
+	\lstinputlisting{../miscelaneus/tips_N_tricks.cpp}
 	
 	\subsection{template}
 	\subsubsection{c++}
@@ -389,6 +371,9 @@
 	\subsubsection{Python}
 	Python es una calculadora glorificada. Pero tiene algunos usos...
 	\lstinputlisting[language=python]{../io_competitiva.py}
+	\subsection{Exhaustive testing}
+	\lstinputlisting{../exhaustive_test.sh}
+	\lstinputlisting{../exhaustive_test.cmd}
 	\iffalse
 	\subsection{Agregar a futuro}
 	\begin{itemize}
