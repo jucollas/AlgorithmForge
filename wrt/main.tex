@@ -156,9 +156,14 @@
 	Computa \(\pi : 1..N\to 1..N\) donde \(\pi(i)\) implica que \(str[1..\pi(i)]=str[i-\pi(i)..i]\) y este es maximal.
 	\lstinputlisting[language=c++]{../string/prefix_function.cpp}
 	
+	\subsubsection{Applications}
+	\lstinputlisting[language=c++]{../string/applications-preffix-function.cpp}
+
+
 	\subsection{Suffix Array}
 	Computa \(A : 1..N\to 1..N\) donde \(i<j\) implica \(str[A(i)..N]<str[A(j)..N]\).
 	También puede computar \(LCP : i..N\to 1..N\) donde \(LCP(i)\) identifica el tamaño del prefijo comun más grande entre \(str[A(i-1)..N]\) y \(str[A(i)..N]\).
+
 	\lstinputlisting[language=c++]{../string/suffixArray.cpp}
 	
 	\subsection{Aho-Corasick automata}

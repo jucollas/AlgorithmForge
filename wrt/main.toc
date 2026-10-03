@@ -26,46 +26,47 @@
 \contentsline {section}{\numberline {4}Strings}{8}{}%
 \contentsline {subsection}{\numberline {4.1}Z function}{8}{}%
 \contentsline {subsection}{\numberline {4.2}Prefix function}{9}{}%
-\contentsline {subsection}{\numberline {4.3}Suffix Array}{9}{}%
-\contentsline {subsection}{\numberline {4.4}Aho-Corasick automata}{9}{}%
+\contentsline {subsubsection}{\numberline {4.2.1}Applications}{9}{}%
+\contentsline {subsection}{\numberline {4.3}Suffix Array}{10}{}%
+\contentsline {subsection}{\numberline {4.4}Aho-Corasick automata}{10}{}%
 \contentsline {subsection}{\numberline {4.5}Manacher}{10}{}%
-\contentsline {subsection}{\numberline {4.6}Hash}{10}{}%
-\contentsline {subsection}{\numberline {4.7}Booth algorithm for minimalShift}{10}{}%
+\contentsline {subsection}{\numberline {4.6}Hash}{11}{}%
+\contentsline {subsection}{\numberline {4.7}Booth algorithm for minimalShift}{11}{}%
 \contentsline {section}{\numberline {5}Algebra and friends}{11}{}%
 \contentsline {subsection}{\numberline {5.1}FPS}{11}{}%
-\contentsline {subsection}{\numberline {5.2}Berlekamp-Massey}{11}{}%
-\contentsline {subsection}{\numberline {5.3}Bostan-Mori}{11}{}%
+\contentsline {subsection}{\numberline {5.2}Berlekamp-Massey}{12}{}%
+\contentsline {subsection}{\numberline {5.3}Bostan-Mori}{12}{}%
 \contentsline {subsection}{\numberline {5.4}Tonelli-Shanks}{12}{}%
-\contentsline {subsubsection}{\numberline {5.4.1}Fast Walsh Hadamard Transform (FWH)}{12}{}%
-\contentsline {subsubsection}{\numberline {5.4.2}SOS-DP}{12}{}%
-\contentsline {subsubsection}{\numberline {5.4.3}divisibility convolution}{12}{}%
+\contentsline {subsubsection}{\numberline {5.4.1}Fast Walsh Hadamard Transform (FWH)}{13}{}%
+\contentsline {subsubsection}{\numberline {5.4.2}SOS-DP}{13}{}%
+\contentsline {subsubsection}{\numberline {5.4.3}divisibility convolution}{13}{}%
 \contentsline {subsection}{\numberline {5.5}extended gcd}{13}{}%
-\contentsline {subsection}{\numberline {5.6}Xor Basis}{13}{}%
-\contentsline {subsection}{\numberline {5.7}prime stuff}{13}{}%
-\contentsline {subsection}{\numberline {5.8}Floor Sums}{14}{}%
-\contentsline {subsection}{\numberline {5.9}Max-plus convolution}{14}{}%
-\contentsline {subsection}{\numberline {5.10}sieve}{15}{}%
-\contentsline {section}{\numberline {6}Combinatorics}{15}{}%
-\contentsline {subsection}{\numberline {6.1}Properties}{15}{}%
-\contentsline {subsubsection}{\numberline {6.1.1}n Choose k}{15}{}%
-\contentsline {subsubsection}{\numberline {6.1.2}Stirling God}{15}{}%
+\contentsline {subsection}{\numberline {5.6}Xor Basis}{14}{}%
+\contentsline {subsection}{\numberline {5.7}prime stuff}{14}{}%
+\contentsline {subsection}{\numberline {5.8}Floor Sums}{15}{}%
+\contentsline {subsection}{\numberline {5.9}Max-plus convolution}{15}{}%
+\contentsline {subsection}{\numberline {5.10}sieve}{16}{}%
+\contentsline {section}{\numberline {6}Combinatorics}{16}{}%
+\contentsline {subsection}{\numberline {6.1}Properties}{16}{}%
+\contentsline {subsubsection}{\numberline {6.1.1}n Choose k}{16}{}%
+\contentsline {subsubsection}{\numberline {6.1.2}Stirling God}{16}{}%
 \contentsline {subsubsection}{\numberline {6.1.3}Formal Power Series}{16}{}%
-\contentsline {subsubsection}{\numberline {6.1.4}Modular Arithmetic}{16}{}%
-\contentsline {subsubsection}{\numberline {6.1.5}Chinese Remainder Theorem}{16}{}%
-\contentsline {subsubsection}{\numberline {6.1.6}Lagrange Interpolation}{16}{}%
-\contentsline {subsubsection}{\numberline {6.1.7}Catalan numbers}{16}{}%
-\contentsline {subsection}{\numberline {6.2}Techniques}{16}{}%
+\contentsline {subsubsection}{\numberline {6.1.4}Modular Arithmetic}{17}{}%
+\contentsline {subsubsection}{\numberline {6.1.5}Chinese Remainder Theorem}{17}{}%
+\contentsline {subsubsection}{\numberline {6.1.6}Lagrange Interpolation}{17}{}%
+\contentsline {subsubsection}{\numberline {6.1.7}Catalan numbers}{17}{}%
+\contentsline {subsection}{\numberline {6.2}Techniques}{17}{}%
 \contentsline {section}{\numberline {7}Geometry}{17}{}%
 \contentsline {subsection}{\numberline {7.1}geomTemplate}{17}{}%
-\contentsline {subsection}{\numberline {7.2}Convex Hull (2D)}{17}{}%
+\contentsline {subsection}{\numberline {7.2}Convex Hull (2D)}{18}{}%
 \contentsline {section}{\numberline {8}linAlg}{18}{}%
 \contentsline {subsection}{\numberline {8.1}LP Simplex}{18}{}%
-\contentsline {subsection}{\numberline {8.2}matrix primitives}{18}{}%
+\contentsline {subsection}{\numberline {8.2}matrix primitives}{19}{}%
 \contentsline {subsection}{\numberline {8.3}slae}{19}{}%
-\contentsline {section}{\numberline {9}Cosas random}{19}{}%
-\contentsline {subsection}{\numberline {9.1}Calcular \(\lfloor log_2x\rfloor \)}{19}{}%
-\contentsline {subsection}{\numberline {9.2}My tipsNtricks stuff}{19}{}%
-\contentsline {subsection}{\numberline {9.3}template}{19}{}%
-\contentsline {subsubsection}{\numberline {9.3.1}c++}{19}{}%
-\contentsline {subsubsection}{\numberline {9.3.2}Python}{20}{}%
-\contentsline {subsection}{\numberline {9.4}Exhaustive testing}{20}{}%
+\contentsline {section}{\numberline {9}Cosas random}{20}{}%
+\contentsline {subsection}{\numberline {9.1}Calcular \(\lfloor log_2x\rfloor \)}{20}{}%
+\contentsline {subsection}{\numberline {9.2}My tipsNtricks stuff}{20}{}%
+\contentsline {subsection}{\numberline {9.3}template}{20}{}%
+\contentsline {subsubsection}{\numberline {9.3.1}c++}{20}{}%
+\contentsline {subsubsection}{\numberline {9.3.2}Python}{21}{}%
+\contentsline {subsection}{\numberline {9.4}Exhaustive testing}{21}{}%
