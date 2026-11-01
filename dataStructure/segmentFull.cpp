@@ -16,25 +16,24 @@ Do stuff with timestamps. Both lazy and data have 'tot,acum,time'
 	Lazy keeps the value of a single element in acum while Data keeps the whole range
 	so update is tot'=acum*(ac_time-time)+tot +(o.acum*(ac_time-o.time)+o.tot)*(r-l+1)
 Idea applied in subtask of https://www.luogu.com.cn/problem/P11659
-	
 */
 struct Lazy{
 	int vl;
 	Lazy(int v=0):vl(v){};
 	
-	void combine( const Lazy &l ){
-		// unir con otro lazy (l estaba en el padre)
+	inline void combine( const Lazy &o ){
+		// unir con otro lazy (o estaba en el padre)
 		vl+=l.vl;
-	} pair<Lazy,Lazy> separe( int l, int r ) {
+	} inline pair<Lazy,Lazy> separe(int l,int r){
 		// separar en izquierda y derecha
 		return {*this,*this};
 	}
 }; struct Data {
 	int sum;
 	Data(int s=0) : sum(s) {};
-	Data operator + ( const Data &o ) const {
+	inline Data operator+(const Data&o)const{
 		return Data(sum+o.sum);
-	} void update( const Lazy &o, int l, int r ){
+	}inline void update(const Lazy&o,int l,int r){
 		// modificar el dato
 		sum+=(r-l+1)*o.vl;
 	}
@@ -44,56 +43,48 @@ struct Lazy{
 		tag.resize(t_size*2); tree.resize(t_size*2);
 		--t_size;
 		raw_build( arr );
-	} inline void calc_cons( int ind, int l, int r, int &m, int &rind ) {
+	} inline static void calc_cons(int ind,int l,int r,int&m,int&rind){
 		m = (l+r)/2; rind = ind+2*(m-l+1);
 	}
-
-void raw_build ( const vector<Data> &arr,int ind=0,int l=0,int r=-1 ) {
+void raw_build(const vector<Data>&arr,int ind=0,int l=0,int r=-1){
 	if(r==-1)r=t_size;
     /* funcion recursiva auxiliar que construye el segTree */
-	
-	// tag[ind] = Lazy(); // siempre en neutro
 	if ( l == r ) tree[ind] = arr[l]; // caso base
-	else {
-		int m,rind; calc_cons(ind,l,r,m,rind);
+	else { int m,rind; calc_cons(ind,l,r,m,rind);
 		raw_build( arr, ind+1, l, m ); // hijo izquierdo
 		raw_build( arr, rind, m+1, r ); // hijo derecho
-		
 		tree[ind] = tree[ind+1] + tree[rind];
-	}
+	} tag[ind] = Lazy(); // siempre en neutro
 } inline void push( int ind, int l, int r ) {
-/* Empuja el vlor del tag a los nodos mas profundos */
-	tree[ind].update( tag[ind],l,r );
-	if ( l < r ) { // no hay edge-case cuando lt==rt
+/* Empuja el valor del tag a los nodos mas profundos */
+	// if(tag[ind]==Lazy())return;//may be usefull to skip work
+	tree[ind].update(tag[ind],l,r); if(l<r){
 		int m, rind; calc_cons(ind,l,r,m,rind);
 		pair<Lazy,Lazy> sd=tag[ind].separe(l,r);
 		tag[ind+1].combine(sd.first);
 		tag[rind].combine(sd.second);
 	} tag[ind] = Lazy(); // para no sobrecontar
-} void update( int ql, int qr, Lazy vl, int ind=0, int l=0, int r=-1 ) {
+} void update(int ql,int qr,Lazy vl,int ind=0,int l=0,int r=-1){
 	if(r==-1)r=t_size;
 /* actualizo los vlores en arr[lx],...,arr[rx] por arr[lx]+=vl,...,arr[rx]+=vl
 	en el arbol en tiempo O(lg n) */
+	bool done=0;
+	if(ql<=l&&r<=qr)tag[ind].combine(vl),done=1;
 	push( ind, l, r );
-	if ( ql <= l && r <= qr ) {
-		tag[ind].combine(vl);
-		push( ind, l, r );
-	} else if ( !(r<ql||qr<l) ) {
+	if(!(r<ql||qr<l)&&!done){
 		int m,rind; calc_cons(ind,l,r,m,rind);
 		
-		update( ql, qr, vl, ind+1, l, m ); // hijo izquierdo
-		update( ql, qr, vl, rind, m+1, r ); // hijo derecho
-		tree[ind] = tree[ind+1] + tree[rind]; // actualizo el arbol
-	}
+		update(ql,qr,vl,ind+1,l  ,m);
+		update(ql,qr,vl,rind ,m+1,r);
+		tree[ind]=tree[ind+1]+tree[rind]; }
 } Data query( int ql, int qr, int ind=0, int l=0, int r=-1 ) {
 	if(r==-1)r=t_size;
 /* Hago una query de arr[lx]+...+arr[rx] en tiempo O(lg n) */
-	Data res;
-	push( ind, l, r );
+	Data res; push( ind, l, r );
 	if ( ql <= l && r <= qr ) res = tree[ind];
 	else if ( !(r<ql||qr<l) ) {
 		int m,rind; calc_cons(ind,l,r,m,rind);
-		res = query(ql,qr,ind+1,l,m)+query(ql,qr,rind,m+1,r);
-	} return res;
-}
+		res=query(    ql     ,min(qr,m),ind+1,l  ,m)+
+		    query(max(ql,m+1),    qr   ,rind ,m+1,r);
+	} return res; }
 };

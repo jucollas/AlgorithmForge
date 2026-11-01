@@ -10,7 +10,7 @@ Es facil reducirlo a la version usual de dinitz
 Remember,remember. Whenever we have a planar graph, a path of its dual graph represents
 	bijectively a cut on the original graph. Essentially solves with dijkstra min-cut
 Anfelesan taught me this one in regards to https://codeforces.com/gym/106178/problem/G
-*/ template <typename ftype, ftype INF> struct Dinitz{
+*/ template <typename ftype, ftype INF> struct Dinitz{// int ex;
 	constexpr static ftype inf(){return INF;}
 	struct Edge { int u, v;
 		ftype c1, c2, f;// c1 es la capacidad u->v y c2 es para v->u
@@ -39,38 +39,39 @@ Anfelesan taught me this one in regards to https://codeforces.com/gym/106178/pro
 		graph[u].push_back( edges.size() );
 		graph[v].push_back( edges.size() );
 		edges.emplace_back( Edge( u, v, c1, c2 ) );
-	} ftype push_dfs( int nd, ftype flow=INF ) {
+	} ftype push_dfs( int nd, ftype flow,int ex ) {
 // Empuja el flujo por todas las aristas del 'layered graph' que pueda 
 		if ( nd == sink || flow==0 ) return flow; // ya llegamos o no podemos empujar mas
-		
-		ftype push_flow = 0, edge_flow; int edge, nxt;
-		while ( ptr[nd] < int(graph[nd].size()) && flow > push_flow ) {
-			edge_flow = 0; edge = graph[nd][ptr[nd]]; nxt = edges[edge].to(nd);
-			// si la arista pertenece al 'layered graph' y el vertice NO esta bloqueado
+		ftype push_flow = 0, edge_flow;
+		int nxt,&pt=ptr[nd]; while(pt<int(graph[nd].size())&&flow>push_flow ){
+			auto&e=edges[graph[nd][pt]];nxt = e.to(nd);
+			if(!((e.c1+e.c2)>>ex))break;
+			// anadir '(e.cap(nd)>>ex)' para maximo aseguramiento
 			if ( level[nd] < level[nxt] && !blocked[nxt] )  {
-				edge_flow = push_dfs( nxt, min(edges[edge].cap(nd),flow-push_flow) );
+				edge_flow = push_dfs( nxt, min(e.cap(nd),flow-push_flow),ex );
 				push_flow += edge_flow;
-				edges[edge].push( nd, edge_flow );
-			} ++ptr[nd];
-		} --ptr[nd]; // para corregir el ultimo ++ptr[nd]
-		blocked[nd] = (push_flow == 0); // verifica si se bloqueo el vertice
-		return push_flow;
+				e.push( nd, edge_flow );
+			}    pt+=push_flow<flow;
+		}blocked[nd]=push_flow<flow; return push_flow;
 	} ftype max_flow( ) {
 // Hace el maximo flujo del grafo (retorna el maxFlow, las asignaciones quedan en las aristas)
 //		Funciona en peor caso $O(V*E*lgU)$
 		ftype mx=0;for(const Edge&e:edges){//quitar esto para reducir
 			if(mx<e.c1)mx=e.c1;if(mx<e.c2)mx=e.c2;// a la version
 		}int ex=0;while((mx>>ex)>1)++ex;// usual de dinitz
+		for(auto&adj:graph)sort(adj.begin(),adj.end(),[&](int a,int b){
+			return edges[a].c1+edges[a].c2>edges[b].c1+edges[b].c2;});
 		ftype flow=0;for(;ex>=0;--ex)do{
 			fill(all(level),0);level[source]=1;
-			int iq=0,nq=1;q[nq]=source;while(iq<nq&&!level[sink]){
+			int iq,nq=1;q[iq=0]=source;while(iq<nq&&!level[sink]){
 				const int nd=q[iq++]; for(int eind:graph[nd]){
+					if(!((edges[eind].c1+edges[eind].c2)>>ex))break;
 					const int e=edges[eind].to(nd);
 					if(!level[e]&&(edges[eind].cap(nd)>>ex))
 						level[e]=level[nd]+1,q[nq++]=e;
 				}
 			} if(!level[sink])continue;
 			fill(all(blocked),0); fill(all(ptr),0);
-			flow+=push_dfs( source );
+			flow+=push_dfs( source, INF, ex );
 		} while(level[sink]); return flow; }
 };

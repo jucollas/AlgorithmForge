@@ -19,10 +19,10 @@ template<typename tint> struct fenw{
 		for(;r<l;l-=l&(-l))res-=bit[l];
 		return res;
 	}int binlift( tint vl )const{
-		int x=0,nxt;//$min\{i|\sum_{j<=i}bit_j<=val\}$
+		int x=0,nxt;//$min\{i|\sum_{j<=i}bit_j>vl\}$
 		for(int exp=ilog2(n+1);exp>=0;--exp){
-			nxt=x|(1<<exp);if(nxt<=n&&bit[nxt]<vl){
-				vl-=bit[nxt];x=nxt; }
+			nxt=x|(1<<exp);if(nxt<n&&bit[nxt]<vl)
+				vl-=bit[x=nxt];
 		} return x+1;
 	} tint raw_query(int x)const{ tint res=0;for(;x;x-=x&(-x))res+=bit[x]; return res;}
 };

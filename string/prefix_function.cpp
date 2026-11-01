@@ -14,7 +14,7 @@ vector<vector<int>> prefix_automata(const string&cad){//$O(n*\Sigma)$
 	vector<int> pi=prefix_function(cad);
 	vector<vector<int>> fpi(cad.size(),vector<int>(let));
 	for(int i=0;i<int(cad.size());++i)for(int j=0;j<let;++j){
-        if(i>0&&s[i]-'a'!=j)
+        if(i>0&&cad[i]-'a'!=j)
              fpi[i][j]=fpi[pi[i-1]][j];
-        else fpi[i][j]=i+(s[i]-'a'==j);
+        else fpi[i][j]=i+(cad[i]-'a'==j);
     }return fpi; }

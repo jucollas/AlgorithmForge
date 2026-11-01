@@ -9,7 +9,7 @@ Probando mis implementaciones para la ICPC
 using namespace std;
 #define pb push_back
 
-#include "../prefixFunction.cpp"
+#include "../prefix_function.cpp"
 
 vector<int> slowVersion( const string &str ) {
 	vector<int> res( str.size(), 0 );
@@ -39,9 +39,9 @@ void printArr( const vector<int> &arr, const string &str ) {
 	cout << endl;
 }
 
-int main() { int t=100;
+int main() { const int t=100;
 	const int sz=1e3, tope = 1<<7;
-	while (t--) {
+	for(int tm=0;tm<t;++tm){
 		string cad;
 		for ( int i = 0 ; i < sz ; ++i ) cad.pb( random( tope )+'a' );
 		vector<int> v1 = slowVersion( cad );
@@ -52,6 +52,6 @@ int main() { int t=100;
 			printArr(v2,"impl" );
 		}
 		assert ( is_equal(v1,v2) );
-	}cerr << "termino bien " << endl;
+	} printf("OK (%d strings of size %d) pref-fun\n",t,sz);
 	return 0;
 }
