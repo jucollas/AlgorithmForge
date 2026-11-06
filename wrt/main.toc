@@ -1,6 +1,6 @@
 \babel@toc {english}{}\relax 
-\contentsline {section}{\numberline {1}Data Structures}{1}{}%
-\contentsline {subsection}{\numberline {1.1}Disjoint Set Union Find (DSU)}{1}{}%
+\contentsline {section}{\numberline {1}Data Structures}{2}{}%
+\contentsline {subsection}{\numberline {1.1}Disjoint Set Union Find (DSU)}{2}{}%
 \contentsline {subsection}{\numberline {1.2}Segment Tree}{2}{}%
 \contentsline {subsubsection}{\numberline {1.2.1}Lazy Recursive}{2}{}%
 \contentsline {subsubsection}{\numberline {1.2.2}Iterative}{2}{}%
@@ -33,10 +33,10 @@
 \contentsline {subsection}{\numberline {4.6}Hash}{11}{}%
 \contentsline {subsection}{\numberline {4.7}Booth algorithm for minimalShift}{11}{}%
 \contentsline {section}{\numberline {5}Algebra and friends}{11}{}%
-\contentsline {subsection}{\numberline {5.1}FPS}{11}{}%
+\contentsline {subsection}{\numberline {5.1}FPS}{12}{}%
 \contentsline {subsection}{\numberline {5.2}Berlekamp-Massey}{12}{}%
 \contentsline {subsection}{\numberline {5.3}Bostan-Mori}{12}{}%
-\contentsline {subsection}{\numberline {5.4}Tonelli-Shanks}{12}{}%
+\contentsline {subsection}{\numberline {5.4}Tonelli-Shanks}{13}{}%
 \contentsline {subsubsection}{\numberline {5.4.1}Fast Walsh Hadamard Transform (FWH)}{13}{}%
 \contentsline {subsubsection}{\numberline {5.4.2}SOS-DP}{13}{}%
 \contentsline {subsubsection}{\numberline {5.4.3}divisibility convolution}{13}{}%

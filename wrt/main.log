@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.28)  2 OCT 2026 20:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.14)  5 NOV 2026 20:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -51,7 +51,7 @@ on input line 2086.
 LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) 
 on input line 2111.
 \U@D=\dimen152
-\l@unhyphenated=\language5
+\l@unhyphenated=\language90
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
@@ -62,29 +62,18 @@ on input line 2111.
 Package babel Info: Importing font and identification data for spanish
 (babel)             from babel-es.ini. Reported on input line 4330.
 
-(/usr/share/texlive/texmf-dist/tex/generic/babel/errbabel.def)
-
-! Package babel Error: Unknown option 'spanish'.
-(babel)                Suggested actions:
-(babel)                * Make sure you haven’t misspelled it
-(babel)                * Check in the babel manual that it's supported
-(babel)                * If supported and it's a language, you may
-(babel)                  need in some distributions a separate
-(babel)                  installation
-(babel)                * If installed, check there isn’t an old
-(babel)                  version of the required files in your system
-(babel)                * If it's an unsupported language, create it with
-(babel)                \babelprovide(see the manual).
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4330 \bbl@tempb
-                 
-? 
+(/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
+Language: spanish.ldf 2021/05/27 v5.0q Spanish support from the babel system
+\es@quottoks=\toks17
+\es@quotdepth=\count285
+Package babel Info: Making " an active character on input line 570.
+Package babel Info: Making . an active character on input line 675.
+Package babel Info: Making < an active character on input line 722.
+Package babel Info: Making > an active character on input line 722.
+)
 Package babel Info: Importing font and identification data for english
 (babel)             from babel-en.ini. Reported on input line 4330.
+
 (/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
@@ -96,15 +85,15 @@ Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
-\thm@style=\toks17
-\thm@bodyfont=\toks18
-\thm@headfont=\toks19
-\thm@notefont=\toks20
-\thm@headpunct=\toks21
+\thm@style=\toks18
+\thm@bodyfont=\toks19
+\thm@headfont=\toks20
+\thm@notefont=\toks21
+\thm@headpunct=\toks22
 \thm@preskip=\skip51
 \thm@postskip=\skip52
 \thm@headsep=\skip53
-\dth@everypar=\toks22
+\dth@everypar=\toks23
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
@@ -116,7 +105,7 @@ Package: amstext 2024/11/17 v2.01 AMS text
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks23
+\@emptytoks=\toks24
 \ex@=\dimen153
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
@@ -126,14 +115,14 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count285
+\inf@bad=\count286
 LaTeX Info: Redefining \frac on input line 233.
-\uproot@=\count286
-\leftroot@=\count287
+\uproot@=\count287
+\leftroot@=\count288
 LaTeX Info: Redefining \overline on input line 398.
 LaTeX Info: Redefining \colon on input line 409.
-\classnum@=\count288
-\DOTSCASE@=\count289
+\classnum@=\count289
+\DOTSCASE@=\count290
 LaTeX Info: Redefining \ldots on input line 495.
 LaTeX Info: Redefining \dots on input line 498.
 LaTeX Info: Redefining \cdots on input line 619.
@@ -146,31 +135,31 @@ LaTeX Info: Redefining \Bigg on input line 724.
 \big@size=\dimen155
 LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
-\macc@depth=\count290
+\macc@depth=\count291
 LaTeX Info: Redefining \bmod on input line 904.
 LaTeX Info: Redefining \pmod on input line 909.
 LaTeX Info: Redefining \smash on input line 939.
 LaTeX Info: Redefining \relbar on input line 969.
 LaTeX Info: Redefining \Relbar on input line 970.
-\c@MaxMatrixCols=\count291
+\c@MaxMatrixCols=\count292
 \dotsspace@=\muskip17
-\c@parentequation=\count292
-\dspbrk@lvl=\count293
-\tag@help=\toks24
-\row@=\count294
-\column@=\count295
-\maxfields@=\count296
-\andhelp@=\toks25
+\c@parentequation=\count293
+\dspbrk@lvl=\count294
+\tag@help=\toks25
+\row@=\count295
+\column@=\count296
+\maxfields@=\count297
+\andhelp@=\toks26
 \eqnshift@=\dimen156
 \alignsep@=\dimen157
 \tagshift@=\dimen158
 \tagwidth@=\dimen159
 \totwidth@=\dimen160
 \lineht@=\dimen161
-\@envbody=\toks26
+\@envbody=\toks27
 \multlinegap=\skip55
 \multlinetaggap=\skip56
-\mathdisplay@stack=\toks27
+\mathdisplay@stack=\toks28
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
 )
@@ -190,25 +179,25 @@ Package: mathtools 2024/10/04 v1.31 mathematical typesetting tools
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
-\KV@toks@=\toks28
+\KV@toks@=\toks29
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2025/03/01 v4.3b Infix arithmetic (KKT,FJ)
-\calc@Acount=\count297
-\calc@Bcount=\count298
+\calc@Acount=\count298
+\calc@Bcount=\count299
 \calc@Adimen=\dimen162
 \calc@Bdimen=\dimen163
 \calc@Askip=\skip57
 \calc@Bskip=\skip58
 LaTeX Info: Redefining \setlength on input line 86.
 LaTeX Info: Redefining \addtolength on input line 87.
-\calc@Ccount=\count299
+\calc@Ccount=\count300
 \calc@Cskip=\skip59
 )
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
 Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
-\g_MT_multlinerow_int=\count300
+\g_MT_multlinerow_int=\count301
 \l_MT_multwidth_dim=\dimen164
 \origjot=\skip60
 \l_MT_shortvdotswithinadjustabove_dim=\dimen165
@@ -241,17 +230,17 @@ File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 \Gin@req@width=\dimen173
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count301
+\lst@mode=\count302
 \lst@gtempboxa=\box56
-\lst@token=\toks29
-\lst@length=\count302
+\lst@token=\toks30
+\lst@length=\count303
 \lst@currlwidth=\dimen174
-\lst@column=\count303
-\lst@pos=\count304
+\lst@column=\count304
+\lst@pos=\count305
 \lst@lostspace=\dimen175
 \lst@width=\dimen176
-\lst@newlines=\count305
-\lst@lineno=\count306
+\lst@newlines=\count306
+\lst@lineno=\count307
 \lst@maxwidth=\dimen177
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstpatch.sty
@@ -259,8 +248,8 @@ File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
-\c@lstnumber=\count307
-\lst@skipnumbers=\count308
+\c@lstnumber=\count308
+\lst@skipnumbers=\count309
 \lst@framebox=\box57
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
@@ -285,10 +274,10 @@ Package color Info: Driver file: pdftex.def on input line 149.
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx))
 (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count309
-\float@exts=\toks30
+\c@float@type=\count310
+\float@exts=\toks31
 \float@box=\box58
-\@float@everytoks=\toks31
+\@float@everytoks=\toks32
 \@floatcapt=\box59
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
@@ -308,7 +297,7 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthL=\skip72
 \f@nch@widthC=\skip73
 \f@nch@widthR=\skip74
-\@temptokenb=\toks32
+\@temptokenb=\toks33
 )
 (/usr/share/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
@@ -317,7 +306,7 @@ Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \aftertitleunit=\skip76
 \ttl@plus=\dimen178
 \ttl@minus=\dimen179
-\ttl@toksa=\toks33
+\ttl@toksa=\toks34
 \titlewidth=\dimen180
 \titlewidthlast=\dimen181
 \titlewidthfirst=\dimen182
@@ -331,9 +320,9 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 (/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
-\Gm@cnth=\count310
-\Gm@cntv=\count311
-\c@Gm@tempcnt=\count312
+\Gm@cnth=\count311
+\Gm@cntv=\count312
+\c@Gm@tempcnt=\count313
 \Gm@bindingoffset=\dimen183
 \Gm@wd@mp=\dimen184
 \Gm@odd@mp=\dimen185
@@ -342,7 +331,7 @@ Package: iftex 2024/12/12 v1.0g TeX engine tests
 \Gm@layoutheight=\dimen188
 \Gm@layouthoffset=\dimen189
 \Gm@layoutvoffset=\dimen190
-\Gm@dimlist=\toks34
+\Gm@dimlist=\toks35
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
@@ -355,7 +344,7 @@ File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count313
+\l__color_backend_stack_int=\count314
 )
 (./main.aux)
 \openout1 = `main.aux'.
@@ -376,17 +365,17 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
 LaTeX Font Info:    ... okay on input line 55.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count314
+\scratchcounter=\count315
 \scratchdimen=\dimen191
 \scratchbox=\box61
-\nofMPsegments=\count315
-\nofMParguments=\count316
-\everyMPshowfont=\toks35
-\MPscratchCnt=\count317
+\nofMPsegments=\count316
+\nofMParguments=\count317
+\everyMPshowfont=\toks36
+\MPscratchCnt=\count318
 \MPscratchDim=\dimen192
-\MPnumerator=\count318
-\makeMPintoPDFobject=\count319
-\everyMPtoPDFconversion=\toks36
+\MPnumerator=\count319
+\makeMPintoPDFobject=\count320
+\everyMPtoPDFconversion=\toks37
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -396,7 +385,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count320
+\c@lstlisting=\count321
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -450,14 +439,15 @@ LaTeX Warning: No \author given.
 \tf@toc=\write3
 \openout3 = `main.toc'.
 
- (../dataStructure/rollback_dsu.cpp [1{/var/lib/texmf/fonts/map/pdftex/updmap/p
-dftex.map}
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+]
+(../dataStructure/rollback_dsu.cpp
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1
 0.
- (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2024/11/19 v2.5n Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
@@ -472,23 +462,27 @@ LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <7> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 15.
 )
 (../dataStructure/segmentFull.cpp)
-(../dataStructure/notebook/segtree_up_icpc.cpp [2])
+(../dataStructure/notebook/segtree_up_icpc.cpp [2{/usr/share/texlive/texmf-dist
+/fonts/enc/dvips/cm-super/cm-super-ts1.enc}])
 (../dataStructure/lichao_dynamic.cpp) (../dataStructure/fenwick.cpp)
 (../dataStructure/treap.cpp [3]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 )
-(../dataStructure/moAlgo.cpp [4]) (../tree/notebook/lca_icpc.cpp)
-(../tree/tree_tricks.cpp) [5]
+(../dataStructure/moAlgo.cpp [4])
+Underfull \vbox (badness 7796) has occurred while \output is active []
+
+
+(../tree/notebook/lca_icpc.cpp) (../tree/tree_tricks.cpp) [5]
 <../images/bitsetWaifu_catVersion.png, id=36, 1027.84pt x 1027.84pt>
 File: ../images/bitsetWaifu_catVersion.png Graphic file (type png)
 <use ../images/bitsetWaifu_catVersion.png>
 Package pdftex.def Info: ../images/bitsetWaifu_catVersion.png  used on input li
 ne 117.
 (pdftex.def)             Requested size: 112.62509pt x 112.62361pt.
- (../graph/dinitz.cpp)
-(../graph/blossom_notMine.cpp [6 <../images/bitsetWaifu_catVersion.png (PNG cop
-y)>]) (../graph/hungarian_notMine.cpp
+
+(../graph/dinitz.cpp) (../graph/blossom_notMine.cpp [6 <../images/bitsetWaifu_c
+atVersion.png (PNG copy)>]) (../graph/hungarian_notMine.cpp
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [7])
@@ -504,27 +498,6 @@ S/cmsy/m/n/9 g[]$ \OT1/cmr/m/n/9 and edges
 (../graph/sat2_notMine.cpp) (../graph/notebook/clique_icpc.cpp)
 (../string/zFunction.cpp [8]) (../string/prefix_function.cpp)
 (../string/applications-preffix-function.cpp
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.83 O(n²)
-           
-? 
-
-! LaTeX Error: Invalid UTF-8 byte "B2.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.83 O(n²)
-           
-? 
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [9])
@@ -553,7 +526,7 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 
 [16] (../geometry/geotemplate.cpp [17]) (../geometry/convex_hull.cpp)
 (../linalg/simplex_notMine.cpp [18]) (../linalg/mat_primitives.cpp)
-(../linalg/slae_notMine.cpp) [19] (../miscelaneus/tips_N_tricks.cpp)
+(../linalg/slae_notMine.cpp [19]) (../miscelaneus/tips_N_tricks.cpp)
 (../my_template.cpp [20]) (../io_competitiva.py) (../exhaustive_test.sh)
 (../exhaustive_test.cmd) [21] (./main.aux)
  ***********
@@ -562,13 +535,13 @@ L3 programming layer <2026-03-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 9300 strings out of 469296
- 142045 string characters out of 5465561
- 1825349 words of memory out of 6000000
- 37879 multiletter control sequences out of 15000+600000
+ 9625 strings out of 467356
+ 146196 string characters out of 5418690
+ 1834944 words of memory out of 6000000
+ 38452 multiletter control sequences out of 15000+600000
  634735 words of font info for 67 fonts, out of 8000000 for 9000
- 36 hyphenation exceptions out of 8191
- 57i,13n,65p,479b,1886s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 1141 hyphenation exceptions out of 8191
+ 57i,13n,65p,479b,1836s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/t
@@ -592,7 +565,7 @@ amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/
 sfrm0700.pfb>
-Output written on main.pdf (21 pages, 1121995 bytes).
+Output written on main.pdf (21 pages, 1122962 bytes).
 PDF statistics:
  195 PDF objects out of 1000 (max. 8388607)
  121 compressed objects within 2 object streams
